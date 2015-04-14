@@ -1,0 +1,60 @@
+<div class="container container-main">
+    <div class="row">
+
+        <!-- left navigation pane -->
+        
+        <div class = "col-md-3">
+        </div>
+
+
+        <!-- main content area -->
+         <div class = "col-xs-8 col-md-6" style ="margin-top: 10px;">
+
+            <div id = "dnd_area" class = "panel panel-default" style = "height: 300px">
+
+            </div>
+
+            <div id = "display_area" class = "panel panel-default" style = "margin-top: 10px; height: 300px">
+
+            </div>
+             
+         </div>
+
+
+    <!-- right navigation pane -->
+
+    <div class = "col-md-3">
+    </div>  
+
+</div>
+</div>
+<script type="text/javascript">
+$('#dnd_area').on('dragover', function(e){
+        e.preventDefault();
+    });
+$('#dnd_area').on('drop', function(e){
+        e.preventDefault();
+        
+        var img = e.originalEvent.dataTransfer.files[0];
+        var reader = new FileReader();
+           reader.onload = (function(theFile) {
+            return function(e) {
+              // Render thumbnail.
+            
+              var myImage = new Image(500, 300);
+            myImage.src = e.target.result; 
+             console.log(e.target.result);
+             $('#display_area').append(myImage);
+            };
+          })(img);
+
+          // Read in the image file as a data URL.
+          reader.readAsDataURL(img);
+        }
+  
+
+
+    );
+
+
+</script>

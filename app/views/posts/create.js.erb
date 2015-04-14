@@ -1,0 +1,8 @@
+<% publish_to "/posts/create" do %>
+	//console.log("log");
+	update_page();
+	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'left_copy': 'right_copy' , :locals =>{:argument=> @argument})%>");
+	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  @side == 'left_side' ? 'post_creator_left': 'post_creator_right', :locals =>{:id => @argument.debate_id} ) %>");
+<% end %>
+     
+

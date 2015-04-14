@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toucan | <%= @page_title || "Home" %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body class = "wall">
+
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header"
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				
+				<%= link_to("SPEED DEBATE", {:controller => "topics", :action =>"index"}, :class => "navbar-brand")%>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><%= link_to("Home", {:controller => "topics", :action =>"test"})%></li>
+					<li><%= link_to("Profile", {:controller => "topics", :action =>"index"}, :class => "")%></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications (3)<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Social Machines responded to your argument.</a></li>
+							
+							<li class="divider"></li>
+
+							<li><a href="#">42 people commented on your post: "I agree with ..."</a></li>
+							
+							<li class="divider"></li>
+							<li><a href="#">The debate "Is Net Neutrality Too Burdensome?" has closed down</a></li>
+						</ul>
+					</li>
+				</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+					<% if session[:logged_in]%>
+					<li><div id="DIV_1">
+						<div id="DIV_2">
+							<a href="#" rel="toggle" id="A_3">
+
+								<%= image_tag(session[:picture], :alt => '', :class => "navbar-profile-pic", :id => "IMG_4", )%>
+
+							</a>
+
+						</div>
+					</div>
+				</li>
+
+				<li class="dropdown">
+
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=session[:name]%> <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><%= link_to("Log Out", {:controller => 'access', :action => 'logout'}, :class => "navbar-info-link")%></li>
+					</ul>
+				</li>
+				<% else %>
+				<li><%= link_to("Log In", {:controller => "access", :action =>"login"})%></li>
+					<li><%= link_to("Sign Up", {:controller => "accounts", :action =>"index"})%></li>
+				<% end %>
+
+				</ul>
+
+				<form class="navbar-form" role="search">
+					<div class="input-group navbar-input-custom">
+						<input type="text" class="form-control" placeholder="Search">
+						<span class="input-group-btn">
+							<button type="reset" class="btn btn-default">
+								<span class="glyphicon glyphicon-remove">
+									<span class="sr-only">Close</span>
+								</span>
+							</button>
+							<button type="submit" class="btn btn-default">
+								<span class="glyphicon glyphicon-search">
+									<span class="sr-only">Search</span>
+								</span>
+							</button>
+						</span>
+					</div>
+				</form>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+	
+
+<%= yield %>
+
+</body>
+</html>

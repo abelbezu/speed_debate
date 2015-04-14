@@ -1,0 +1,75 @@
+<div class = "container-fluid" style = "margin-top: -10px; min-width: 800px;">
+  <div class = "row">
+    <div class = "col-md-3">
+      <div style = "margin-top: 20px;">
+       <%= render "left_navigation"%>
+      </div>
+    </div>
+
+
+    <div class = "col-md-6">
+      
+      
+        <div class = "row" style = "margin-top: 20px;">
+          <%= render(:partial => "title_panel", :locals =>{:debate_id => @debate_post[:debate_id]}) %>
+
+          <ul id = "main_content_wrapper">
+            <% if DebateParticipation.check_participation(session[:user_id], @debate_post[:debate_id]) == "none" && @debate_post[:posts].empty?%>
+              <div class="alert alert-info" role="alert">The participants of this debate haven't said anything yet!</div>
+            <% else  %>
+
+            <% @debate_post[:posts].each do |argument|%>
+             <%= render(:partial =>  DebateParticipation.find_by_account_id_and_debate_id(argument.account_id, argument.debate_id).side == 'left_side' ? 'left_copy': 'right_copy' , :locals =>{:argument=> argument}) %> 
+             
+             <%end%>
+             <% end %>
+
+              
+              
+             <% if DebateParticipation.check_participation(session[:user_id], @debate_post[:debate_id]) == "debater"%>
+             
+              <% if @debate_post[:turn] == 'left_side'|| @debate_post[:turn] == 'both'%>
+              
+                <% if DebateParticipation.find_by_account_id(session[:user_id]).side == 'left_side'|| @debate_post[:turn] == 'both'%>
+                    <%= render(:partial => 'post_creator_left', :locals =>{:id=> @debate_post[:debate_id]})%>
+                <% end %>
+
+              <% elsif @debate_post[:turn] == 'right_side'|| @debate_post[:turn] == 'both'%>
+              
+                <% if DebateParticipation.find_by_account_id(session[:user_id]).side == 'right_side'|| @debate_post[:turn] == 'both'%>
+                      <%= render(:partial => 'post_creator_right', :locals =>{:id=> @debate_post[:debate_id]})%>
+                 <% end %>              
+              <% end %>
+              <% end %>
+              <%= subscribe_to "/posts/create" %>
+          </ul>
+        </div>
+
+      
+    </div>
+        
+
+    <div class = "col-md-3" >
+      <div class = "right-navigation-pane" style = "background-color: rgb(250,250,250); border-color: rgb(250,250,250);">
+      <div style = "text-align: center; margin-top: 20px;" style = "position: fixed">
+        <div class = "left-navigation-pane" style = "font-size: 48px; font-family: monospace;">
+          Time Left:
+          <span id = "time" style = "color: rgb(32, 66, 32)">
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class = "hover-comment-box hidden" >
+      <div class = "row" >
+        <div class = "col-md-2">
+          <img class="profile-pic-container js-action-profile-avatar" src="img/toucan_left.jpg" alt="">
+        </div>
+        <div class = "col-md-10">
+          <textarea row="1" type="text" class="comment-input-area form-control" placeholder="Comment" aria-describedby="sizing-addon2"></textarea>
+        </div>
+
+      </div>
+</div>

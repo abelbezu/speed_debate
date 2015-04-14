@@ -1,0 +1,47 @@
+<% if type == "side_to_side" %>
+	<% if position == "left" %>
+		<div class = "col-md-4">
+			<%= image_tag(f.picture, :size => '100x100', :alt => '+', :class => "debater-left-pic")%>
+			<h3><span><%=f.first_name + " "+f.last_name%></span></h3>
+			<h5><span>Last Post</span> - <span>Jun 7, 2050</span> </h5>
+		</div>
+	<% else %>
+		<div class = "col-md-4 debater-right">
+			<%= image_tag('toucan_right.jpg', :size => '100x100', :alt => '+', :class => "debater-right-pic")%>
+			<h3><span>Robert McIntosh</span></h3>
+			<h5><span>Last Post</span> - <span>Jun 27, 2014</span> </h5>
+		</div>
+	<% end %>
+
+
+
+<% elsif type == "topic_creator" %>
+	<div class = "user-info-container">
+		<div class = "col-md-8">
+			<%= image_tag('toucan_left.jpg', :size => '50x50', :alt => '+', :class => "debater-left-pic")%>
+			<div class = "user-info-description">
+				<span class = "user-info-name">Robert McIntosh</span> </br>
+				<div class = "user-info-time"><span>Last Post</span> - <span>Jun 27, 2014</span> </div>
+			</div>
+		</div>
+		<div class = "col-md-4">
+			
+		</div>   
+	</div>
+
+<% elsif type == "post_creator" %>
+	<div class = "user-info-container">
+		<div class = "col-md-8">
+			<%= image_tag('toucan_left.jpg', :size => '50x50', :alt => '+', :class => "debater-left-pic")%>
+			<div class = "user-info-description">
+				<span class = "user-info-name">Robert McIntosh</span> </br>
+				<div class = "user-info-time"><span>Last Post</span> - <span>Jun 27, 2014</span> </div>
+			</div>
+		</div>
+		<div class = "col-md-4">
+
+		</div>   
+	</div>
+<% elsif type == "default_user" %>
+<% end %>
+

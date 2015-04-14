@@ -1,0 +1,105 @@
+
+<script type="text/javascript" charset="utf8" src="/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript">
+$(document).ready( function () {
+	$('#Debates_table').DataTable();
+} );
+</script>
+
+<div class = "admin_index_main">
+	<div class = "container">
+		<div class = "row"> 
+			<div class = 'col-lg-2'>
+				<ul class="nav nav-pills nav-stacked">
+					<li role="presentation"><%= link_to("Home", {:action => 'index'},)%>
+						<li role="presentation" class="active"><%= link_to("Debates", {:action => 'debates'},)%></li>
+						<li role="presentation"><%= link_to("Accounts", {:action => 'accounts'},)%></li>
+						
+						<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
+						<% if Account.find(session[:user_id]).privilege == 'super'%>
+					<li role="presentation"><%= link_to("Add Admin", {:action => 'create_admin'},)%></li>
+			<%end%>
+					</ul>
+
+				</div>
+				<div class = 'col-lg-10'>
+					<div class = "row">
+						<div class = "col-lg-12"> 
+							<div class = "row">
+								<div class = "col-lg-3">
+
+									<label><h4><span class="label label-default">Records From</span></h4></label>
+
+									<select>
+										<option>Today</option>
+										<option>This Week</option>
+										<option>This Month</option>
+										<option>This Year</option>
+
+									</select>
+								</div>
+
+								<div class = "col-lg-3">
+									<label><h4><span class="label label-default">Sort By</span></h4></label>
+
+									<select>
+										<option>Time Added</option>
+										<option>Views</option>
+										<option>Edits</option>
+										<option>Shares</option>
+
+									</select>
+								</div>
+								<div class = "col-lg-3">
+									<label><h4><span class="label label-default">Order</span></h4></label>
+
+									<select>
+										<option>Ascending</option>
+										<option>Descending</option>
+
+
+									</select>
+								</div>
+								<div class = "col-lg-3">
+
+								</div>
+							</div>
+
+						</div>
+
+						<div class = "admin_main_content col-lg-12">
+							<table id = "Debates_table" class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Title</th>
+										<th>Created By</th>
+										<th>Created On</th>
+										<th>Strands</th>
+										
+										<th>Delete</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<% Topic.all.each do |article|%>
+									<tr>
+										<th scope="row"><%= article.id%></th>
+										<td><%= link_to(article.topic_sentence,:controller => 'topics', :action =>'test', :id => article.id  )%></td>
+										<td><%= Account.find(article.account_id).nick_name%></td>
+										<td><%= article.created_at%></td>
+										<td><%= article.debates.count%></td>
+										<td><%= link_to("Delete", :controller => 'topics', :action =>'destroy', :id => article.id)%></td>
+										
+									</tr>
+									<%end%>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

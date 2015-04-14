@@ -1,0 +1,158 @@
+<% f.each do |d|%>
+<% d.debates.each do |debate_strand|%>
+<div class="panel panel-default panel-main">
+  <!-- a dropdown menu of currently unknown purpose -->
+  <div class="dropdown">
+    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
+      <span class="[ glyphicon glyphicon-chevron-down ]"></span>
+    </span>
+    <ul class="dropdown-menu" role="menu">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+    </ul>
+  </div>
+
+  <!-- stuff like topic, post info, user info and content (panel-heading is a misnomer) -->
+
+  <div class="panel-heading">
+    <div class ="debate-title">
+      <h3><%= d.topic_sentence %></h3>
+      <div class = "text-debate-info">
+        <span>Posted On</span> - <span><%= d.created_at%></span> 
+      </div>
+      <hr>
+    </div>
+    <div class="debate-content text-description">
+      <p><%= d.description%></p>
+
+
+    </div>
+  </div>
+
+  <!-- stuff like debaters and their positions -->
+
+  <div class = "panel-body">
+    
+    <% if debate_strand.debate_participations.empty?%>
+    <div class = "no-debaters-notice-container">
+     <div class = "no-debaters-notice">
+      <%= "No participants yet" %>
+
+    </div>
+    <div class = "no-debaters-join-btn">
+      <a class="join_debate_choices pull-right">Join</a>
+
+    </div>
+    <div  class = "debaters-select-side-container hidden">
+      Which side are you on?
+      <%= form_tag(:controller =>'debates', :action => 'create_participation', :id => debate_strand.id)%>
+      <div class = "debaters-select-side-choices">
+        <%= radio_button_tag(:side, 'left_side') %>
+        <%= label_tag(:choice_one, d.left_side_topic, :class => 'debaters-select-side-label') %></br>
+        <%= radio_button_tag(:side, 'right_side', ) %>
+        <%= label_tag(:choice_two, d.right_side_topic, :class => 'debaters-select-side-label') %></br>
+      </div>
+      <div class = "debaters-select-side-btn">
+        <%= submit_tag("Join", :class =>"btn btn-primary nextBtn btn-sm pull-right")%>
+      </div>
+
+    </div>
+
+  </div>
+  <% elsif debate_strand.debate_participations.size == 1%>
+  <div class = "panel-body-debaters">
+    <div class = "debater-container">
+      <div class = "debater-img">
+       <%= image_tag(debate_strand.accounts[0].images.profile_pic.first.url, :size => '100x100', :alt => '+', :class => "debater-left-pic")%>
+     </div>
+     <div class = "debater-info">
+       <div class = "debater-info-name"><span class = "user-info-name"><%= debate_strand.accounts[0].display_name%></span></div>
+       <div class ="debater-side-statement">
+        <%= debate_strand.debate_participations.first.side == "left_side"? d.left_side_topic : d.right_side_topic%>
+      </div>
+
+    </div>
+
+  </div>
+  <div class = "debater-container">
+    <div class = "debater-img">
+      <div class = "debater-img-open">
+        OPEN
+      </div>
+    </div>
+    <div class = "debater-info">
+     <div class ="debater-side-statement">
+      <%= debate_strand.debate_participations.first.side == "left_side"? d.right_side_topic : d.left_side_topic%>
+      
+    </div>
+    <% unless debate_strand.accounts[0].id == session[:user_id]%>
+    <%= link_to("Join Side", {:controller => "debates", :action => "create_participation", :id => debate_strand.id, :side => debate_strand.debate_participations.first.side == "left_side"? "right_side": "left_side", :role => "debater" }, :class =>"btn btn-primary nextBtn btn-sm")%>
+    <% end %>
+
+  </div>
+</div>
+
+</div>
+<% else %>
+<div class = "row">
+<div class = "col-md-4">
+  <%= image_tag(debate_strand.accounts[0].images.profile_pic.first.url, :size => '100x100', :alt => '+', :class => "debater-left-pic")%>
+
+  <div class = "text-name"> <span class = "text-name"><%= debate_strand.accounts[0].display_name %></span></div>
+  <div class = "text-debate-info"> <span class = "text-debate-info">Last Post</span> - <span>Jun 27, 2014</span> </div>
+</div>
+<div class = "col-md-4 header-vs">
+  <h1>VS</h1>
+</div>
+<div class = "col-md-4 debater-right">
+  <%= image_tag(debate_strand.accounts[0].images.profile_pic.first.url, :size => '100x100', :alt => '+', :class => "debater-right-pic")%>
+
+  <div class = "text-name" style ="float:right;"> <span> &nbsp; &nbsp; &nbsp; &nbsp;<%= debate_strand.accounts[1].display_name%></span></div>
+  <div class = "text-debate-info" style ="float:right;"> <span>Last Post</span> - <span>Jun 27, 2014</span></div>
+</div>
+</div>
+<div class = "row">
+<div class = "col-md-6">
+ <strong> <%=debate_strand.accounts[0].debate_participations.first.side =="left_side"? d.left_side_topic : d.right_side_topic %></strong>
+</div>
+<div class = "col-md-6" style = "text-align: right;padding-left: 30px;">
+  <strong> <%=debate_strand.accounts[1].debate_participations.first.side =="left_side"? d.left_side_topic : d.right_side_topic %></strong>
+</div>
+</div>
+<div style = "clear:both"></div>
+<%end%>
+ 
+<div class = "debate_action_buttons_container col-md-12"  style="margin-top: 20px;">
+  <div class = "row">
+    <div class = "col-md-6"  style="text-align: right ! important;">
+ <%= link_to("Create New Strand", {:controller => "debates", :action => "create", :id => d.id, :time_limit => d.debates.first.time_limit, :character_limit => d.debates.first.character_limit, :back_and_forth_limit => d.debates.first.back_and_forth_limit},  :class => "btn btn-primary btn-sm")%>
+  </div>
+  <div class = "col-md-6" >
+ <% if debate_strand.debate_participations.size == 2%>
+ 
+ <%= link_to("Go to Debate", {:controller => "posts", :action => "index", :id => debate_strand.id},  :class => "btn btn-primary btn-sm")%>
+ <%end%>
+</div>
+<div style = "clear:both"></div>
+</div>
+</div>
+</div>
+<!-- stuff like social box  -->
+<hr class = "default-separator">
+<div class = "panel-footer">
+  <div class = "social-box text-social">
+    <div class = "col-md-8" style ="height: 30px;">
+      Upvote<span class ="social-box-stat">43+</span>&nbsp;&nbsp;    Downvote  &nbsp;&nbsp;&nbsp;    Share <span class ="social-box-stat">43+</span>
+    </div>
+    <div class = "col-md-4 social-box-right">
+      Stats 
+    </div>
+    <div style = "clear:both"></div>
+  </div>
+</div>
+</div>
+<% end %>
+<% end %>

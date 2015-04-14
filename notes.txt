@@ -1,0 +1,25 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version: 2.0.0p598
+* Rails version 4.1.8
+* MySql version 5.6.17
+
+
+* System dependencies:
+	node.js (or any javascript runtime)
+	
+
+Creating the project:
+	rails new toucan -d mysql 
+
+ Database:
+ 	id => number
+ 	first_name => string 
+ 	last_name => string
+ 	email => string
+ 	password =>

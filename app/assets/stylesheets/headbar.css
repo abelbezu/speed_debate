@@ -1,0 +1,173 @@
+    body {
+		padding: 60px 0px;
+	}
+	.navbar-collapse {
+		position: relative;
+		padding-top: 30px !important;
+		max-height: 270px;
+	}
+	.navbar-collapse form[role="search"] {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		z-index: 0;
+	}
+	.navbar-collapse form[role="search"] button,
+	.navbar-collapse form[role="search"] input {
+		padding: 8px 12px;
+		border-radius: 0px;
+		border-width: 0px;
+		color: rgb(119, 119, 119);
+		background-color: rgb(248, 248, 248);
+		border-color: rgb(231, 231, 231);
+		box-shadow: none;
+		outline: none;
+	}
+	.navbar-collapse form[role="search"] input {
+		padding: 16px 12px;
+		font-size: 14pt;
+		font-style: italic;
+		color: rgb(160, 160, 160);
+		box-shadow: none;
+	}
+	.navbar-collapse form[role="search"] button[type="reset"] {
+		display: none;
+	}
+	.navbar-custom{
+		background-color: #2B4D36;;
+		border-color: black;
+	}
+	.navbar-default .navbar-brand {
+		color: #FFF;
+		text-shadow: 1px 0px 5px rgb(65, 63, 107);
+		font-weight: 900;
+	}
+	.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+		color: #FFF;
+		background-color: #0B340B;
+}
+	.navbar-default .navbar-nav > li > a {
+		color: #FFF;
+		font-weight: 700;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+color: #FFF;
+background-color: transparent;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+color: #FFF;
+background-color: #0B340B;
+}
+.navbar-nav > li > .dropdown-menu {
+	margin-top: 1px;
+	margin-left: -1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	
+
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+		color: #FFFFFF;
+		background-color: transparent;
+}
+
+.navbar-collapse form[role="search"] button, .navbar-collapse form[role="search"] input
+{
+	background-color: #0B340B;
+	border-color: rgb(231, 231, 231);
+}
+
+	@media (min-width: 768px) {
+		.navbar-collapse {
+			padding-top: 0px !important;
+			padding-right: 38px !important;
+		}
+		.navbar-collapse form[role="search"] {
+			width: 38px;
+		}
+		
+		.navbar-input-custom{
+		margin-left: 40%;
+		}
+		.navbar-collapse form[role="search"] button,
+		.navbar-collapse form[role="search"] input {
+			padding: 15px 12px;
+		}
+		.navbar-collapse form[role="search"] input {
+			font-size: 18pt;
+			opacity: 0;
+			display: none;            
+            height: 50px;
+		}
+		.navbar-collapse form[role="search"].active {
+			width: 100%;
+		}
+		.navbar-collapse form[role="search"].active button,
+		.navbar-collapse form[role="search"].active input {
+			display: table-cell;
+			opacity: 1;
+		}
+    	.navbar-collapse form[role="search"].active input {
+			width: 100%;
+		}
+	}
+
+#DIV_1 {
+    color: rgb(20, 24, 35);
+    display: inline-block;
+    height: 35px;
+    text-align: right;
+    width: 35px;
+    perspective-origin: 14px 15.5px;
+    transform-origin: 14px 15.5px;
+    border: 0px none rgb(20, 24, 35);
+    font: normal normal normal normal 11px/14.0799999237061px 'helvetica neue', helvetica, arial, 'lucida grande', sans-serif;
+    margin: 10px 0px 0px 8px;
+    outline: rgb(20, 24, 35) none 0px;
+}/*#DIV_1*/
+
+#DIV_2 {
+    color: rgb(20, 24, 35);
+    display: inline-block;
+    height: 35px;
+    text-align: right;
+    width: 35px;
+    perspective-origin: 14px 15.5px;
+    transform-origin: 14px 15.5px;
+    border: 0px none rgb(20, 24, 35);
+    font: normal normal normal normal 11px/14.0799999237061px 'helvetica neue', helvetica, arial, 'lucida grande', sans-serif;
+    outline: rgb(20, 24, 35) none 0px;
+}/*#DIV_2*/
+
+#A_3 {
+    color: rgb(59, 89, 152);
+    cursor: pointer;
+    display: block;
+    height: 35px;
+    text-align: right;
+    text-decoration: none;
+    width: 35px;
+    perspective-origin: 14px 15.5px;
+    transform-origin: 14px 15.5px;
+    border: 0px none rgb(59, 89, 152);
+    font: normal normal normal normal 11px/14.0799999237061px 'helvetica neue', helvetica, arial, 'lucida grande', sans-serif;
+    outline: rgb(59, 89, 152) none 0px;
+}/*#A_3*/
+
+#IMG_4 {
+    color: rgb(59, 89, 152);
+    cursor: pointer;
+    height: 35px;
+    text-align: right;
+    width: 35px;
+    perspective-origin: 14px 14px;
+    transform-origin: 14px 14px;
+    border: 0px none rgb(59, 89, 152);
+    border-radius: 3px 3px 3px 3px;
+    font: normal normal normal normal 11px/14.0799999237061px 'helvetica neue', helvetica, arial, 'lucida grande', sans-serif;
+    outline: rgb(59, 89, 152) none 0px;
+}/*#IMG_4*/

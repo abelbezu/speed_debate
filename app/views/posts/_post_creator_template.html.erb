@@ -1,0 +1,53 @@
+<div class="panel panel-default panel-main">
+
+
+    <div class="panel-heading" style = ":background-color: white;">
+        <div class = "user-info-container">
+            <div class = "col-md-8">
+                <%= image_tag('toucan_left.jpg', :size => '50x50', :alt => '+', :class => "debater-left-pic")%>
+                <div class = "user-info-description">
+                    <span class = "user-info-name"><%= session[:name]%></span> </br>
+                    <div class = "user-info-time"><span>Last Post</span> - <span>Jun 27, 2014</span> </div>
+                </div>
+            </div>
+            <div class = "col-md-4">
+
+            </div>   
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class = "panel-body-content">
+
+    </div>
+
+    <div class="panel-body">
+     <div class="panel-body">
+        <%= form_for(:post,  :remote => true, :url => {:action => 'create'}) do |f| %>
+        <%= f.hidden_field :debate_id, :value => id %>
+        <%= f.fields_for :content_attributes do |o|%>
+        <div class = "reply-box">
+             <div class="form-group">    
+                <%= o.text_area(:content_body, :rows => '3',:class => 'form-control', :placeholder => "Your Response") %>
+            </div> 
+        </div>
+        <%end%>
+        <div class = "reply-btn">
+            <%= submit_tag("Reply", :id => 'post-creator-btn', :class => "btn btn-success btn-sm pull-right") %>
+        
+        </div>
+        <%end%>
+
+
+    </div>
+
+
+
+
+</div>
+
+</div>

@@ -1,0 +1,53 @@
+<div class = "left-navigation-pane">
+                 <% if session[:logged_in]%>
+                  <div class = "profile-info-container">
+                    <div class = "profile-info-container-inner">
+                    <%= image_tag('avatar.jpg', :size => '100x100', :alt => 'DEMO USER', :class => 'profile-pic-main')%>
+                    <div class = "profile-info-main">
+                      <%=Account.find(session[:user_id]).first_name + " "+Account.find(session[:user_id]).last_name %>
+                    </div>
+                    <div class= "profile-info-details">
+                      <div class = "profile-info-details-inner">
+                        Sociologist, political activist
+                      </div>
+                      <div class = "profile-info-details-inner">
+                        
+                      </div>
+                      <div class = "profile-info-details-inner">
+                        <span class = "glyphicon glyphicon-map-marker"></span> Cambridge, MA
+                      </div>
+                      <div class = "profile-info-details-inner">
+                        Speed Debate Rating:  <span class = "glyphicon glyphicon-star"></span><span class = "glyphicon glyphicon-star"></span><span class = "glyphicon glyphicon-star"></span><span class = "glyphicon glyphicon-star"></span> 
+                      </div>
+                      <div class = "">
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+             <% end %>
+                    <div class= "left-navigation-popular">
+                      <h4>Popular</h4>
+                      <hr class= "separator">
+                      <div>
+                        <div class = "popular-topics-display">
+                          <a href="" class = "popular-topics-display-link" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis aliquet diam, nec placerat mi.
+                          </a>
+                        </div>
+                         <div class = "popular-topics-display">
+                          <a href="" class = "popular-topics-display-link" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis aliquet diam, nec placerat mi.
+                          </a>
+                        </div>
+                         <div class = "popular-topics-display">
+                          <a href="" class = "popular-topics-display-link" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis aliquet diam, nec placerat mi.
+                          </a>
+                        </div>
+                        
+                      </div>
+                      
+                    </div>
+                   <div class = "left-navigation-hot-topics">
+                      <h4>Categories</h4>
+                      <hr class= "separator">
+                   </div>
+ 
+                  </div>

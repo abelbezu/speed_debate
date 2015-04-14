@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+<div class = "admin_index_main">
+<div class = "container">
+<div class = "row"> 
+	<div class = 'col-lg-2'>
+		<ul class="nav nav-pills nav-stacked">
+			<li role="presentation"><%= link_to("Home", {:action => 'index'},)%></li>
+			<li role="presentation"><%= link_to("Debates", {:action => 'debates'},)%></li>
+			<li role="presentation"><%= link_to("Accounts", {:action => 'accounts'},)%></li>
+			
+			<li role="presentation" class="active"><%= link_to("Stats", {:action => 'stats'})%></li>
+			<% if (Account.find(session[:user_id]).privilege == 'super')%>
+				<li role="presentation"><%= link_to("Add Admin", {:action => 'create_admin'})%></li>
+			<%end%>
+  		</ul>
+
+	</div>
+
+	<div class = 'col-lg-10'>
+		<div class = "row">
+			<div class = "col-lg-12"><ul class="nav nav-tabs">
+				  <li role="presentation"  class="active" ><%= link_to("Home", {:action => 'stats'},)%></li>
+				  <li role="presentation"><%= link_to("Redirects", {:action => 'stats_redirects'},)%></li>
+				  <li role="presentation"><%= link_to("Debates", {:action => 'stats_debates'},)%></li>
+				  <li role="presentation"><%= link_to("Users", {:action => 'stats_users'},)%></li>
+				</ul>
+			</div>
+			<div class = "col-lg-12 admin_stats_info_container">
+				<div class = "row">
+					<div class = "col-lg-12"></div>
+					<div style = "margin-top: 10px; margin-botton: 10opx;" class = "col-lg-12">
+						<div id="by_date" style="height: 250px;"></div>
+					</div>
+					<div class = "col-lg-12"> </div>
+					<div style = "margin-top: 10px;" class = "col-lg-12">
+						<div id="by_week" style="height: 250px;"></div>
+					</div>
+					<div class = "col-lg-12"> </div>
+					<div style = "margin-top: 10px;" class = "col-lg-12">
+						<div id="by_month" style="height: 250px;"></div>
+					</div>
+					<div class = "col-lg-12"> </div>
+					<div style = "margin-top: 10px;" class = "col-lg-12">
+						<div id="by_year" style="height: 250px;"></div>
+					</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	new Morris.Line({
+	  // ID of the element in which to draw the chart.
+	  element: 'myfirstchart',
+	  // Chart data records -- each entry in this array corresponds to a point on
+	  // the chart.
+	  data: [
+	    { year: '2008', value: 20 },
+	    { year: '2009', value: 10 },
+	    { year: '2010', value: 5 },
+	    { year: '2011', value: 5 },
+	    { year: '2012', value: 20 }
+	  ],
+	  // The name of the data record attribute that contains x-values.
+	  xkey: 'year',
+	  // A list of names of data record attributes that contain y-values.
+	  ykeys: ['value'],
+	  // Labels for the ykeys -- will be displayed when you hover over the
+	  // chart.
+	  labels: ['Value']
+	});
+</script>

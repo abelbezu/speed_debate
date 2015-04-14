@@ -1,0 +1,125 @@
+<div class="container container-main">
+    <div class="row">
+
+        <!-- left navigation pane -->
+        
+        <div class = "col-md-3 col-xs-12">
+           
+           <%= render "left_navigation"%>
+
+        </div>
+
+        <!-- main content area -->
+ <div id = "main-content-container" class = " col-md-6">
+<% if session[:logged_in]%>
+<%= render(:partial => "topic_creator_template") %>
+<% end %>
+<div id = "test">
+<%= render(:partial => "two_user_temp") %>
+<%= render(:partial => "no_user_temp") %>
+</div>
+     <div id = "complete" class="panel panel-default panel-main">
+                <!-- a dropdown menu of currently unknown purpose -->
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="[ glyphicon glyphicon-chevron-down ]"></span>
+                    </span>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                    </ul>
+                </div>
+
+                <!-- stuff like topic, post info, user info and content (panel-heading is a misnomer) -->
+
+                <div class="panel-heading">
+                    <div class ="debate-title">
+                        <h3>Is Obama's Immigration Executive Order Legal?</h3>
+                        <div class = "text-debate-info">
+                            <span>Posted On</span> - <span>Jun 27, 2014</span> 
+                        </div>
+                        <hr>
+                    </div>
+                    <div class = "container-fluid">
+                                                    <!-- 4:3 aspect ratio -->
+                            <div class="embed-responsive embed-responsive-4by3">
+                             <iframe width="560" height="315" src="//www.youtube.com/embed/wejt939QXko" frameborder="0" allowfullscreen></iframe>
+
+                            </div>
+                    </div>
+                    <div class="debate-content text-description">
+                        <p>Do people born in 2000 get to choose if they are Generation Y or Generation Z? How do you decide what generation you want to belong to?</p>
+
+
+                    </div>
+                </div>
+
+                <!-- stuff like debaters and their positions -->
+
+                <div class = "panel-body">
+                    <div class = "col-md-4">
+                        <%= image_tag('toucan_left.jpg', :size => '100x100', :alt => '+', :class => "debater-left-pic")%>
+
+                        <div class = "text-name"> <span class = "text-name">John Somebody</span></div>
+                        <div class = "text-debate-info"> <span class = "text-debate-info">Last Post</span> - <span>Jun 27, 2014</span> </div>
+                    </div>
+                    <div class = "col-md-4 header-vs">
+                        <h1>VS</h1>
+                    </div>
+                    <div class = "col-md-4 debater-right">
+                        <%= image_tag('toucan_right.jpg', :size => '100x100', :alt => '+', :class => "debater-right-pic")%>
+
+                        <div class = "text-name" style ="float:right;"> <span> &nbsp;John Somebody</span></div>
+                        <div class = "text-debate-info" style ="float:right;"> <span>Last Post</span> - <span>Jun 27, 2014</span></div>
+                    </div>
+
+
+                    <div class = "col-md-6">
+                       <strong>Donec nec accumsan enim. In vitae ullamcorper sapien.</strong>
+                   </div>
+                   <div class = "col-md-6" style = "text-align: right;padding-left: 30px; padding-right:0px !important;">
+                    <strong>Donec nec accumsan enim. In vitae ullamcorper sapien.</strong>
+                   </div>
+
+                </div>
+            <!-- stuff like social box  -->
+            <hr class = "default-separator">
+            <div class = "panel-footer">
+                <div class = "social-box text-social">
+                    <div class = "col-md-8" style ="height: 30px;">
+                        Upvote<span class ="social-box-stat">43+</span>&nbsp;&nbsp;    Downvote  &nbsp;&nbsp;&nbsp;    Share <span class ="social-box-stat">43+</span>
+                    </div>
+                    <div class = "col-md-4 social-box-right">
+                      Stats 
+                  </div>
+                    <div style = "clear:both"></div>
+              </div>
+            </div>
+            
+        </div>
+        <%= render(:partial => "one_user_temp") %>
+
+        <button id = "load-more-btn" class = "btn btn-default" style = "width:100%; margin-bottom: 10px;">+Load More</button>
+        <button id = "load-more-btn" class = "btn btn-default" style = "width:100%; margin-left: 10000px; position: fixed;">+Load More</button>
+  </div>
+   <!-- right navigation pane -->
+<div class = "col-md-3">
+   <%= render "right_navigation"%>
+ </div>  
+</div>
+</div>
+<script type="text/javascript">
+/*$("#load-more-btn").click(function(){
+    $("#load-more-btn")[0].remove();
+
+    $("#main-content-container").add($("#test")[0]);
+
+
+    $("#main-content-container").append($("#load-more-btn")[0]);
+});
+
+$(".panel").click(function(){window.location.replace("http://localhost:3000/topics/debate_temp");});
+*/</script>
