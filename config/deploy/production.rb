@@ -18,8 +18,8 @@
 # Don't use `:all`, it's a meta role.
 
 role :app, %w{tadesse@hungry.lsm} # my_property: :my_value
-role :web, %w{tadesse@hungry.lsm}}# other_property: :other_value
-role :db,  %w{tadesse@hungry.lsm}}
+role :web, %w{tadesse@hungry.lsm}# other_property: :other_value
+role :db,  %w{tadesse@hungry.lsm}
 
 
 
