@@ -54,3 +54,4 @@ production:
   username: root
   password: '123456'
   host: hungry.lsm
+  database: toucan_production
