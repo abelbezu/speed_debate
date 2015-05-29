@@ -48,15 +48,15 @@
     </div>
     <div  class = "debaters-select-side-container hidden">
       Which side are you on?
-      <%= form_tag(:controller =>'debates', :action => 'create_participation', :id => debate_strand.id)%>
+      <%= form_tag(:remote => true, :controller =>'debates', :action => 'create_participation', :id => debate_strand.id)%>
       <div class = "debaters-select-side-choices">
         <%= radio_button_tag(:side, 'left_side') %>
         <%= label_tag(:choice_one, d.left_side_topic, :class => 'debaters-select-side-label') %></br>
         <%= radio_button_tag(:side, 'right_side', ) %>
         <%= label_tag(:choice_two, d.right_side_topic, :class => 'debaters-select-side-label') %></br>
       </div>
-      <div class = "debaters-select-side-btn">
-        <%= submit_tag("Join", :class =>"btn btn-primary nextBtn btn-sm pull-right")%>
+      <div class = "debaters-select-side-btn" style = "margin-top: 10px;">
+        <%= submit_tag("Join", :class =>"btn btn-primary nextBtn btn-sm pull-right", :style => "margin-top: 10px;")%>
       </div>
 
     </div>
@@ -131,9 +131,9 @@
  <%= link_to("Create New Strand", {:controller => "debates", :action => "create", :id => d.id, :time_limit => d.debates.first.time_limit, :character_limit => d.debates.first.character_limit, :back_and_forth_limit => d.debates.first.back_and_forth_limit},  :class => "btn btn-primary btn-sm")%>
   </div>
   <div class = "col-md-6" >
- <% if debate_strand.debate_participations.size == 2%>
+ <% if debate_strand.debate_participations.size >= 2%>
  
- <%= link_to("Go to Debate", {:controller => "posts", :action => "index", :id => debate_strand.id},  :class => "btn btn-primary btn-sm")%>
+ <%= link_to("Go to Debate", debate_path(debate_strand),  :class => "btn btn-primary btn-sm")%>
  <%end%>
 </div>
 <div style = "clear:both"></div>

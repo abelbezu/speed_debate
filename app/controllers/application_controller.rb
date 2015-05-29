@@ -71,5 +71,12 @@ class ApplicationController < ActionController::Base
 		@param_inspect = par_inspect
 		redirect_to(:controller => 'topics', :action => "real_test")
 	end 
+	
+	private
+
+	def current_user
+	  @current_user ||= Account.find(session[:user_id]) if session[:user_id]
+	end
+	helper_method :current_user
 
 end

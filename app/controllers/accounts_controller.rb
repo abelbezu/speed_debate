@@ -42,7 +42,7 @@ class AccountsController < ApplicationController
   def destroy
     @topic_to_delete = Article.find(params[:id])
     if @account_to_delete.destroy
-      flash[:notice] = "article destroyed successfully"
+      flash[:notice] = "accont destroyed successfully"
       redirect_to(:controller=> 'admin', :action => "articles")
     else
       redirect_to(:controller=> 'admin', :action => "stats_redirects")

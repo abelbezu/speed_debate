@@ -5,8 +5,15 @@ class TopicsController < ApplicationController
 	def index
 		
 	end
-	
 
+	def show		
+		@debates_for_display = Topic.newest_first 
+	end
+
+	def edit
+
+	end
+	
 	def update
 
 	end 
@@ -29,19 +36,6 @@ class TopicsController < ApplicationController
 
   		end
 	end
-
-	def test
-		
-		@debates_for_display = Topic.newest_first 
-	end
-	
-	def debate_temp
-					
-	end
-
-	def another_test
-
-	end
 	
 	def destroy
 		@topic_to_delete = Article.find(params[:id])
@@ -52,16 +46,7 @@ class TopicsController < ApplicationController
 			redirect_to(:controller=> 'admin', :action => "stats_redirects")
 		end
 	end 
-	def real_test
-		@test_param = 3
-		
-		
-	end
-	def fake_test
-		@test_param = 9
-		render partial: test, locals: {test_param: @test_param}
-	end
-
+	
 	private
 		def topic_params
 

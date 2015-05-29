@@ -1,5 +1,10 @@
+/**
+* The main entry point of the script
+*/
 custom = function () {
-
+    /**
+    *
+    */
     var navListItems = $('div.setup-panel div a'),
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');
@@ -190,26 +195,7 @@ update_page = function() {
    
 }
 
-run_timer = function () {
-    var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
-run_timer_post = function () {
-    var oneMinute = 60,
-        display = document.querySelector('#creator_time');
-    startTimer(oneMinute, display);
-};
-minify_topic_box = function(){
-    $('.stepwiard').css("height", "0px");
-}
-unminify_topic_box = function(){
-    $('.wizard-container').removeClass('hidden');
-    $('.description-container').removeClass('hidden');
-    $('.topic-creator-panel-main').removeClass('shorter-style');
-    $('.create-your-debate').addClass('hidden');
 
-} 
 $('.topic-container').focus(function(){
  unminify_topic_box();
 });
@@ -221,17 +207,12 @@ $('.topic-container').focus(function(){
 $(document).ready(function(){
 
     custom();
-    run_timer();
-    run_timer_post();
-    minify_topic_box();
+    
 });
 
 $(document).on('page:load', function (){
     custom();
-    run_timer();
-    run_timer_post();
-    minify_topic_box();
-
+    
 });
 
 

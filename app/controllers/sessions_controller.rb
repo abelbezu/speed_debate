@@ -1,8 +1,7 @@
 class SessionsController < ApplicationController
   def create
     authorized_user = Account.from_omniauth(env["omniauth.auth"])
-    session[:user_id] = authorized_user.id
-    session[:logged_in] = true
+      session[:logged_in] = true
       session[:user_id] = authorized_user.id
       session[:email] = authorized_user.email
       session[:name] = authorized_user.display_name
@@ -14,6 +13,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session[:logged_in] = false
     session[:user_id] = nil
     redirect_to root_url
   end

@@ -1,8 +1,20 @@
-<% publish_to "/posts/create" do %>
-	//console.log("log");
+
+<% publish_to @path do %>
+	
 	update_page();
-	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'left_copy': 'right_copy' , :locals =>{:argument=> @argument})%>");
-	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  @side == 'left_side' ? 'post_creator_left': 'post_creator_right', :locals =>{:id => @argument.debate_id} ) %>");
+	var left_side = 'left_side';
+	var right_side = 'right_side';
+	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'posts/partials/left_copy': 'posts/partials/right_copy' , :locals =>{:argument=> @argument})%>");
+	if($('#user_id_holder').attr('user-side') == <%= @side %>  ){
+	
+
+	$('#main_content_wrapper').append(
+		"<%= 
+			escape_javascript render(:partial => DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'posts/partials/post_creator_right': 'posts/partials/post_creator_left' , :locals =>{:id => @argument.debate_id})
+		%>");
+	$('.profile-info-name').last().text($('#user_name_holder').attr('user-name'));
+	
+	}
+
 <% end %>
      
-

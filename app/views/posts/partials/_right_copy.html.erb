@@ -1,0 +1,64 @@
+<li class = "post-right">
+    <div class = "col-md-10 col-md-push-2">
+      <div class="rounded-edges panel panel-default">
+        <div class="panel-body">
+          <div class = "row">
+
+          </div>
+          <div class = "row">
+            <div class="col-md-12">
+              <div class="post-box-profile-img-container-right">
+
+                <%= image_tag(Account.find(argument.account_id).images.profile_pic.first.url, :alt => "+", :class => "profile-pic-container")%>
+              </div>
+              <div class="post-box-profile-info-container-right">
+                <div class="post-box-profile-info">
+                  <span class="profile-info-meta">
+
+                      <% 
+                        difference = Time.now - argument.updated_at
+                        if difference >= 3600
+                          timestamp = pluralize(((difference/3600).round), 'hour') 
+                        elsif difference >= 60
+                            timestamp = pluralize(((difference/60).round), 'minute') 
+                        elsif  
+                             timestamp = difference.to_s + " seconds"
+                        end
+
+
+
+                %>
+                <%= timestamp%>
+
+
+                  </span>
+                  <span class="profile-info-name"><%= Account.find(argument.account_id).display_name%></span>
+                </div>
+                <div class="profile-info-description">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class = "row" style = "margin-top: 10px;">
+            <div class = "argument-text col-md-12">
+              <p><%= argument.content.content_body%></p>
+
+            </div>
+          </div>
+         <div class = "social-box text-social">
+          <div class = "col-md-8">
+            <%= image_tag("clapping hands.png", :alt => "", :size => "30x30", :style => "margin-bottom: 2px;")%><span class ="social-box-stat">43</span>&nbsp;&nbsp; <%= image_tag("ThumbsDown.png", :alt => "", :size => "20x20", :style => "margin-bottom: 2px;")%> <span class ="social-box-stat">17</span> &nbsp;&nbsp;&nbsp;   <span class = "comments-button cursor-pointer"> Comments </span><span class ="comments_count social-box-stat">43+</span> 
+          </div>
+        </div>
+          <div class = "row">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class = "col-md-2 col-md-pull-10">
+    </div>
+    <div style = "clear:both"></div>
+</li>

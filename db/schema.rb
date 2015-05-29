@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203081222) do
+ActiveRecord::Schema.define(version: 20150528133438) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name",       limit: 50
     t.string   "last_name",        limit: 50
-    t.string   "email",                                        null: false
+    t.string   "email",                       default: "defalut_email@toucan.com", null: false
     t.string   "gender"
     t.string   "oauth_token"
     t.string   "provider"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 20150203081222) do
 
   add_index "contents", ["content_owner_id", "content_owner_type"], name: "index_contents_on_content_owner_id_and_content_owner_type", using: :btree
   add_index "contents", ["topic_id"], name: "index_contents_on_topic_id", using: :btree
+
+  create_table "conversations", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "debate_participations", force: true do |t|
     t.integer  "account_id"
@@ -116,9 +126,22 @@ ActiveRecord::Schema.define(version: 20150203081222) do
   add_index "posts", ["account_id"], name: "index_posts_on_account_id", using: :btree
   add_index "posts", ["debate_id"], name: "index_posts_on_debate_id", using: :btree
 
+  create_table "timers", force: true do |t|
+    t.integer  "timed_id"
+    t.string   "timed_type"
+    t.datetime "start",      default: '2015-05-29 17:29:49', null: false
+    t.datetime "pos"
+    t.datetime "end",        default: '2015-06-05 17:29:49', null: false
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "timers", ["timed_id"], name: "index_timers_on_timed_id", using: :btree
+
   create_table "topics", force: true do |t|
     t.integer  "account_id"
-    t.string   "topic_sentence",                          null: false
+    t.string   "topic_sentence",   default: "Debate Topic", null: false
     t.string   "description"
     t.string   "left_side_topic",  default: "I Agree"
     t.string   "right_side_topic", default: "I Disagree"
@@ -129,5 +152,10 @@ ActiveRecord::Schema.define(version: 20150203081222) do
   end
 
   add_index "topics", ["account_id"], name: "index_topics_on_account_id", using: :btree
+
+  create_table "versions", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

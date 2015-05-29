@@ -8,5 +8,6 @@ class CreateDebates < ActiveRecord::Migration
       t.timestamps
     end
     add_index("debates", "topic_id")
+    # add_index "debates", ["left_debater_id", "right_debater_id"]
   end
 end

@@ -549,3 +549,14 @@ width: 97%;
     color:  #2B4D36;
     text-decoration: none;
 }
+#debate_status_bar_container{
+    height: 5px;
+    width: 100%;
+    
+}
+#debate_status_bar{
+    height: 4px;
+    width: 0%;
+    background-color: white;
+    
+}

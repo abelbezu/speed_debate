@@ -1,7 +1,7 @@
 
  <div class="panel panel-default  panel-main">
  </br>
-<div class="hidden wizard-container panel-heading">
+<div class="panel-heading">
 <div class="stepwizard">
     <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
@@ -23,26 +23,21 @@
     </div> 
 </div>    
 </div>
-<div class = "panel-body shorter-style topic-creator-panel-main">
+<div class = "panel-body">
     <div class="row setup-content" id="step-1">
         <div class="col-xs-12">
             <div class="col-md-12">
                  <div class = "topic-form">           
-                <%= form_for(:topic, :url => {:controller=>'topics', :action => 'create'}, :role => "form") do |f| %>
-                
+                <%= form_for(:topic, :role => "form") do |f| %>
                 <div class="form-group">
-                    <span class = "create-your-debate" style = "font-weight: 700;"> Create Your Own Debate: </span>
-                    <%= f.text_field(:topic_sentence, :class => "topic-container form-control", :placeholder => "Debate Topic")%>
+
+                    <%= f.text_field(:topic_sentence, :remote => true, :class => "form-control", :placeholder => "Debate Topic")%>
                 </div>
-                <div class= "description-container hidden">
                 <div class="form-group">
                     <%= f.text_area(:description, :class => "form-control", :placeholder => "Debate Description" )%>
                 </div> 
-                
-                
+                 </div>
                 <button class="btn btn-primary nextBtn btn-sm pull-right" type="button" >Next >></button>
-                </div>
-            </div>
             </div>
         </div>
     </div>

@@ -25,6 +25,8 @@ gem 'omniauth-facebook'
 
 gem 'sync'
 
+gem 'koala'
+
 gem 'puma'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -42,7 +44,7 @@ gem 'bcrypt', '~> 3.1.7', :require => 'bcrypt'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

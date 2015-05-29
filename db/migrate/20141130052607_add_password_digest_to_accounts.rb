@@ -5,6 +5,6 @@ class AddPasswordDigestToAccounts < ActiveRecord::Migration
   end
   def down
   	remove_column "accounts", 'password_digest'
-  	add_column "accounts", "password", :string, :null =>false, :limit =>32
+  	add_column "accounts", "password", :string, :null =>false, :limit =>32, default: "123456789"
   end 
 end

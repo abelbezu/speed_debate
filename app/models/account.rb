@@ -1,10 +1,15 @@
 class Account < ActiveRecord::Base
+
+	#definition: a user
+
+	has_secure_password
+
 	has_many :topics #refers to the topics the user creates 
 	has_many :debate_participations # refers to the user's participation in debates
+	has_many :debates, :through => :debate_participations
+
 	has_many :comments # A user will create many contents
 	has_many :posts
-	has_many :debates, :through => :debate_participations
-	has_secure_password
 	has_many :images, as: :image_owner
 
 
@@ -32,8 +37,10 @@ class Account < ActiveRecord::Base
 	scope :search, lambda{|query|
 		where(["first_name LIKE ?", "%#{query}%"])}
 
+    
+	# Creates a new user from an omniauth token
+	# @param JSON auth - omniauth token
 
-	
 
 	def self.from_omniauth(auth)
 	  where(provider: auth.provider).first_or_initialize.tap do |user|
@@ -49,10 +56,38 @@ class Account < ActiveRecord::Base
 	    user.save!
 	  end
 	end
-
-
-
 	
+	# returns a facebook handle for this user Used to perform some open graph operations
+	# @return Koala object facebook
+	def facebook
+		@facebook ||= Koala::Facebook::API.new(oauth_token)
 
+	end
+
+	# find out what the side of this user in a given debate is
+	# @param Int debate_id : the id of a debate
+	# @return string side : the side of the user in the given debate
+	def get_side debate_id
+		if self.get_role debate_id == "debater"
+			return DebateParticipation.find_by_account_id_and_debate_id(self.id, debate_id).side == 'left_side' ? 'left': 'right' 
+		end
+		return "none"
+	end 
+
+
+	# find out what the role of this user in a given debate is
+	# @param Int debate_id : the id of a debate
+	# @return string role: the role of the user in the given debate
+	def get_role debate_id
+		participation = DebateParticipation.find_by_account_id_and_debate_id(self.id, debate_id)
+		return participation == nil ? "none" : participation.role
+	end 
+
+
+	# fetches a list of debates the user is participating in
+	# @return List<Debate> debates : list of debates the user is participating in 
+	def get_debates
+		return self.debates
+	end
 
 end

@@ -16,6 +16,7 @@
 //= require custom.js
 //= require sync
 //= require search
+//= require timer
 //= require private_pub
 //= signup.js
 //= require turbolinks
