@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'speed_debate'
 set :repo_url, 'git@github.com:abelbezu/speed_debate.git'
 set :deploy_to, '/home/users/tadesse/speed_debate'
-set :user, "tadesse"
+set :user, "root"
 set :linked_dirs, %w{log /home/users/tadesse/tmp/pids /home/users/tadesse/tmp/cache /home/users/tadesse/tmp/sockets}
 set :user_sudo, true
 # Default branch is :master
