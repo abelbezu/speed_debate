@@ -53,5 +53,5 @@ production:
   pool: 5
   username: root
   password: '123456'
-  host: hungry.lsm
+  host: localhost
   database: toucan_production
