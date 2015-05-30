@@ -1,5 +1,5 @@
 class CreateDebateParticipations < ActiveRecord::Migration
-  def up
+  def change
     create_table :debate_participations do |t|
       t.references :account
       t.references :debate
@@ -10,7 +10,5 @@ class CreateDebateParticipations < ActiveRecord::Migration
     end
     add_index :debate_participations, ["account_id", "debate_id"]
   end
-  def down
-  	drop_table :debate_participations
-  end 
+  
 end
