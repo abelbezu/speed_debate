@@ -53,7 +53,7 @@ RSpec.describe Account, type: :model do
     expect(user.email).to eq("testing_email@toucan.com")
 
     # Check email length validation
-    expect user = build(:account, :email => "test@toucan.com").save
+    create(:account, :email => "test@toucan.com").should be_valid
     user = build(:account, :email => "test@toucan.com").should_not be_valid
     #expect(user.last_name).to have(1).error_on(:email)
   end
@@ -132,6 +132,14 @@ RSpec.describe Account, type: :model do
     expect(user.get_role debate.id).to eq("debater")
 
   end 
+
+  it "generates a random unique key and stores it" do
+    user = build(:account)
+    expect(user.generate_channel_key).to be_truthy
+
+    expect(user.get_channel_key).to be_truthy
+
+  end
 
 
 end

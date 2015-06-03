@@ -1,7 +1,8 @@
 class Account < ActiveRecord::Base
+	include Concerns::Accounts::OnlineStatus
 
 	#definition: a user
-
+	before_create :generate_channel_key
 	has_secure_password
 
 	has_many :topics #refers to the topics the user creates 
@@ -100,5 +101,16 @@ class Account < ActiveRecord::Base
 
 
 
+	end
+	#generates a random unique key for user and store it to channel key for 
+	def generate_channel_key
+		begin
+	      key = SecureRandom.urlsafe_base64
+	    end while Account.where(:channel_key => key).exists?
+	    self.channel_key = key
+	end
+
+	def get_channel_key
+		return self.channel_key
 	end
 end

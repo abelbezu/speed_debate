@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602213216) do
+ActiveRecord::Schema.define(version: 20150603185216) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name",       limit: 50
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150602213216) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "privilege",                   default: "user"
+    t.string   "channel_key"
   end
 
   create_table "comments", force: true do |t|
@@ -57,16 +58,6 @@ ActiveRecord::Schema.define(version: 20150602213216) do
 
   add_index "contents", ["content_owner_id", "content_owner_type"], name: "index_contents_on_content_owner_id_and_content_owner_type", using: :btree
   add_index "contents", ["topic_id"], name: "index_contents_on_topic_id", using: :btree
-
-  create_table "conversations", force: true do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
-  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "debate_participations", force: true do |t|
     t.integer  "account_id"
@@ -129,9 +120,9 @@ ActiveRecord::Schema.define(version: 20150602213216) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start_time", default: '2015-06-03 00:30:08', null: false
+    t.datetime "start_time", default: '2015-06-03 17:45:39', null: false
     t.datetime "pos"
-    t.datetime "end_time",   default: '2015-06-10 00:30:08', null: false
+    t.datetime "end_time",   default: '2015-06-10 17:45:39', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -163,10 +154,5 @@ ActiveRecord::Schema.define(version: 20150602213216) do
   end
 
   add_index "user_activities", ["account_id"], name: "index_user_activities_on_account_id", using: :btree
-
-  create_table "versions", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end

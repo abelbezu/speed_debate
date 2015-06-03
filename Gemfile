@@ -27,6 +27,10 @@ gem 'omniauth-facebook'
 
 gem 'sync'
 
+gem 'devise'
+gem 'redis'
+gem 'websocket-rails'
+
 group :development, :test do
   gem 'factory_girl'
   gem 'factory_girl_rails'
