@@ -16,26 +16,14 @@ class Post < ActiveRecord::Base
 	scope :newest_first, lambda{order("posts.created_at ASC")}
 	scope :newest, lambda{where("posts.created_at MAX")}
 
-	# find which debater's turn it is (left or right)
-	# @param: int debate_id - the id of the debate
-	# @return string indicating which side the next debater is
-
-	def self.find_turn debate_id
-
-		if Debate.find(debate_id).posts.empty?
-			
-			return "both"
-		else
-			current_side = DebateParticipation.find_by_account_id_and_debate_id(Debate.find(debate_id).posts.last.account_id, debate_id).side
-			next_side = current_side == "left_side" ? "right_side" : "left_side"
-			
-			return next_side
-		end
-	end
+	
 
 	# get what debate this post belongs to
 	# @return Debate debate owning this post
 	def get_debate
+		if self.debate_id == nil
+			return nil
+		end
 		return Debate.find(self.debate_id)
 	end
 
@@ -52,7 +40,7 @@ class Post < ActiveRecord::Base
 	end
 	# check if this post is the first post of the debate.
 	# @return true if the post is the first one, else return false
-	def is_first? 
+	def is_first 
 		return self == self.get_debate.posts.first
 	end 
 

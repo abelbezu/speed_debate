@@ -1,3 +1,6 @@
+# Testing strategy:
+# 
+
 require 'test_helper'
 
 class DebateTest < ActiveSupport::TestCase

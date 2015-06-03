@@ -6,10 +6,10 @@ class Timer < ActiveRecord::Base
 	# Owned by timed object	
 
 	belongs_to :timed, polymorphic: true 
-	validates_presence_of :start
-	validates_presence_of :end
+	validates_presence_of :start_time
+	validates_presence_of :end_time
 
-	# Starts the timer. Creates a new timeer with a start time set to the current datetime, and 
+	# Starts the timer. Creates a new timer with a start time set to the current datetime, and 
 	# the end time 'duration' minutes away 
 	# to the end time provided.
 	# @param: duration - a duration of the debate in minutes
@@ -17,10 +17,10 @@ class Timer < ActiveRecord::Base
 	# saved successfully, else returns false
 
 	def start_timer duration
-		self.start = DateTime.now
-		self.end = self.start + Rational(duration, 1440)
+		self.start_time = DateTime.now
+		self.end_time = self.start_time + Rational(duration, 1440)
 		self.status = "--running--"
-		self.pos = self.start
+		self.pos = self.start_time
 
 		if self.save
 			return true
@@ -37,7 +37,7 @@ class Timer < ActiveRecord::Base
 	
 	def stop
 		if self.status == "--stopped--"
-			raise "timer has already expired"
+			raise "timer has already expired.\ntimer_status: " + self.status  
 		end
 		self.pos = DateTime.now
 		self.status = "--stopped--"
@@ -54,7 +54,7 @@ class Timer < ActiveRecord::Base
 	# @ return: true if the timer is successfully paused else returns false.
 	def pause
 		if self.status == "--stopped--"
-			raise "timer has already expired"
+			raise "timer has already expired.\ntimer_status: " + self.status 
 		end
 		self.pos = DateTime.now
 		self.status = "--paused--"
@@ -69,7 +69,7 @@ class Timer < ActiveRecord::Base
 	# @ return: true if the timer is successfully resumed else returns false.
 	def resume
 		unless self.status == "--paused--"
-			raise "timer has already expired"
+			raise "timer is not paused. \ntimer_status: " + self.status 
 		end
 		self.pos = DateTime.now
 		self.status = "--running--"

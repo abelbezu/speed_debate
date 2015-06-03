@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'faye-rails', '~> 2.0'
 
+gem 'whenever', :require => false
+
 gem 'thin'
 
 gem 'private_pub'
@@ -25,6 +27,12 @@ gem 'omniauth-facebook'
 
 gem 'sync'
 
+group :development, :test do
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'rspec'
+  gem 'rspec-rails',      ">= 2.0.0.beta"
+end
 gem 'koala'
 
 gem 'puma'
@@ -41,11 +49,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bcrypt', '~> 3.1.7', :require => 'bcrypt'
 
 # Use unicorn as the app server
-gem 'unicorn'
+#gem 'unicorn'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
-
+gem 'capistrano3-puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 

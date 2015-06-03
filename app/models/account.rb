@@ -11,7 +11,7 @@ class Account < ActiveRecord::Base
 	has_many :comments # A user will create many contents
 	has_many :posts
 	has_many :images, as: :image_owner
-
+	has_one  :user_activity
 
 
 
@@ -90,4 +90,15 @@ class Account < ActiveRecord::Base
 		return self.debates
 	end
 
+	# registers user as a participant of a given debate
+	# @param debate_id, the id of debate to participate in
+	# @param side, which side to participate in
+	# @return: true if user successfully registered
+	def participate_in debate_id, side
+
+
+
+
+
+	end
 end

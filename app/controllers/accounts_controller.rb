@@ -10,6 +10,15 @@ class AccountsController < ApplicationController
     
   end
 
+  # a user sends an ajax message declaring that it is online. The message will
+  # contain the id of the user. 
+  # this action will update the database and returns a message to a javascript file
+  # telling it that this user is online.
+  def declare_online
+
+    
+
+  end
   
 
   def create

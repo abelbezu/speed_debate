@@ -3,7 +3,7 @@ class Debate < ActiveRecord::Base
 	# Definition: a list of posts around a topic
 
 
-	belongs_to :topic, inverse_of: :posts
+	belongs_to :topic
 	has_many :debate_participations
 	has_many :accounts, :through => :debate_participations
 	has_many :posts
@@ -26,12 +26,15 @@ class Debate < ActiveRecord::Base
 	# validates_the_numericality_of :character_limit
 
 
-	# creates a new timer for the debate and start it
+	# creates a new timer for the debate and start it. Doesn't start the debate unless debate if full
 	# @param: duration - the duration of the debate in minutes 
 	def start_debate 
+		unless self.full? 
+			raise "Debate doesn't have enough participants. \nNumber of participants: "+ self.debate_participations.count.to_s  
+		end
 		timer = self.build_timer
 		if timer.save
-			return timer.start_timer(this.time_limit)
+			return timer.start_timer(self.time_limit)
 	    else 
 	    	raise "couldn't start timer"
 	    end
@@ -42,7 +45,9 @@ class Debate < ActiveRecord::Base
 	# @return string indicating which side the next debater is
 
 	def get_turn 
-
+		unless self.full?
+			raise "Debate doesn't have enough participants. \nNumber of participants: "+ self.debate_participations.count.to_S  
+		end
 		if self.posts.empty?
 			
 			return "both"
@@ -63,21 +68,76 @@ class Debate < ActiveRecord::Base
 	# get the left participant of this debate
 	# @return Account: the account representing the left participant of this debate. nil if the debate has no left participants yet
 	def get_left_debater
-		return DebateParticipation.find_by_debate_id_and_side(self.id, "left_side").get_user
+		debate_participation = DebateParticipation.find_by_debate_id_and_side(self.id, "left_side")
+		if debate_participation == nil
+			return nil
+		else
+			return debate_participation.get_user
+		end
 	end
 
 	# get the right participant of this debate
 	# @return Account: the account representing the right participant of this debate. nil if the debate has no right participants yet
 	def get_right_debater
-		return DebateParticipation.find_by_debate_id_and_side(self.id, "right_side").get_user
+		debate_participation = DebateParticipation.find_by_debate_id_and_side(self.id, "right_side")
+		if debate_participation == nil
+			return nil
+		else
+			return debate_participation.get_user
+		end
 	end
 
+	#check if the debate has enough (2 for now) participants
+	#@return: true if the debate has 2 participants, false otherwise
+	def full?
+		return self.debate_participations.count == 2
+	end
 	# find out if a debate is started or not
 	# @return true if a debate is started. False otherwise 
 	def started?
+		if self.timer == nil
+			return false
+		end
 		return self.timer.status == "--running--"
 	end
 
+
+	# Register a user on one of the sides of the debate. If the debate if full or the side is already taked, raise an exception
+	# @param: account_id, the id of the user to register
+	# @param: side, the side to register the user on
+	# @return: true if user successfully registered, false if not, and raises exceptions if the debate is full or side is taken
+	def register_participant account_id, side
+		if self.full?
+			raise "Debate already full"
+		elsif side == "left" or side == "left_side"
+			proper_side = "left_side"
+			if self.get_left_debater != nil
+				raise "Side already taken"
+			# elsif self.get_right_debater.id == account_id
+			# 	raise "Account already registered"
+			end 
+		elsif side == "right" or side == "right_side"
+			proper_side = "right_side"
+			if self.get_right_debater != nil
+				raise "Side already taken"
+			# elsif self.get_left_debater.id == account_id
+			# 	raise "Account already registered"
+			end 
+			
+		end
+		
+		debate_participation = DebateParticipation.new
+		debate_participation.account_id = account_id
+		debate_participation.debate_id = self.id
+		debate_participation.side = proper_side
+		debate_participation.role = "debater"
+		if debate_participation.save
+			return true
+		else
+			return false
+		end
+		
+	end
 
 
 end

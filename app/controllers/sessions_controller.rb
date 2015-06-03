@@ -11,7 +11,9 @@ class SessionsController < ApplicationController
       redirect_to(:controller => 'topics', :action =>'index')
     
   end
-
+  def test
+    
+  end
   def destroy
     session[:logged_in] = false
     session[:user_id] = nil

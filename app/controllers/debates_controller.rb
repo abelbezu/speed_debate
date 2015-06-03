@@ -48,8 +48,7 @@ class DebatesController < ApplicationController
 	end
 
 	def create_participation
-		@debate_participation = DebateParticipation.new(:account_id => session[:user_id], :debate_id => params[:id], :role => 'debater', :side =>params[:side])
-		if @debate_participation.save
+		if Debate.register_participant(session[:user_id], params[:side])
 			redirect_to(:controller => 'topics', :action => 'test')
 		else
 			redirect_to(:controller => 'topics', :action => 'index')

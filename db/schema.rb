@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528133438) do
+ActiveRecord::Schema.define(version: 20150602213216) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name",       limit: 50
@@ -129,9 +129,9 @@ ActiveRecord::Schema.define(version: 20150528133438) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start",      default: '2015-05-29 17:27:35', null: false
+    t.datetime "start_time", default: '2015-06-03 00:30:08', null: false
     t.datetime "pos"
-    t.datetime "end",        default: '2015-06-05 17:27:35', null: false
+    t.datetime "end_time",   default: '2015-06-10 00:30:08', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -152,6 +152,17 @@ ActiveRecord::Schema.define(version: 20150528133438) do
   end
 
   add_index "topics", ["account_id"], name: "index_topics_on_account_id", using: :btree
+
+  create_table "user_activities", force: true do |t|
+    t.integer  "account_id"
+    t.datetime "last_seen"
+    t.string   "status"
+    t.string   "update_status", default: "expired"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_activities", ["account_id"], name: "index_user_activities_on_account_id", using: :btree
 
   create_table "versions", force: true do |t|
     t.datetime "created_at"
