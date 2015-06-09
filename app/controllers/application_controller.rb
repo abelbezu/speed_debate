@@ -71,12 +71,41 @@ class ApplicationController < ActionController::Base
 		@param_inspect = par_inspect
 		redirect_to(:controller => 'topics', :action => "real_test")
 	end 
+
+	USER_CHANNEL_KEY = 'user_channel_key'
+
+    def after_sign_in_path_for(resource)
+      if resource.is_a? User
+        set_user_channel_cookie
+      end
+      super
+    end
+
+    def after_sign_out_path_for(resource)
+      if resource.is_a? User
+        clear_user_channel_cookie
+      end
+      super
+    end
+
 	
 	private
 
-	def current_user
-	  @current_user ||= Account.find(session[:user_id]) if session[:user_id]
-	end
-	helper_method :current_user
+		def current_user
+		  @current_user ||= Account.find(session[:user_id]) if session[:user_id]
+		end
+		helper_method :current_user
+
+   
+	    def set_user_channel_cookie
+	      key = current_user.channel_key
+	      WebsocketRails[key].make_private
+	      cookies[USER_CHANNEL_KEY] = {:value => key,
+	                                     :expires => 30.days.from_now }
+	    end
+
+	    def clear_user_channel_cookie
+	      cookies.delete USER_CHANNEL_KEY
+	    end
 
 end

@@ -20,6 +20,10 @@ gem 'whenever', :require => false
 
 gem 'thin'
 
+gem 'faker', '0.3.1'
+
+gem 'socket.io-rails'
+
 gem 'private_pub'
 
 gem "font-awesome-rails"
@@ -29,7 +33,6 @@ gem 'sync'
 
 gem 'devise'
 gem 'redis'
-gem 'websocket-rails'
 
 group :development, :test do
   gem 'factory_girl'

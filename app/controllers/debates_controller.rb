@@ -6,11 +6,16 @@ class DebatesController < ApplicationController
 
 	layout "main"
 	
-	before_action :confirm_logged_in
+	
+
+
+	#before_action :confirm_logged_in
 	
 	# functionality not decided yet
 	def index
-		render nothing: true
+		#render nothing: true
+		@online_users = Account.online
+      	@online_user_count = Account.online_count
 	end
 	
 	# functionality not decided yet
@@ -48,7 +53,7 @@ class DebatesController < ApplicationController
 	end
 
 	def create_participation
-		if Debate.register_participant(session[:user_id], params[:side])
+		if Debate.find(params[:id]).register_participant(session[:user_id], params[:side])
 			redirect_to(:controller => 'topics', :action => 'test')
 		else
 			redirect_to(:controller => 'topics', :action => 'index')

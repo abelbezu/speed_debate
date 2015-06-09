@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 				end
 			end
 				@argument = post
-	  			@side = Post.find_turn(post.debate_id)	
+	  			@side = Debate.find(post.debate_id).get_turn
 	  			@path = debate_path(Debate.find(post.debate_id))
   		end
 

@@ -1,8 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
-.panel{
-    border-radius: 0px  !important; 
-}
+
 .panel-main {
     position: relative;
     border-radius: 0px;

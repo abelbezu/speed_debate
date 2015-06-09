@@ -9,7 +9,7 @@
             <div class="col-md-12">
               <div class="post-box-profile-img-container-right">
 
-                <%= image_tag(Account.find(argument.account_id).images.profile_pic.first.url, :alt => "+", :class => "profile-pic-container")%>
+                <%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
               </div>
               <div class="post-box-profile-info-container-right">
                 <div class="post-box-profile-info">
@@ -62,3 +62,4 @@
     </div>
     <div style = "clear:both"></div>
 </li>
+

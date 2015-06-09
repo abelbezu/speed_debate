@@ -7,9 +7,9 @@ RSpec.describe Timer, type: :model do
   it "validates the presence of start time" do 
   	#start time present
     d = DateTime.now
-    timer = build(:timer, :start_time => d).should be_valid
+    build(:timer, :start_time => d).should be_valid
     # start time not present
-    timer = build(:timer, :start_time => '').should_not be_valid
+    build(:timer, :start_time => '').should_not be_valid
   end 
 
   it "validates the presence of end time" do 

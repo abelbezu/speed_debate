@@ -1,14 +1,11 @@
-module Concerns
-  module Accounts
-    module OnlineStatus
+#define some methods and keep some data to track the online status of a user.
+#
+
+module OnlineStatus
       extend ActiveSupport::Concern
 
       HASH_KEY = 'online_users'
-
-      included do
-        scope :online, find_all_by_id( $redis.hgetall(HASH_KEY).keys )
-      end
-
+     
       def online?
         $redis.hget(HASH_KEY, self.id).to_i > 0
       end
@@ -29,6 +26,4 @@ module Concerns
         end
       end
 
-    end
-  end
 end

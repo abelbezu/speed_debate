@@ -1,8 +1,10 @@
 class Account < ActiveRecord::Base
-	include Concerns::Accounts::OnlineStatus
+	include OnlineStatus
+
 
 	#definition: a user
 	before_create :generate_channel_key
+	
 	has_secure_password
 
 	has_many :topics #refers to the topics the user creates 
@@ -98,9 +100,6 @@ class Account < ActiveRecord::Base
 	def participate_in debate_id, side
 
 
-
-
-
 	end
 	#generates a random unique key for user and store it to channel key for 
 	def generate_channel_key
@@ -113,4 +112,23 @@ class Account < ActiveRecord::Base
 	def get_channel_key
 		return self.channel_key
 	end
+
+	
+	# methods for getting a list of users that are online
+	def self.online
+		online_users = []
+		Account.all.each do |x|
+			if x.online?
+				online_users<<x
+			end
+		end
+	end 
+
+	def self.cache_all_users_to_redis
+		
+		Account.all.each do |x|
+			return $redis.hset('users', x.id, "offline")
+		end
+	end
+
 end

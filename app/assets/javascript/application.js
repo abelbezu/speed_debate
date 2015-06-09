@@ -15,10 +15,12 @@
 //= require jquery_ujs
 //= require custom.js
 //= require sync
-//= require search
 //= require timer
+//= require text_input
+//= character_counter
+//= require socket.io
 //= require private_pub
-//= signup.js
+//= require signup.js
 //= require turbolinks
 
 

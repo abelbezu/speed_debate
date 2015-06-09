@@ -6,7 +6,7 @@
 	var right_side = 'right_side';
 	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'posts/partials/left_copy': 'posts/partials/right_copy' , :locals =>{:argument=> @argument})%>");
 	if($('#user_id_holder').attr('user-side') == <%= @side %>  ){
-	
+	console.log(<%= @side%>);
 
 	$('#main_content_wrapper').append(
 		"<%= 

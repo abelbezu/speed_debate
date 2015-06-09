@@ -1,26 +1,13 @@
-<div class = "container-fluid" style = "margin-top: -10px; min-width: 800px;">
+<div class = "container-fluid">
   <div class = "row">
-    <div class = "col-md-3">
-      <div style = "margin-top: 20px;">
-       <%= render "left_navigation"%>
-      </div>
-    </div>
-    
-     <% check_side = DebateParticipation.find_by_account_id(session[:user_id]).side %>
-<div id = "user_id_holder" user-side = <%= check_side == nil ? "neither" : check_side %>> </div>
+    <div class="col-md-3 col-sm-4 col-xs-0"></div>
+    <% check_side = DebateParticipation.find_by_account_id(session[:user_id]).side %>
+    <div id = "user_id_holder" user-side = <%= check_side == nil ? "neither" : check_side %>> </div>
+    <div id = "user_name_holder" user-name = s<%= Account.find(session[:user_id]).display_name%>> </div>
+    <div class="col-md-6 col-sm-8">
+      <ul class = "main_content_wrapper" id = "main_content_wrapper">
 
-    <div id = "user_name_holder" user-name = <%= Account.find(session[:user_id]).display_name%> </div>
-
-    <div class = "col-md-6">
-      
-      
-        <div class = "row" style = "margin-top: 20px;">
-        
-          <%= render(:partial => "debates/partials/title_panel", :locals =>{:debate_id => @debate.id}) %>
-
-          <div id = "debate_status_bar_container"><div id = "debate_status_bar"> </div> </div>
-          <ul id = "main_content_wrapper">
-            <% if DebateParticipation.check_participation(session[:user_id], @debate.id) == "none" && @debate.posts.empty?%>
+       <% if DebateParticipation.check_participation(session[:user_id], @debate.id) == "none" && @debate.posts.empty?%>
               <div class="alert alert-info" role="alert">The participants of this debate haven't said anything yet!</div>
             <% else  %>
 
@@ -31,12 +18,12 @@
              <% end %>
 
               
-              
              <% if DebateParticipation.check_participation(session[:user_id], @debate.id) == "debater"%>
              
               <% if @debate.get_turn == 'left_side'|| @debate.get_turn == 'both'%>
               
                 <% if DebateParticipation.find_by_account_id(session[:user_id]).side == 'left_side'|| @debate.get_turn == 'both'%>
+
                     <%= render(:partial => 'posts/partials/post_creator_left', :locals =>{:id=> @debate.id})%>
                 <% end %>
 
@@ -48,30 +35,8 @@
               <% end %>
               <% end %>
               <%= subscribe_to debate_path(@debate) %>
-          </ul>
-        </div>
-
-      
+      </ul>
     </div>
-        
-
-   <div class = "col-md-3" >
-    <div class = "right-navigation-pane" style = "background-color: rgb(250,250,250); border-color: rgb(250,250,250);">
-      <div style = "text-align: center; margin-top: 20px;" style = "position: fixed">
-        
-      </div>
-    </div>
+    <div class="col-md-3 col-sm-0"></div>
   </div>
-  </div>
-</div>
-<div class = "hover-comment-box hidden" >
-      <div class = "row" >
-        <div class = "col-md-2">
-          <img class="profile-pic-container js-action-profile-avatar" src="img/toucan_left.jpg" alt="">
-        </div>
-        <div class = "col-md-10">
-          <textarea row="1" type="text" class="comment-input-area form-control" placeholder="Comment" aria-describedby="sizing-addon2"></textarea>
-        </div>
-
-      </div>
 </div>

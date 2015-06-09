@@ -1,4 +1,4 @@
-
+/*
 
 @media (min-width: 768px)
 .navbar-right {
@@ -28,71 +28,4 @@
 	margin-right: 10px;
 }
 
-/*.navbar-default 
-{
-	background-color: #286090;
-	border-bottom: 0px solid  #232323 !important;
-}
-.navbar-default .navbar-nav > li > a {
-	color: #FFF;
-}
-media="all"
-
-media="all"
-@media (min-width: 768px)
-.navbar-left {
-float: left !important;
-}
-
-.search-container{
-	float: right;
-	width: 78%;
-}
-
-.search-bar-container{
-	width: 80%;
-}
-
-.search-bar
-{
-	width: 100%;
-}
-
-.navbar-right{
-    max-height: 50px;
-    float: right;
-    width: 20%;
-}
-
-
-.navbar-profile-pic{
-   
-}
-.navbar-info-container{
-	margin-top: 15px;
-	margin-left: 20px;
-}
-
-.navbar-info-link
-{
-	color: white;	
-	margin-right: 10px;
-}
-.navbar-info-link:hover{
-	text-decoration: none;
-	color: white;	
-	
-}
-.navbar-access-menu
-{
-	margin-top: 15px;
-	margin-left: 20px;
-}
-.navbar-access-menu >a
-{
-	
-	margin-left: 10px;
-}
-.navbar-default .navbar-brand {
-color: #FFF;
-}*/
+*/
