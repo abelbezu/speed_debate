@@ -13,9 +13,7 @@
  *= require_self
  *= require bootstrap
  *= require main
- *= require access
  *= require debate_custom
- *= require headbar
  *= require results
  *= require new_posts
  *= require font-awesome
