@@ -59,14 +59,8 @@ gem 'bcrypt', '~> 3.1.7', :require => 'bcrypt'
 #gem 'unicorn'
 
 # Use Capistrano for deployment
-
-group :development do
-    gem 'capistrano',         require: false
-    gem 'capistrano-rvm',     require: false
-    gem 'capistrano-rails',   require: false
-    gem 'capistrano-bundler', require: false
-    gem 'capistrano3-puma',   require: false
-end
+gem 'capistrano-rails', group: :development
+gem 'capistrano3-puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
