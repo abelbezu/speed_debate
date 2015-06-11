@@ -1,6 +1,6 @@
 class Topic < ActiveRecord::Base
 	has_many :debates, :dependent => :destroy # Many debates can be created for a single topic if the topic is destroyed, then distroy the child debates 
-	accepts_nested_attributes_for :debates, :reject_if => :all_blank, allow_destroy: true 
+	accepts_nested_attributes_for :debates, allow_destroy: true 
 
 	
 	belongs_to :account
@@ -18,7 +18,7 @@ class Topic < ActiveRecord::Base
 	validates_presence_of :right_side_topic
 
 	# unwanted validation. Look again
-	validates_presence_of :description
+	#validates_presence_of :description
 	# returns the creator of this topic
 	def get_creator
 		return Account.find(self.account_id)

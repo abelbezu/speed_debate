@@ -558,3 +558,74 @@ width: 97%;
     background-color: white;
     
 }
+
+
+
+/* Additional styling*/
+
+/*devide the task, put in the proper media query*/
+.topic_button{
+    text-align: center;
+    padding-top: 5px;
+    color: rgb(136, 136, 136);;
+     text-shadow: 1px 1px white;
+}
+@media (max-width: 985px) {
+  .topic_create_split_left {
+    border-bottom: 1px solid rgb(205, 205, 205);
+   
+  
+  }
+  .topic_create_split_middle {
+    border-top: 1px solid white;
+    border-bottom: 1px solid rgb(205, 205, 205);
+   
+  }
+  .topic_create_split_right {
+    border-top: 1px solid white;
+    
+  }
+}
+@media (min-width: 985px) {
+ .topic_create_split_left {
+     border-right: 1px solid rgb(205, 205, 205);
+   
+  }
+  .topic_create_split_middle {
+     border-left: 1px solid white;
+     border-right: 1px solid rgb(205, 205, 205);
+     
+  }
+   .topic_create_split_right {
+     border-left: 1px solid white;
+    
+     
+  }
+}
+
+textarea.topic_input_retracted{
+     height: 40px;
+}
+
+.topic_input_text_area{
+      
+      font-family: helvetica;
+      font-size: 20px;
+}
+.borderless_input_box{
+    border: 0px solid white;
+      border-radius: 0px;
+}
+.warning_division{
+    height: 15px;
+    font-size: 12px;
+    color: red;
+}
+
+.info_text{
+    font-size: 13px;
+    color: rgb(100,100,100)
+}
+.small_devider{
+    height: 10px;
+}

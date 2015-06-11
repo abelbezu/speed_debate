@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
 
 	layout "main"
-	before_action :confirm_logged_in, :only => [:debate_temp]
+	before_action :confirm_logged_in, :only => [:show]
 	def index
 		
 	end
@@ -23,14 +23,21 @@ class TopicsController < ApplicationController
 	end
 	
 	def create
-		@topic = Topic.new(partial_copy(topic_params, [:account_id, :topic_sentence, :description, :left_side_topic, :right_side_topic,:category, :tags,]))
-		@topic.debates.build(partial_copy(topic_params[:debate], [:time_limit, :character_limit, :back_and_forth_limit]))
+		if topic_params[:left_side_topic] == ""
+			topic_params[:left_side_topic] = "For"
+		end 
+		if topic_params[:right_side_topic] == ""
+			topic_params[:right_side_topic] = "Against" 
+		end
+ 		@topic = Topic.new(topic_params)
+
+		@topic.debates.build
 		if @topic.save
   			 			
   			redirect_to(:action => 'index')
-  			flash[:notice] = "Debate successfully saved"
+  			flash[:notice] = "--success--"
   		else 
-  			flash[:notice] = "Couldn't create debate, Please try again"
+  			flash[:notice] = topic_params
   			redirect_to(:action => 'index')
 
 
@@ -40,7 +47,7 @@ class TopicsController < ApplicationController
 	def destroy
 		@topic_to_delete = Article.find(params[:id])
 		if @article_to_delete.destroy
-			flash[:notice] = "article destroyed successfully"
+			flash[:notice] = "--success--"
 			redirect_to(:controller=> 'admin', :action => "articles")
 		else
 			redirect_to(:controller=> 'admin', :action => "stats_redirects")
@@ -51,7 +58,7 @@ class TopicsController < ApplicationController
 		def topic_params
 
 			params[:topic][:account_id] = session[:user_id].to_i
-			params.require(:topic).permit(:account_id, :topic_sentence, :description, :left_side_topic, :right_side_topic,:category, :tags, :debate => [:time_limit, :character_limit, :back_and_forth_limit])
+			params.require(:topic).permit(:account_id, :topic_sentence, :description, :left_side_topic, :right_side_topic)
 		end
 
 

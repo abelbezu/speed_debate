@@ -17,7 +17,8 @@
 //= require sync
 //= require timer
 //= require text_input
-//= character_counter
+//= require transformable_text_input
+//= require character_counter
 //= require socket.io
 //= require private_pub
 //= require signup.js

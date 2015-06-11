@@ -9,13 +9,13 @@ class DebatesController < ApplicationController
 	
 
 
-	#before_action :confirm_logged_in
+	before_action :confirm_logged_in
 	
 	# functionality not decided yet
 	def index
-		#render nothing: true
-		@online_users = Account.online
-      	@online_user_count = Account.online_count
+		# #render nothing: true
+		# @online_users = Account.online
+  #     	@online_user_count = Account.online_count
 	end
 	
 	# functionality not decided yet

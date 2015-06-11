@@ -151,6 +151,12 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    passenger (5.0.9)
+      rack
+      rake (>= 0.8.1)
+    passenger-rails (0.0.2)
+      passenger
+      rack
     private_pub (1.0.3)
       faye
     pry (0.10.1)
@@ -284,9 +290,9 @@ DEPENDENCIES
   koala
   mysql2
   omniauth-facebook
+  passenger-rails
   private_pub
   pry-byebug
-  puma
   rails (= 4.1.8)
   redis
   rspec

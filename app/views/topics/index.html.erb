@@ -5,18 +5,20 @@
         
         <div class = "col-md-3 col-xs-12">
            
-           <%= render "left_navigation"%>
+           
 
         </div>
 
         <!-- main content area -->
  <div id = "main-content-container" class = " col-md-6">
+
 <% if session[:logged_in]%>
-<%= render(:partial => "topic_creator_template") %>
+
+<%= render(:partial => "topics/partials/topic_creator") %>
 <% end %>
 <div id = "test">
-<%= render(:partial => "two_user_temp") %>
-<%= render(:partial => "no_user_temp") %>
+<%= render(:partial => "topics/partials/two_user_temp") %>
+<%= render(:partial => "topics/partials/no_user_temp") %>
 </div>
      <div id = "complete" class="panel panel-default panel-main">
                 <!-- a dropdown menu of currently unknown purpose -->
@@ -100,14 +102,14 @@
             </div>
             
         </div>
-        <%= render(:partial => "one_user_temp") %>
+        <%= render(:partial => "topics/partials/one_user_temp") %>
 
         <button id = "load-more-btn" class = "btn btn-default" style = "width:100%; margin-bottom: 10px;">+Load More</button>
         <button id = "load-more-btn" class = "btn btn-default" style = "width:100%; margin-left: 10000px; position: fixed;">+Load More</button>
   </div>
    <!-- right navigation pane -->
 <div class = "col-md-3">
-   <%= render "right_navigation"%>
+  
  </div>  
 </div>
 </div>

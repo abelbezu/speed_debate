@@ -4,8 +4,8 @@ class CreateTopics < ActiveRecord::Migration
     	t.integer "account_id"
     	t.string "topic_sentence", :null => false, default: "Debate Topic"
     	t.string "description"
-    	t.string "left_side_topic", :default => "I Agree"
-    	t.string "right_side_topic", :default => "I Disagree"
+    	t.string "left_side_topic", :default => "For"
+    	t.string "right_side_topic", :default => "Against"
     	t.string "category"
     	t.string "tags"
 
