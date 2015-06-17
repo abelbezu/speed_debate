@@ -17,4 +17,8 @@ class DebateParticipation < ActiveRecord::Base
 	def get_user
 		return Account.find(self.account_id)
 	end
+
+	#find out if 
+	
+	
 end

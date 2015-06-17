@@ -582,7 +582,7 @@ width: 97%;
    
   }
   .topic_create_split_right {
-    border-top: 1px solid white;
+    border-top: 2px solid white;
     
   }
 }
@@ -597,7 +597,7 @@ width: 97%;
      
   }
    .topic_create_split_right {
-     border-left: 1px solid white;
+     border-left: 2px solid white;
     
      
   }

@@ -18,8 +18,9 @@ $(document).ready( function () {
 						
 						<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
 						<% if Account.find(session[:user_id]).privilege == 'super'%>
-					<li role="presentation"><%= link_to("Add Admin", {:action => 'create_admin'},)%></li>
-			<%end%>
+        <li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
+        <li role="presentation">Admins</li>
+      <%end%>
 					</ul>
 
 				</div>
@@ -83,14 +84,14 @@ $(document).ready( function () {
 									</tr>
 								</thead>
 								<tbody>
-									<% Topic.all.each do |article|%>
+									<% Topic.all.each do |topic|%>
 									<tr>
-										<th scope="row"><%= article.id%></th>
-										<td><%= link_to(article.topic_sentence,:controller => 'topics', :action =>'test', :id => article.id  )%></td>
-										<td><%= Account.find(article.account_id).nick_name%></td>
-										<td><%= article.created_at%></td>
-										<td><%= article.debates.count%></td>
-										<td><%= link_to("Delete", :controller => 'topics', :action =>'destroy', :id => article.id)%></td>
+										<th scope="row"><%= topic.id%></th>
+										<td><%= link_to(topic.topic_sentence,:controller => 'topics', :action =>'show', :id => topic.id  )%></td>
+										<td><%= Account.find(topic.account_id).display_name%></td>
+										<td><%= topic.created_at%></td>
+										<td><%= topic.debates.count%></td>
+										<td><%= link_to("Delete", :controller => 'topics', :action =>'destroy', :id => topic.id)%></td>
 										
 									</tr>
 									<%end%>

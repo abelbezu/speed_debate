@@ -1,0 +1,110 @@
+<div id = "sides_container" class="panel panel-default panel-main">
+  <div class="panel-heading">
+    <div class ="debate-title">
+      <h3>Pick a side and join!</h3>
+      
+    </div>
+    <hr>
+    <div class = "debate_choice">
+      <div id = "choice_1" picked = "false">
+        <span class = "choice_label glyphicon glyphicon-unchecked"></span>
+        <span choice-for = "sides" value = "left_side" ><%= @topic.left_side_topic%></span>
+      </div>
+    </div>
+    <div class = "small_devider"></div>
+    <div class = "small_devider"></div>
+    <div class = "debate_choice">
+      <div id = "choice_2" picked = "false">
+        <span class = "choice_label glyphicon glyphicon-unchecked"></span>
+        <span choice-for = "sides" value = "right_side" ><%= @topic.right_side_topic%></span>
+      </div>
+    </div>
+    <div class = "small_devider"></div>
+    <div class = "small_devider"></div>
+
+
+  </div>
+  <div class="panel-footer">
+      <div  style ="height: 30px;" id = "join_as_debater" class = "topic_button topic_create_split_left col-xs-12 col-md-4">
+        Join as Debater
+      </div>
+      <div id = "join_as_spectator" style ="height: 30px;" class = "topic_button topic_create_split_middle col-xs-12 col-md-4">
+        Join as Audience
+      </div>
+      <div   id = "invite_a_friend_button" style ="height: 30px;" class = "topic_button topic_create_split_right col-xs-12 col-md-4">
+        Invite a Friend
+      </div>
+      <div style = "clear:both">
+      </div>
+    </div>
+
+
+<%= render(:partial => "topics/partials/users_modal", :locals => {:users => ""}) %>
+<%= render(:partial => "topics/partials/invitation_modal", :locals => {:users => ""}) %>           
+</div>
+
+<script type="text/javascript">
+// radio button selection
+var c = new RadioList([$("#choice_1")[0],$("#choice_2")[0]], "glyphicon-check", "glyphicon-unchecked");
+function get_picked_side(){
+
+    if($("#choice_1").attr("picked") == "true")
+    {
+      return "left_side";
+    } 
+    else if($("#choice_2").attr("picked") == "true")
+    {
+      return "right_side";
+    } 
+    else{
+      return "none";
+    }
+
+
+  }
+
+  function get_opposite_side(){
+    if (get_picked_side() == "none")
+    {
+      return "none";
+    }
+    else if (get_picked_side() == "left_side")
+    {
+      return "right_side";
+    }
+    else if (get_picked_side() == "right_side")
+    {
+      return "left_side";
+    }
+
+  }
+  function generate_data(){
+    if (get_opposite_side() == "left_side"){
+      return {id: <%=@topic.id%>, side: "left_side"}
+    }
+    else
+    {
+      return {id: <%=@topic.id%>, side: "right_side"}
+    }
+  }
+function update_modal_users_list(element){
+     $("#users_modal_body").empty();
+    $("#users_modal_body").append(element);
+    $('#join_modal').modal('toggle');
+  }
+  $("#join_as_debater").click(function(){
+
+        if(get_picked_side() != "none"){
+        //send some ajax request find the users to display and append them
+        var ah = new AjaxHandler("join_modal","<%= root_url%>"+"ajax_calls/get_a_user_list/","get", generate_data(), update_modal_users_list);//use rails way to find the url
+        ah.make_call();
+        
+        }
+  });
+   $("#invite_a_friend_button").click(function(){
+        $('#invitation_modal').modal('toggle');
+
+  });
+
+
+</script>

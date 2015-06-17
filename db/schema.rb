@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603185216) do
+ActiveRecord::Schema.define(version: 20150617165439) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name",       limit: 50
@@ -116,6 +116,14 @@ ActiveRecord::Schema.define(version: 20150603185216) do
 
   add_index "posts", ["account_id"], name: "index_posts_on_account_id", using: :btree
   add_index "posts", ["debate_id"], name: "index_posts_on_debate_id", using: :btree
+
+  create_table "reports", force: true do |t|
+    t.integer  "account_id"
+    t.text     "issue"
+    t.string   "page"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "timers", force: true do |t|
     t.integer  "timed_id"

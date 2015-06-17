@@ -30,7 +30,7 @@
             <%= f.hidden_field :debate_id, :value => id %>
             <%= f.fields_for :content_attributes do |o|%>
             <div class = "reply-box">
-              <div class="form-group">    
+              <div id = "reply_container" class="form-group">    
                <%= o.text_area(:content_body, :rows => '3',:class => 'reply-text-area form-control', :placeholder => "Your Response", :id => "post_input_box") %>
                <div id = "message_box">
                </div>
@@ -65,6 +65,6 @@
 </li>
 <script type="text/javascript">
 var t = new TextInput("post_input_box");
-console.log(t);
-t.enterable("post_input_form");
+
+t.enter_submitable("post_input_form", "post_submit_btn", "reply_container", "", "");
 </script>

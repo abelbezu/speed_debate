@@ -1,0 +1,86 @@
+<!-- expects box_type, debate argument as inputs -->
+
+<li class = "post_panel">
+  <div class = "col-md-10  timeable_test">
+    <div class="rounded-edges panel  panel-default">
+      <div class="panel-body">
+        <div class = "row">
+
+        </div>
+        <div class = "row">
+          <div class = "col-md-12">
+            <div class = "post-box-profile-img-container">
+              <%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
+
+            </div>
+
+            <div class = "post-box-profile-info-container">
+              <div class = "post-box-profile-info">
+                <span class = "profile-info-name">
+                  <% if box_type == "post" %>
+                  <%= Account.find(argument.account_id).display_name%>
+                  <%else%>
+                  <%= current_user.display_name%>
+                  <% end %>
+                </span>
+                <span class = "profile-info-meta">
+                  <%if box_type == "post"
+                    
+                    difference = Time.now - argument.updated_at
+
+                    if difference >= 3600
+                      timestamp = pluralize(((difference/3600).round), 'hour') 
+                    elsif difference >= 60
+                      timestamp = pluralize(((difference/60).round), 'minute') 
+                    else
+                     "A few seconds ago"
+                    end
+
+                  %>
+
+                  <%= timestamp%> 
+                  <% end %>
+                </span>
+              </div>
+              <div class = "profile-info-description">             
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class = "row" style = "margin-top: 10px;">
+          <div class = "argument-text col-md-12">
+
+            <div  class = "reply-box">
+              <% if box_type == "input"%> 
+                 <%= render(
+                        :partial => 'posts/partials/input_fields', 
+                        :locals => {:id=> debate.id})
+                 %>
+
+              <% elsif box_type == "post" %>
+                 <%= argument.content.content_body%>
+              <% end %>
+
+
+            </div>
+
+
+          </div>
+        </div>
+        <div class = "row social-icons-box">
+          <div class ="col-md-12">
+
+          </div>
+        </div>
+        <div class = "row">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = "col-md-2">
+  </div>
+  <div style = "clear:both"></div>
+</li>

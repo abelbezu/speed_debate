@@ -17,6 +17,8 @@
 //= require sync
 //= require timer
 //= require text_input
+//= require ajax_caller
+//= require radio_buttons
 //= require transformable_text_input
 //= require character_counter
 //= require socket.io

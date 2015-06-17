@@ -24,5 +24,7 @@ class Topic < ActiveRecord::Base
 		return Account.find(self.account_id)
 	end 
 
+	
+
 
 end

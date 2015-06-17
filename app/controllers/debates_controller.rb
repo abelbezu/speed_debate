@@ -15,7 +15,7 @@ class DebatesController < ApplicationController
 	def index
 		# #render nothing: true
 		# @online_users = Account.online
-  #     	@online_user_count = Account.online_count
+   		#@online_user_count = Account.online_count
 	end
 	
 	# functionality not decided yet
@@ -53,10 +53,22 @@ class DebatesController < ApplicationController
 	end
 
 	def create_participation
-		if Debate.find(params[:id]).register_participant(session[:user_id], params[:side])
-			redirect_to(:controller => 'topics', :action => 'test')
+		if params[:debate_id] == "-1"
+			debate = Debate.create!(:topic_id => params[:topic_id])
+			debate.register_participant(session[:user_id], params[:side])
+			j render(:partial => "topics/partials/one_user", :locals => {:debates => ""})
 		else
-			redirect_to(:controller => 'topics', :action => 'index')
+			debate = Debate.find(params[:debate_id])
+			if debate.get_debaters.count == 1
+				debate.join_free_side session[:user_id]
+				j render(:partial => "topics/partials/two_users", :locals => {:debate => debate})
+			else
+				if debate.register_participant(session[:user_id], params[:side])
+					j render(:partial => "topics/partials/two_users", :locals => {:debate => debate})
+				else
+					redirect_to(:controller => 'topics', :action => 'index')
+				end
+			end
 		end
 	end
 

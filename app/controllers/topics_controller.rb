@@ -3,17 +3,19 @@ class TopicsController < ApplicationController
 	layout "main"
 	before_action :confirm_logged_in, :only => [:show]
 	def index
-		
+		@topics = Topic.all
 	end
 
 	def show		
-		@debates_for_display = Topic.newest_first 
+		@topic = Topic.find(params[:id])
 	end
 
 	def edit
 
 	end
 	
+	
+
 	def update
 
 	end 

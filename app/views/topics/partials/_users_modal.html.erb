@@ -1,0 +1,58 @@
+<!-- Modal -->
+<div class="modal fade" id="join_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <ul id = "users_modal_body" class="modal-body">    
+      
+      </ul>
+      <div style = "clear:both"> </div>
+      <div class="modal-footer">
+        <div data-toggle="modal" data-target="#join_modal" style ="height: 30px;" id = "users_modal_join" class = "topic_button topic_create_split_left col-xs-12 col-md-6">
+        Join
+        </div>
+        <div id = "users_modal_wait" style ="height: 30px;" class = "topic_button topic_create_split_right col-xs-12 col-md-6">
+          Wait
+        </div>
+       
+        <div style = "clear:both">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  
+  
+
+  find_selected_id = function(){
+  id = -1;
+  prepare_list().forEach(function(element){
+    if ($(element).attr("picked") == "true"){
+      //console.log(element);
+      id = $(element).attr("debate-id");
+    }
+    
+  });
+  return id;
+}
+  function update_topic_show(element){
+    $("#sides_container").after(element);
+  }
+
+
+  // var t = new AjaxHandler("none", "http://localhost:3000/debates/create_participation", "{side:"+get_picked_side()+"debate_id: "+ get_picked_debate()+"}", update_topic_show);
+  $("#users_modal_join").click(function(){
+     if(find_selected_id() != "0")
+     {
+      var t = new AjaxHandler("none", "<%= root_url%>"+"debates/create_participation", "POST", {debate_id: find_selected_id(), side: get_picked_side(), topic_id: <%=@topic.id%>} ,update_topic_show);
+      t.make_call();
+    }
+  });
+
+  
+</script>
+

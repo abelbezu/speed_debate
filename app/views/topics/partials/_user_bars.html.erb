@@ -1,0 +1,55 @@
+<%if @debates.count == 0%>
+	<div class="alert alert-warning" role="alert">No one has taken the opposite side yet. Click join/wait to take the side </div>
+	<div class="opposite_users" debate-id = "-1"></div>
+<%else%>
+<% @debates.each do |debate|%>
+<li>
+
+	<div class "small_devider" ></div>
+	<div class="opposite_users" debate-id = <%= debate.id%>>
+		<div class="col-md-2 poster_bar_left">
+			<span class="choice_label glyphicon glyphicon-unchecked"></span>
+		</div>
+		<div class="col-md-10 poster_bar_right">
+			<div class="post-box-profile-img-container">
+				<%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
+
+			</div>
+			<div class="post-box-profile-info-container">
+				<div class="post-box-profile-info">
+					<span class="profile-info-name">Test Left</span>
+					<span class="profile-info-meta">A few seconds ago</span>
+				</div>
+				<div class="profile-info-description">
+
+				</div>
+			</div>
+		</div>
+		<div style="clear:both">
+		</div>
+	</div>
+	<div class = "small_devider"></div>
+	<div class = "small_devider"></div>
+</div>
+</div>
+
+
+</li>
+<%end%>
+<%end%>
+<script type="text/javascript">
+
+prepare_list = function(){
+	t = new Array();
+	j_list = $(".opposite_users");
+	j_list.each(function(element){
+		t[element] = j_list[element];
+	});
+	return t;
+}
+
+
+var radio_form = new RadioList(prepare_list(), "glyphicon-check", "glyphicon-unchecked");
+
+
+</script>

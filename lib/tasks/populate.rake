@@ -23,7 +23,7 @@ namespace :db do
       test_admin_image = Image.create!(
         :image_owner_id => 1,
         :image_owner_type => "account",
-        :url => "profile_default.phg",
+        :url => "profile_default.png",
         :image_use => "profile_pic")
     end
     # Create test_user account
@@ -40,12 +40,12 @@ namespace :db do
       test_image = Image.create!(
         :image_owner_id => test_user.id,
         :image_owner_type => "account",
-        :url => "profile_default.phg",
+        :url => "profile_default.png",
         :image_use => "profile_pic")
     end
       # Create test topics
       # 
-      5.times do |top|
+      1.times do |top|
         test_topic = Topic.create!(
           :topic_sentence => Faker::Lorem.sentence,
           
@@ -57,7 +57,7 @@ namespace :db do
       
         
         # 
-        5.times do |deb|
+        1.times do |deb|
           test_debate = Debate.create!(
             :time_limit => 5,
             :character_limit => 500,
@@ -65,7 +65,7 @@ namespace :db do
             :topic_id => test_topic.id)
             
 
-          5.times do |post|
+          1.times do |post|
 
             test_post = Post.create!(
               :account_id => test_user.id,
@@ -100,7 +100,20 @@ namespace :db do
         end #debate ends here
       end#topic ends here
     end#account ends here
+      # 20.times do |nu|
+      #     unless test_debate.side_free > 10
+      #       if test_debate.side_free == "both"
+              
+      #           1.times do |par|
+      #             :account_id => test_user.id,
+      #             :debate_id => test_debate.id,
+      #             :role => "debater"
+      #             :side => ["left", "right"] 
+      #           end
+                         
+      #       end
 
+      #     end
 
 end #the whole class ends here
 

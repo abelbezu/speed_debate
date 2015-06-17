@@ -71,8 +71,9 @@ class Account < ActiveRecord::Base
 	# @param Int debate_id : the id of a debate
 	# @return string side : the side of the user in the given debate
 	def get_side debate_id
-		if self.get_role debate_id == "debater"
-			return DebateParticipation.find_by_account_id_and_debate_id(self.id, debate_id).side == 'left_side' ? 'left': 'right' 
+		role = self.get_role debate_id
+		if( role == "debater")
+			return DebateParticipation.find_by_account_id_and_debate_id(self.id, debate_id).side
 		end
 		return "none"
 	end 
@@ -130,5 +131,18 @@ class Account < ActiveRecord::Base
 			return $redis.hset('users', x.id, "offline")
 		end
 	end
+
+	def is_tester
+		return (self.privilege =="super" || self.privilege =="admin" )|| self.privilege == "tester" 
+	end
+
+	def make_tester
+		user = self
+		return user.update_attribute(:privilege,"tester")
+		
+	end 
+
+	 
+
 
 end

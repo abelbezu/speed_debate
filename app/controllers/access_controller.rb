@@ -23,9 +23,9 @@ class AccessController < ApplicationController
 			session[:name] = authorized_user.display_name
 			
 			session[:picture] = authorized_user.images.profile_pic.first.url
-			flash[:notice] = "You are now logged in."
+			#flash[:notice] = "You are now logged in."
 			redirect_to({:controller => 'topics', :action => 'index'})
-		else flash[:notice] = "Invalid username/password combination."
+		else flash[:notice] = "Invalid username/password"
 			redirect_to(:action => 'login')
 		end
 	end
@@ -55,7 +55,7 @@ class AccessController < ApplicationController
 		session[:user_id] = nil
 		session[:email] = nil
 		session[:logged_in] = false
-		flash[:notice] = "Logged out"
+		#flash[:notice] = "Logged out"
 		redirect_to(:controller => 'topics', :action =>'index')
 	end
 	def forgot_password

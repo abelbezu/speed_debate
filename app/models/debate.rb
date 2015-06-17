@@ -139,5 +139,38 @@ class Debate < ActiveRecord::Base
 		
 	end
 
+	def side_taken
+		if self.full?
+			return "both"
+		elsif self.get_debaters.count == 0
+			return "none"
+		else
+			return self.get_debaters.first.get_side(self.id)
+
+		end 
+	end
+	def side_free
+		if self.full?
+			return "none"
+		elsif self.get_debaters.count == 0
+			return "both"
+		else
+			return self.get_debaters.first.get_side(self.id) == "left_side"? "right_side": "left_side"
+
+		end 
+	end
+	def get_left
+		return Topic.find(self.topic_id).left_side_topic	
+	end
+	def get_right
+		return Topic.find(self.topic_id).right_side_topic
+	end 
+
+	def join_free_side account_id
+		if self.get_debaters.count == 1
+			return self.register_participant(account_id, self.side_free)
+		end
+	end
 
 end
+ 

@@ -5,11 +5,9 @@ it communicates with the data base -- only using mysql for now. Should work with
 
 var app = require('express')();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io');
 
-app.get('/online_users', function(req, res){
-	res.sendfile('index.html');
-});
+
 
 io.on('connection', function(socket){
 	socket.on('subscribe', function(room) {

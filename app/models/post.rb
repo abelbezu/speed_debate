@@ -44,4 +44,10 @@ class Post < ActiveRecord::Base
 		return self == self.get_debate.posts.first
 	end 
 
+	#get the side of this post
+	def get_side
+		return DebateParticipation.find_by_account_id_and_debate_id(self.account_id, self.debate_id).side
+	end 
+	
+
 end

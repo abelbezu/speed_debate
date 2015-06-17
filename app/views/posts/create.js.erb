@@ -1,20 +1,19 @@
-
 <% publish_to @path do %>
-	
-	update_page();
+	$("[temporary = 'true']").remove();
+	console.log("test");
 	var left_side = 'left_side';
 	var right_side = 'right_side';
-	$('#main_content_wrapper').append("<%= escape_javascript render(:partial =>  DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'posts/partials/left_copy': 'posts/partials/right_copy' , :locals =>{:argument=> @argument})%>");
-	if($('#user_id_holder').attr('user-side') == <%= @side %>  ){
-	console.log(<%= @side%>);
-
+	//look for
 	$('#main_content_wrapper').append(
-		"<%= 
-			escape_javascript render(:partial => DebateParticipation.find_by_account_id_and_debate_id(@argument.account_id, @argument.debate_id).side == 'left_side' ? 'posts/partials/post_creator_right': 'posts/partials/post_creator_left' , :locals =>{:id => @argument.debate_id})
-		%>");
-	$('.profile-info-name').last().text($('#user_name_holder').attr('user-name'));
+		"<%= escape_javascript render(:partial => @argument.get_side == 'left_side' ? 'posts/partials/left_post': 'posts/partials/right_post', :locals =>{:argument=>@argument, :box_type => 'post', :debate => ''}) %>"
+		);
+	if($('#user_id_holder').attr('user-side') == <%= @side %>  ){
 	
+	console.log("<%= @argument.get_debate%>");
+	$('#main_content_wrapper').append(
+		"<%= escape_javascript render(:partial => @argument.get_debate.get_turn == 'left_side' ? 'posts/partials/left_post': 'posts/partials/right_post' , :locals =>{:argument => @argument, :box_type => 'input', :debate => @argument.get_debate})%>");
+	$('.profile-info-name').last().text($('#user_name_holder').attr('user-name'));
 	}
-
+	window.scrollBy(0, 500);
 <% end %>
      

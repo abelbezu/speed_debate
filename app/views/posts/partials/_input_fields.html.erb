@@ -1,0 +1,31 @@
+<div id = "reply_container">
+<%= form_for(	:post,  
+				:remote => true, 
+				:url => {:controller => 'posts',  :action => 'create'}, 
+				:html =>{:id => "post_input_form"}) do |f| %> 
+				
+
+				<%= f.hidden_field :debate_id, :value => id %>
+				<%= f.fields_for :content_attributes do |o|%>
+					<div class = "reply-box">
+						<div class="form-group">    
+							<%= o.text_area(:content_body, :rows => '3',:class => 'reply-text-area form-control', :placeholder => "Your Response", :id => "post_input_box") %>
+							<div id = "message_box">
+							</div>
+						</div> 
+					</div>
+				<%end%>
+
+			<div class = "reply-btn">
+				<%= submit_tag("Reply", 
+								:id => "post_submit_btn", 
+								:class => "btn btn-success btn-sm pull-right")
+				%>
+			</div>
+<% end%>
+</div>
+<script type="text/javascript">
+	var t = new TextInput("post_input_box");
+	t.enter_submitable("post_input_form", "post_submit_btn", "reply_container", "", "");
+	$(".post_panel").last().attr("temporary", "true");
+</script>

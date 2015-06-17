@@ -9,8 +9,9 @@
 			
 			<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
 			<% if Account.find(session[:user_id]).privilege == 'super'%>
-				<li role="presentation"><%= link_to("Add Admin", {:action => 'create_admin'},)%></li>
-			<%end%>
+        <li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
+        <li role="presentation">Admins</li>
+      <%end%>
   		</ul>
 
 	</div>
@@ -27,6 +28,7 @@
 						<th>Last Name</th>
 						<th>Display Name</th>
 						<th>Privilege</th>
+						<th>Set Tester</th>
 						<th>Debates Created</th>
 						<th>Delete</th>
 
@@ -38,9 +40,16 @@
 							<th scope="row"><%= user.id%></th>
 							<td><%= link_to(user.first_name,:controller => 'topics', :action =>'test'  )%></td>
 							<td><%= user.last_name%></td>
-							<td><%= user.nick_name%></td>
+							<td><%= user.display_name%></td>
 							<td><%= user.privilege%></td>
+							<%unless user.is_tester%>
+
+							<th><a class = "make_tester" user-id = <%= user.id%>>make tester</a></th>
+							<%else%>
+							<th>tester</th>
+							<%end%>
 							<td><%= user.topics.count%></td>
+							
 							<td><%= link_to("Delete", :controller => 'accounts', :action =>'destroy', :id => user.id)%></td>
 							
 						</tr>
@@ -48,8 +57,20 @@
 				</tbody>
 			</table>
 			</div>
+
 		</div>
 	</div>
 </div>
 </div>
 </div>
+<script type="text/javascript">
+change_privilege = function(element, change_to){
+	$(element).text("");
+	$(element).text(change_to);
+}
+cal_bak = function(){}
+$(".make_tester").click(function(){
+	var ah = new AjaxHandler("join_modal", "<%= root_url%>"+"ajax_calls/make_tester","POST", {account_id: $(this).attr("user-id")}, cal_bak);//use rails way to find the url
+        ah.make_call();
+});
+</script>

@@ -1,0 +1,29 @@
+<!-- Modal -->
+<div class="modal fade" id="report_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(:report, url: {:controller => "reports", :action =>"create"}, :remote => "true", :role => "form") do |f| %>
+                
+
+                  <%= f.text_field(:page, :class => "form-control", :placeholder => "page or navigation")%>
+                  <div class = "small_devider"> </div>
+                  <div class = "small_devider"> </div>
+                  <div class = "small_devider"> </div>
+
+                  <%= f.text_area(:issue, :class => "form-control", :placeholder => "issue ... " )%>
+                 
+               
+                    
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag("Send", :class => "btn btn-danger btn-sm pull-right") %>
+      </div>
+      <%end%>
+    </div>
+  </div>
+</div>

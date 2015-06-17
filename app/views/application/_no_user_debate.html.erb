@@ -19,15 +19,19 @@
 
   <div class="panel-heading">
     <div class ="debate-title">
-      <h3><%= d.topic_sentence %></h3>
+      <h3>
+        <%= d.topic_sentence %>
+      </h3>
+
       <div class = "text-debate-info">
         <span>Posted On</span> - <span><%= d.created_at%></span> 
       </div>
       <hr>
     </div>
-    <div class="debate-content text-description">
-      <p><%= d.description%></p>
 
+    <div class="debate-content text-description">
+
+      <p><%= d.description%></p>
 
     </div>
   </div>
@@ -36,7 +40,7 @@
 
   <div class = "panel-body">
     
-    <% if debate_strand.debate_participations.empty?%>
+    <% if debate_strand.get_debaters.empty?%>
     <div class = "no-debaters-notice-container">
      <div class = "no-debaters-notice">
       <%= "No participants yet" %>

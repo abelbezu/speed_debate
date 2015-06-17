@@ -5,6 +5,7 @@ custom = function () {
     /**
     *
     */
+    
     var navListItems = $('div.setup-panel div a'),
             allWells = $('.setup-content'),
             allNextBtn = $('.nextBtn');
@@ -184,15 +185,7 @@ $('.goto_debate_btn').click(function(){
 
 
 update_page = function() {
-    if($("#creator-left").size() > 0)
-    {
-        $("#creator-left").remove();
-    }
-    if($("#creator-right").size() > 0)
-    {
-        $("#creator-right").remove();
-    }
-   
+    
 }
 
 
