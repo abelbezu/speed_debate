@@ -12,7 +12,7 @@ class AjaxCallsController < ApplicationController
 			end
 		end 
 
-			j render(:partial => "topics/partials/user_bars", :locals => {:debates => @debates})
+	    j render(:partial => "topics/partials/user_bars", :locals => {:debates => @debates})
 		
 	end
 	def make_tester

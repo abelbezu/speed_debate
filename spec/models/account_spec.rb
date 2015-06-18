@@ -96,9 +96,9 @@ RSpec.describe Account, type: :model do
     debate = build(:debate)
     debate.save
     user = create(:account)
-    debate.register_participant(user.id, "left")
+    debate.register_participant(user.id, "left_side")
 
-    expect(user.get_side debate.id).to eq("left")
+    expect(user.get_side debate.id).to eq("left_side")
 
     
   end
@@ -114,7 +114,7 @@ RSpec.describe Account, type: :model do
     expect(user.get_debates).to be_empty 
 
     #if the user is registered to users, fetch them all
-    debate_1.register_participant(user.id, "left")
+    debate_1.register_participant(user.id, "left_side")
     debate_2.register_participant(user.id, "right_side")
     debate_3.register_participant(user.id, "left_side")
 

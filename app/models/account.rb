@@ -142,6 +142,14 @@ class Account < ActiveRecord::Base
 		
 	end 
 
+	def is_in_debate debate_id
+		return Debate.find(debate_id).has_debater self.id
+	end
+	def is_in_topic topic_id
+		involvment = Topic.find(topic_id).get_user_involvment_number self.id 
+		return (involvment > 0)
+	end
+
 	 
 
 

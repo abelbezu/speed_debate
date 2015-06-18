@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
 	def create
 		if Report.create!({:account_id => current_user.id,  :page => params[:report][:page], :issue => params[:report][:issue]})
 		
-			flash[:notice] = "Report sent"
+			notify_user current_user.id, "Your report is recorded. Thanks for your feedback "
 		else 
 		end
 	end 

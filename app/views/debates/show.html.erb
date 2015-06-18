@@ -45,7 +45,7 @@
              <!-- if the user is a debater, check whose turn it is and render the input box -->
              <% if @debate.get_turn == 'left_side'|| @debate.get_turn == 'both'%>
                
-                <% if current_user.get_side(@debate.id) == 'left'|| @debate.get_turn == 'both'%>
+                <% if current_user.get_side(@debate.id) == 'left_side'|| @debate.get_turn == 'both'%>
                      
                     <%= render(
                         :partial => 'posts/partials/left_post', 
@@ -55,7 +55,7 @@
 
               <% elsif @debate.get_turn == 'right_side'|| @debate.get_turn == 'both'%>
               
-                <% if current_user.get_side(@debate.id) == 'right'|| @debate.get_turn == 'both'%>
+                <% if current_user.get_side(@debate.id) == 'right_side'|| @debate.get_turn == 'both'%>
 
                     <%= render(
                         :partial => 'posts/partials/right_post', 

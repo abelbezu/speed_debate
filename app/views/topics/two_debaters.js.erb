@@ -1,0 +1,5 @@
+<% publish_to @path do %>
+	$("[debate-id = <%= @debate.id%>]").remove()
+	$("#sides_container").after("<%= j render(:partial => 'topics/partials/two_users', :locals => {:debate => @debate}) %>");
+<% end %>
+     

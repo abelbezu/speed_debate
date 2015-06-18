@@ -21,7 +21,7 @@
         <div class = "debate_poster_right col-xs-12 col-md-4 debater-right">
             <%= image_tag("default.png", size: "100x100", :class => "debater-left-pic")%>
 
-            <div class = "text-name" style ="float:right;"> <span> &nbsp;<%=debate.get_right_debater.display_name%></span></div>
+            <div class = "text-name" style ="oat:right;"> <span> &nbsp;<%=debate.get_right_debater.display_name%></span></div>
 
             <div style = "clear:both"></div>
            <%= debate.get_right%>
@@ -43,3 +43,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+ $(".two_user_container").click(function(){
+    
+    window.location.href = "<%= root_url%>" + "debates/"+$(this).attr("debate-id");
+});
+</script>

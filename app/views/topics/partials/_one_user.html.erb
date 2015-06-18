@@ -1,5 +1,5 @@
 
-<div class="panel  panel-default panel-main">
+<div debate-id =<%= debate.id%> class="panel  panel-default panel-main">
 <div class="panel-body">
     <div class = "row">
 
@@ -43,12 +43,12 @@
         </div>
     </div>
 </div>
-
+<%unless current_user.is_in_debate debate.id%>
 <div class="panel-footer">
-    <div style ="height: 30px;" id = "join_opposite_side_button" debate-id = <%= debate.id%> class = "topic_button  col-xs-12 col-md-12">
+    <div style ="height: 30px;" id = "join_opposite_side_button" debate-id = <%= debate.id%> class = "join_opposite_side_button topic_button  col-xs-12 col-md-12">
         Join the Opposite Side
     </div>
     <div style = "clear:both"></div>
     
 </div>
-
+<%end%>

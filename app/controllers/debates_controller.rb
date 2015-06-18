@@ -56,15 +56,34 @@ class DebatesController < ApplicationController
 		if params[:debate_id] == "-1"
 			debate = Debate.create!(:topic_id => params[:topic_id])
 			debate.register_participant(session[:user_id], params[:side])
-			j render(:partial => "topics/partials/one_user", :locals => {:debates => ""})
+			
+			respond_to do |format|
+					@debate = debate
+					@path = topic_path(debate.get_topic)
+					format.js {render "topics/one_debater.js.erb", status: :ok}
+			end
 		else
 			debate = Debate.find(params[:debate_id])
 			if debate.get_debaters.count == 1
 				debate.join_free_side session[:user_id]
-				j render(:partial => "topics/partials/two_users", :locals => {:debate => debate})
+				respond_to do |format|
+					@debate = debate
+
+					@path = topic_path(debate.get_topic)
+					format.js {render "topics/two_debaters.js.erb", status: :ok}
+					name = current_user.display_name
+					topic = debate.get_topic.topic_sentence
+					notify_user (debate.get_opposite_user current_user).id, "#{name} is your opponent in #{topic}"	
+				end
 			else
 				if debate.register_participant(session[:user_id], params[:side])
-					j render(:partial => "topics/partials/two_users", :locals => {:debate => debate})
+					notify_user current_user.id, "hey"
+					respond_to do |format|
+						@path = topic_path(debate.get_topic)
+						@debate = debate
+						format.js {render "topics/two_debaters.js.erb", status: :ok}
+					end
+					
 				else
 					redirect_to(:controller => 'topics', :action => 'index')
 				end

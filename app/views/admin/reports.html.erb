@@ -10,7 +10,7 @@
 			<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
 			<% if Account.find(session[:user_id]).privilege == 'super'%>
         <li role="presentation" class="active"><%= link_to("Reports", {:action => 'reports'})%></li>
-        <li role="presentation">Admins</li>
+        <li role="presentation"><a>Admins</a></li>
       <%end%>
   		</ul>
 
@@ -23,8 +23,10 @@
 			<%@reports.each do |report|%>
 			<div class = "small_devider"></div>
 			<div class = "small_devider"></div>
+			<div style = "color: Black"> <strong><%= Account.find(report.account_id).first_name + " "+ Account.find(report.account_id).last_name%></strong></div>
 			<div class = "small_devider"></div>
 			on page: <%= report.page%> </br>
+			<div class = "small_devider"></div>
 			encountered: <%= report.issue%></br>
 			<div class = "small_devider"></div>
 			<hr>

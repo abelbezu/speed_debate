@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  
   private
 	def confirm_logged_in
 		unless session[:user_id]
@@ -57,6 +56,14 @@ class ApplicationController < ActionController::Base
 		end
 	end 
 
+	def notify_user account_id, message
+		
+			message = message
+			path = account_path(Account.find(account_id))
+
+			PrivatePub.publish_to("#{path}", "notification_box.notify(1000, 5000, '#{message}')")
+		
+	end
 
 	def partial_copy(main_hash_input, list_of_fields)
 		return_hash = Hash.new

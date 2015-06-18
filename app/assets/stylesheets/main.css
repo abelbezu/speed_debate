@@ -27,3 +27,15 @@
 	margin-top: 15px;
 	padding-left: 55px;
 }
+.instant_notification_box{
+	height: 100px;
+	width: 400px;
+	background: rgba(10,10,10, 0.9);
+	-webkit-box-shadow: 0 0 10px black;
+	-moz-box-shadow: 0 0 10px black;
+	border-radius: 10px;
+	color: white;
+	padding: 15px;
+  font-family: monospace;
+  font-weight: 700;
+}

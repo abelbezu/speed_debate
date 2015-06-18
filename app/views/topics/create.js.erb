@@ -1,0 +1,5 @@
+<% publish_to "/topics/main" do %>
+	
+	$("#topic_creater_box_outer_container").after("<%= j render(:partial => 'topics/partials/topic_index', :locals => {:topic => @topic}) %>");
+<% end %>
+     

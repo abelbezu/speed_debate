@@ -6,7 +6,7 @@ class Content < ActiveRecord::Base
 
 	scope :comment, lambda{where(:type => "comment")} #returns a comment
 	scope :post, lambda{where(:type => "post")} # returns a post
-
+ 	validates_presence_of :content_body
 	# a method to organize comments may be needed
 
 

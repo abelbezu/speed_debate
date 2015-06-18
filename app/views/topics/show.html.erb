@@ -41,8 +41,10 @@
 
 </div>
 </div>
+<%= subscribe_to topic_path(@topic) %>
 <script type="text/javascript">
-    $("#join_opposite_side_button").click(function(){
+
+    $(".join_opposite_side_button").click(function(){
         clicked = this;
     
       var t = new AjaxHandler("none", "http://localhost:3000/debates/create_participation", "POST", {debate_id: $(clicked).attr("debate-id")} ,update_topic_show);
@@ -50,8 +52,5 @@
     
   });
 
-    $(".two_user_container").click(function(){
-    
-    window.location.href = "<%= root_url%>" + "debates/"+$(this).attr("debate-id");
-});
+   
 </script>

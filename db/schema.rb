@@ -128,9 +128,9 @@ ActiveRecord::Schema.define(version: 20150617165439) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start_time", default: '2015-06-11 19:44:55', null: false
+    t.datetime "start_time", default: '2015-06-18 19:12:30', null: false
     t.datetime "pos"
-    t.datetime "end_time",   default: '2015-06-18 19:44:55', null: false
+    t.datetime "end_time",   default: '2015-06-25 19:12:30', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -141,9 +141,9 @@ ActiveRecord::Schema.define(version: 20150617165439) do
   create_table "topics", force: true do |t|
     t.integer  "account_id"
     t.string   "topic_sentence",   default: "Debate Topic", null: false
-    t.string   "description"
-    t.string   "left_side_topic",  default: "I Agree"
-    t.string   "right_side_topic", default: "I Disagree"
+    t.text     "description"
+    t.string   "left_side_topic",  default: "For"
+    t.string   "right_side_topic", default: "Against"
     t.string   "category"
     t.string   "tags"
     t.datetime "created_at"

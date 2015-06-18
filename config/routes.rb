@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
  
   # get 'access/index'
-  resources :topics, :posts, :debates
+  resources :topics, :posts, :debates, :accounts
   # get 'access/login'
   match 'auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]
   match 'auth/failure', to: redirect('/') , :via => [:get, :post]

@@ -26,18 +26,18 @@ var TransformableTextInput = function(main_element_id, add_on_id){
 	@param String style_to_add - a css style class name to be added to the main_element.
 	*/
 	this.transform_on_focus = function(style_to_remove, style_to_add){
-		_this = this;
+		_transformable_text_input = this;
 		this.main_element.focus(function(){
-		_this.transform(style_to_remove, style_to_add);
-		_this.show_add_on();
+		_transformable_text_input.transform(style_to_remove, style_to_add);
+		_transformable_text_input.show_add_on();
 		});
 	}
 
 	this.transform_on_click = function(style_to_remove, style_to_add){
-		_this = this;
+		_transformable_text_input = this;
 		this.main_element.focus(function(){
-		_this.transform(style_to_remove, style_to_add);
-		_this.show_add_on();
+		_transformable_text_input.transform(style_to_remove, style_to_add);
+		_transformable_text_input.show_add_on();
 		});
 	}
 
@@ -46,10 +46,10 @@ var TransformableTextInput = function(main_element_id, add_on_id){
 	@param String style_to_add - a css style class name to be added to the main_element.
 	*/
 	this.transform_on_focus_out = function(style_to_remove, style_to_add){
-		_this = this;
+		_transformable_text_input = this;
 		this.main_element.focusout(function(){
-		_this.transform(style_to_remove, style_to_add);
-		_this.hide_add_on();
+		_transformable_text_input.transform(style_to_remove, style_to_add);
+		_transformable_text_input.hide_add_on();
 		});
 	}
 

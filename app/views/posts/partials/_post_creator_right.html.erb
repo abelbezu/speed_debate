@@ -31,7 +31,7 @@
             <%= f.fields_for :content_attributes do |o|%>
             <div class = "reply-box">
               <div id = "reply_container" class="form-group">    
-               <%= o.text_area(:content_body, :rows => '3',:class => 'reply-text-area form-control', :placeholder => "Your Response", :id => "post_input_box") %>
+               <%= o.text_area(:content_body, :rows => '3',:class => 'reply-text-area form-control', :placeholder => "Your turn", :id => "post_input_box") %>
                <div id = "message_box">
                </div>
              </div> 
@@ -66,5 +66,10 @@
 <script type="text/javascript">
 var t = new TextInput("post_input_box");
 
-t.enter_submitable("post_input_form", "post_submit_btn", "reply_container", "", "");
+t.enter_submitable("post_input_form", "post_submit_btn", "reply_container", "", "", "push");
+var creator = new CharacterCounter("post_input_box", "message_box", 500);
+  approaching_msg = "You are about to exceed the character limit. Please keep the topic concise";
+  exceeded_msg = "You've exceeded the character limit. Still have more to say? Please add it in the Description"
+  c.notifiable(20, approaching_msg, exceeded_msg);
+
 </script>

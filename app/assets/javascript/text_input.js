@@ -2,14 +2,16 @@ var TextInput = function(element_id){
 	this.element = $('#'+element_id);
 
 	/*makes the text input submitable by clicking enter */
-	this.enter_submitable = function(form_id, submit_button_id, reply_container ,time_box, smoothness){
-		_this = this;
+	this.enter_submitable = function(form_id, submit_button_id, reply_container ,time_box, smoothness, push_up){
+		_topic_input = this;
 		this.element.keypress(function(e){
 			if(e.which == 13){
 				e.preventDefault();
 				$("#"+form_id).submit();
 				console.log("submitted");
-				_this.push_up(submit_button_id, reply_container ,time_box, smoothness)
+				if(push_up == "push"){
+				_topic_input.push_up(submit_button_id, reply_container ,time_box, smoothness)
+			 }
 			}
 		});
 	};

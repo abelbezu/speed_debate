@@ -1,9 +1,9 @@
- <%= form_for(:topic, :role => "form", :html => {:id => "topic_creator_form"}) do |f| %>
-	<div class="panel panel-default">
+ <%= form_for(:topic, remote: true, :role => "form", :html => {:id => "topic_creator_form"}) do |f| %>
+	<div id = "topic_creater_box_outer_container" class="panel panel-default">
 		<div class="panel-body">
 
 			
-			 <%= f.text_area(:topic_sentence, :id => "topic_input_box", :class => "topic_input_text_area borderless_input_box topic_input_retracted form-control", :placeholder => "", :rows => "3")%>
+			 <%= f.text_area(:topic_sentence, :id => "topic_input_box", :class => "topic_input_text_area borderless_input_box topic_input_retracted form-control", :placeholder => "your own topic ...", :rows => "3")%>
 			<div id = "topic_input_message_box">
 			</div>
 
@@ -74,5 +74,10 @@
 
 		$("#").toggleClass("hidden");
 	});
+
+
+	var t = new TextInput("topic_input_box");
+
+	t.enter_submitable("topic_input_box", "submit_topic_button", "", "", "", "");
 
 	</script>

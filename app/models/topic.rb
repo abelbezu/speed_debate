@@ -24,6 +24,33 @@ class Topic < ActiveRecord::Base
 		return Account.find(self.account_id)
 	end 
 
+	#returns a list of debates under this topic in which a user is participating
+	def get_user_involvment_number account_id
+		count = 0
+		self.debates.each do |debate|
+			if debate.has_debater account_id
+				count+=1
+			end
+
+		end
+		return count
+
+	end
+
+	#returns a list of users on the given side of the topic
+	def get_users_on_side side
+		debates = []
+		self.debates.each do |debate|
+			puts debate.side_taken
+			if debate.side_taken == side
+
+				debates << debate
+				debates
+			end
+		end 
+		return debates
+	end
+
 	
 
 

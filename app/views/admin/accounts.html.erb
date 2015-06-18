@@ -10,7 +10,7 @@
 			<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
 			<% if Account.find(session[:user_id]).privilege == 'super'%>
         <li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
-        <li role="presentation">Admins</li>
+        <li role="presentation"><a>Admins</a></li>
       <%end%>
   		</ul>
 

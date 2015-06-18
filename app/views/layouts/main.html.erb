@@ -17,5 +17,10 @@
 
 <%= yield %>
 <%= render(:partial => "report") %>
+<%= render(:partial => "notification_box") %>
 </body>
+
+<script type="text/javascript">
+var notification_box = new NotificationBox("test_notification", 20, 20)
+</script>
 </html>

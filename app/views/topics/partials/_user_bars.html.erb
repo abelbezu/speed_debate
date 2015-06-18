@@ -4,7 +4,7 @@
 <%else%>
 <% @debates.each do |debate|%>
 <li>
-
+	<%unless current_user.is_in_debate debate.id%>
 	<div class "small_devider" ></div>
 	<div class="opposite_users" debate-id = <%= debate.id%>>
 		<div class="col-md-2 poster_bar_left">
@@ -17,7 +17,7 @@
 			</div>
 			<div class="post-box-profile-info-container">
 				<div class="post-box-profile-info">
-					<span class="profile-info-name">Test Left</span>
+					<span class="profile-info-name"><%=debate.get_debaters.first.display_name%></span>
 					<span class="profile-info-meta">A few seconds ago</span>
 				</div>
 				<div class="profile-info-description">
@@ -33,7 +33,7 @@
 </div>
 </div>
 
-
+<%end%>
 </li>
 <%end%>
 <%end%>

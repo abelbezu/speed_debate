@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require custom.js
 //= require sync
+//= require notify
 //= require timer
 //= require text_input
 //= require ajax_caller

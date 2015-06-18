@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
 
 	def show		
 		@topic = Topic.find(params[:id])
+		
 	end
 
 	def edit
@@ -36,8 +37,7 @@ class TopicsController < ApplicationController
 		@topic.debates.build
 		if @topic.save
   			 			
-  			redirect_to(:action => 'index')
-  			flash[:notice] = "--success--"
+  			@topic
   		else 
   			flash[:notice] = topic_params
   			redirect_to(:action => 'index')
@@ -57,6 +57,8 @@ class TopicsController < ApplicationController
 	end 
 	
 	private
+
+
 		def topic_params
 
 			params[:topic][:account_id] = session[:user_id].to_i

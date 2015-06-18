@@ -9,8 +9,8 @@
       <div class="modal-body">
         <%= form_for(:report, url: {:controller => "reports", :action =>"create"}, :remote => "true", :role => "form") do |f| %>
                 
-
-                  <%= f.text_field(:page, :class => "form-control", :placeholder => "page or navigation")%>
+                  Page or Navigation
+                  <%= f.text_field(:page, :class => "form-control", :value => request.original_url)%>
                   <div class = "small_devider"> </div>
                   <div class = "small_devider"> </div>
                   <div class = "small_devider"> </div>
@@ -21,9 +21,15 @@
                     
       </div>
       <div class="modal-footer">
-        <%= submit_tag("Send", :class => "btn btn-danger btn-sm pull-right") %>
+        <%= submit_tag("Send", :class => "btn btn-danger btn-sm pull-right", :id => "send_report_btn") %>
+
       </div>
       <%end%>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+$("#send_report_btn").click(function(){
+  $('#report_modal').modal('toggle');
+});
+</script>

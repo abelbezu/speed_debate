@@ -31,22 +31,29 @@ RSpec.describe Debate, type: :model do
       debate = build(:debate)
       debate.save
 
-      debate.register_participant user.id, "right"
+      debate.register_participant user.id, "right_side"
       expect(debate.get_right_debater).to eq(user)
 
       #register left participant
       user_2 = build(:account)
       user_2.save
       
-      debate.register_participant user_2.id, "left"
+      debate.register_participant user_2.id, "left_side"
       expect(debate.get_left_debater).to eq(user_2)
 
       #register right participant, where a participant already exists
       user_3 = build(:account)
       user_3.save
       
-      expect{debate.register_participant user_3.id, "right"}.to raise_error(RuntimeError)
+      expect{debate.register_participant user_3.id, "right_side"}.to raise_error(RuntimeError)
+
+      #register the same praticipant to both sides
+      user_4 = build(:account)
+      user_4.save
+      debate_2 = create!(:debate)
       
+      expect{debate_2.register_participant user_4.id, "right_side"}
+      expect{debate_2.register_participant user_4.id, "left_side"}.to raise_error(RuntimeError)
     end
   
     it "checks if the debate is full" do

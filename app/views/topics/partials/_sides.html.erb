@@ -3,8 +3,13 @@
     <div class ="debate-title">
       <h3>Pick a side and join!</h3>
       
-    </div>
+      <% if current_user.is_in_topic @topic.id%>
+      <div class = "text-debate-info">
+        <span>You are part of <%= @topic.get_user_involvment_number current_user.id%> debates under this topic</span>
+      </div>
+      <%end%>
     <hr>
+    </div>
     <div class = "debate_choice">
       <div id = "choice_1" picked = "false">
         <span class = "choice_label glyphicon glyphicon-unchecked"></span>

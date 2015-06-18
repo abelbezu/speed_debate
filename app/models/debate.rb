@@ -113,15 +113,15 @@ class Debate < ActiveRecord::Base
 			proper_side = "left_side"
 			if self.get_left_debater != nil
 				raise "Side already taken"
-			# elsif self.get_right_debater.id == account_id
-			# 	raise "Account already registered"
+		    elsif (self.get_debaters.count ==1 && self.get_right_debater.id == account_id)
+			    raise "Account already registered"
 			end 
 		elsif side == "right" or side == "right_side"
 			proper_side = "right_side"
 			if self.get_right_debater != nil
 				raise "Side already taken"
-			# elsif self.get_left_debater.id == account_id
-			# 	raise "Account already registered"
+			elsif (self.get_debaters.count ==1 && self.get_left_debater.id == account_id)
+				raise "Account already registered"
 			end 
 			
 		end
@@ -171,6 +171,29 @@ class Debate < ActiveRecord::Base
 			return self.register_participant(account_id, self.side_free)
 		end
 	end
+
+	def has_debater account_id
+		return ((self.get_left_debater == Account.find(account_id)) || (self.get_right_debater == Account.find(account_id)))
+	end
+
+	def get_topic
+		return Topic.find(self.topic_id)
+	end
+
+	def get_opposite_user user
+		unless self.get_debaters.count == 2
+			return "none"
+		else 
+			self.get_debaters.each do |debater|
+				if debater != user
+					return debater
+				end
+			end
+		end
+		return "none"
+
+	end
+
 
 end
  
