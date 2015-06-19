@@ -58,7 +58,7 @@
     $("#join_opposite_side_button_<%= debate.id%>").click(function(){
         clicked = this;
         console.log(clicked);
-      var t = new AjaxHandler("none", "http://localhost:3000/debates/create_participation", "POST", {debate_id: $(clicked).attr("debate-id")} ,update_topic_show);
+      var t = new AjaxHandler("none", "<%= root_url%>"+"debates/create_participation", "POST", {debate_id: $(clicked).attr("debate-id")} ,update_topic_show);
       t.make_call();
     
   });
