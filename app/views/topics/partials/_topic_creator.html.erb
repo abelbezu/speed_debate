@@ -1,83 +1,86 @@
  <%= form_for(:topic, remote: true, :role => "form", :html => {:id => "topic_creator_form"}) do |f| %>
-	<div id = "topic_creater_box_outer_container" class="panel panel-default">
-		<div class="panel-body">
-
-			
-			 <%= f.text_area(:topic_sentence, :id => "topic_input_box", :class => "topic_input_text_area borderless_input_box topic_input_retracted form-control", :placeholder => "your own topic ...", :rows => "3")%>
-			<div id = "topic_input_message_box">
-			</div>
-
-			<div id = "topic_description_wrapper" class = "hidden">
-				<div class = "small_devider"></div>
-				<div class = "small_devider"></div>
-				<div class = "small_devider"></div>
-				<span class = "info_text">Description: </span>
-				<!-- <textarea class = "borderless_input_box form-control" rows = "3" placeholder = "More about your topic ... "> </textarea> -->
-				<%= f.text_area(:description, :class => "borderless_input_box form-control", :placeholder => "More about your topic ... ", :rows => "3" )%>
-			</div>
-			<div id = "topic_input_message_box">
-			</div>
-
-			<div id = "side_choices_wrapper" class = "hidden">
-				<div class = "small_devider"></div>
-				<div class = "small_devider"></div>
-				<div class = "small_devider"></div>
-				<span class = "info_text">Debates usually have two opposing sides. Here we've set them to "For" and "Against" by default. Change them.</span>
-				
-				<%= f.text_field(:left_side_topic, :class => "borderless_input_box form-control", :placeholder => "For",:value => "For")%>
-				<div class = "small_devider"></div>
-				<%= f.text_field(:right_side_topic, :class => "borderless_input_box form-control", :placeholder => "Against", :value => "Against")%>
-			</div>
-
-		</div>
+ <div id = "topic_creater_box_outer_container" class="panel panel-default">
+ 	<div class="panel-body">
 
 
+ 		<%= f.text_area(:topic_sentence, :id => "topic_input_box", :class => "topic_input_text_area borderless_input_box topic_input_retracted form-control", :placeholder => "your own topic ...", :rows => "3")%>
+ 		<div id = "topic_input_message_box">
+ 		</div>
+
+ 		<div id = "topic_description_wrapper" class = "hidden">
+ 			<div class = "small_devider"></div>
+ 			<div class = "small_devider"></div>
+ 			<div class = "small_devider"></div>
+ 			<span class = "info_text">Description: </span>
+ 			<!-- <textarea class = "borderless_input_box form-control" rows = "3" placeholder = "More about your topic ... "> </textarea> -->
+ 			<%= f.text_area(:description, :class => "borderless_input_box form-control", :placeholder => "More about your topic ... ", :rows => "3" )%>
+ 		</div>
+ 		<div id = "topic_input_message_box">
+ 		</div>
+
+ 		<div id = "side_choices_wrapper" class = "hidden">
+ 			<div class = "small_devider"></div>
+ 			<div class = "small_devider"></div>
+ 			<div class = "small_devider"></div>
+ 			<span class = "info_text">Debates usually have two opposing sides. Here we've set them to "For" and "Against" by default. Change them.</span>
+
+ 			<%= f.text_field(:left_side_topic, :class => "borderless_input_box form-control", :placeholder => "For",:value => "For")%>
+ 			<div class = "small_devider"></div>
+ 			<%= f.text_field(:right_side_topic, :class => "borderless_input_box form-control", :placeholder => "Against", :value => "Against")%>
+ 		</div>
+
+ 	</div>
 
 
 
-		<div id = "topic_input_footer" class="hidden panel-footer">
-			<div style ="height: 30px;" id = "reveal_description_button" class = "topic_button topic_create_split_left col-xs-12 col-md-4">
-				Add Description
-			</div>
-			<div id = "reveal_sides_button"style ="height: 30px;" class = "topic_button topic_create_split_middle col-xs-12 col-md-4">
-				Add Sides
-			</div>
-			
-				<%= submit_tag("Submit", :id => "submit_topic_button", :style => "border: 0px solid transparent; background: transparent; height: 30px;", :class => "topic_button topic_create_split_right col-xs-12 col-md-4")%>
-			
-			
-			<div style = "clear:both">
-			</div>
-		</div>
-	</div>
-
-<%end%>
-
-	<script type="text/javascript">
-	var box = new TransformableTextInput("topic_input_box", "topic_input_footer");
-	box.transform_on_focus("topic_input_retracted", "");
-	var c = new CharacterCounter("topic_input_box", "topic_input_message_box", 100);
-	approaching_msg = "You are about to exceed the character limit. Please keep the topic concise";
-	exceeded_msg = "You've exceeded the character limit. Still have more to say? Please add it in the Description"
-	c.notifiable(10, approaching_msg, exceeded_msg);
-
-	$("#reveal_description_button").click(function(){
-
-		$("#topic_description_wrapper").toggleClass("hidden");
-	});
-	$("#reveal_sides_button").click(function(){
-
-		$("#side_choices_wrapper").toggleClass("hidden");
-	});
-
-	$("#submit_topic_button").click(function(){
-
-		$("#").toggleClass("hidden");
-	});
 
 
-	var t = new TextInput("topic_input_box");
+ 	<div id = "topic_input_footer" class="hidden panel-footer">
+ 		<div style ="height: 30px;" id = "reveal_description_button" class = "topic_button topic_create_split_left col-xs-12 col-md-4">
+ 			Add Description
+ 		</div>
+ 		<div id = "reveal_sides_button"style ="height: 30px;" class = "topic_button topic_create_split_middle col-xs-12 col-md-4">
+ 			Add Sides
+ 		</div>
 
-	t.enter_submitable("topic_input_box", "submit_topic_button", "", "", "", "");
+ 		<%= submit_tag("Submit", :id => "submit_topic_button", :style => "border: 0px solid transparent; background: transparent; height: 30px;", :class => "topic_button topic_create_split_right col-xs-12 col-md-4")%>
 
-	</script>
+
+ 		<div style = "clear:both">
+ 		</div>
+ 	</div>
+ </div>
+
+ <%end%>
+
+ <script type="text/javascript">
+ var box = new TransformableTextInput("topic_input_box", "topic_input_footer");
+ box.transform_on_focus("topic_input_retracted", "");
+ var c = new CharacterCounter("topic_input_box", "topic_input_message_box", 100);
+ approaching_msg = "You are about to exceed the character limit. Please keep the topic concise";
+ exceeded_msg = "You've exceeded the character limit. Still have more to say? Please add it in the Description"
+ c.notifiable(10, approaching_msg, exceeded_msg);
+
+ $("#reveal_description_button").click(function(){
+
+ 	$("#topic_description_wrapper").toggleClass("hidden");
+ });
+ $("#reveal_sides_button").click(function(){
+
+ 	$("#side_choices_wrapper").toggleClass("hidden");
+ });
+
+ $("#submit_topic_button").click(function(){
+
+ 	$("#").toggleClass("hidden");
+ });
+
+
+ var t = new TextInput("topic_input_box");
+
+ t.enter_submitable("topic_input_box", "submit_topic_button", "", "", "", "");
+
+ 
+
+
+ </script>

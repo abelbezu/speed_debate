@@ -64,6 +64,7 @@ class ApplicationController < ActionController::Base
 			PrivatePub.publish_to("#{path}", "notification_box.notify(1000, 5000, '#{message}')")
 		
 	end
+	
 
 	def partial_copy(main_hash_input, list_of_fields)
 		return_hash = Hash.new

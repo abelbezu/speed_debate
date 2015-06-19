@@ -30,10 +30,3 @@
     </div>
 </div>
 <%= subscribe_to "/topics/main" %>
-<script type="text/javascript">
-$(".topic_index_pannel").click(function(){
-    console.log()
-    window.location.href = "<%= root_url%>" + "topics/"+$(this).attr("topic-id");
-});
-
-</script>

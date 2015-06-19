@@ -28,7 +28,7 @@
 	var t = new TextInput("post_input_box");
 	t.enter_submitable("post_input_form", "post_submit_btn", "reply_container", "", "");
 	$(".post_panel").last().attr("temporary", "true");
-	var creator = new CharacterCounter("post_input_box", "message_box", 500);
+	var creator = new CharacterCounter("post_input_box", "message_box", 750);
   approaching_msg = "You are about to exceed the character limit. Please keep your post below 500 characters";
   exceeded_msg = "You've exceeded the character limit!"
   creator.notifiable(20, approaching_msg, exceeded_msg);

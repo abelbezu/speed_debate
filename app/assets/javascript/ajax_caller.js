@@ -13,7 +13,7 @@ var AjaxHandler = function(clicked_id, url, method, data_to_send, callback){
       url: url,
       data: _this_ajax_handler.sent_data,
       success: function(data){
-        console.log(data);
+        
         callback(data);
 
       }

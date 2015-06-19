@@ -90,7 +90,4 @@ class Timer < ActiveRecord::Base
 		return self.pos
 	end
 
-
-
-
 end

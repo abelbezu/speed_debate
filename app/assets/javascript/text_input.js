@@ -8,7 +8,7 @@ var TextInput = function(element_id){
 			if(e.which == 13){
 				e.preventDefault();
 				$("#"+form_id).submit();
-				console.log("submitted");
+				_topic_input.element.val(" ");
 				if(push_up == "push"){
 				_topic_input.push_up(submit_button_id, reply_container ,time_box, smoothness)
 			 }

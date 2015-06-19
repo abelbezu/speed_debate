@@ -7,13 +7,19 @@
 	$('#main_content_wrapper').append(
 		"<%= escape_javascript render(:partial => @argument.get_side == 'left_side' ? 'posts/partials/left_post': 'posts/partials/right_post', :locals =>{:argument=>@argument, :box_type => 'post', :debate => ''}) %>"
 		);
+	<% unless @argument.get_debate.is_over 5%>
 	if($('#user_id_holder').attr('user-side') == <%= @side %>  ){
 	
-	console.log("<%= @argument.get_debate%>");
+	
 	$('#main_content_wrapper').append(
 		"<%= escape_javascript render(:partial => @argument.get_debate.get_turn == 'left_side' ? 'posts/partials/left_post': 'posts/partials/right_post' , :locals =>{:argument => @argument, :box_type => 'input', :debate => @argument.get_debate})%>");
 	$('.profile-info-name').last().text($('#user_name_holder').attr('user-name'));
 	}
+  	<% else %>
+  	$("#status_label").html("<span class='label label-danger'>Over</span>");
+  	
+  	<%end %>
 	window.scrollBy(0, 500);
+	
 <% end %>
      

@@ -16,7 +16,7 @@ class Topic < ActiveRecord::Base
 	validates_presence_of :account_id
 	validates_presence_of :left_side_topic
 	validates_presence_of :right_side_topic
-
+	validates_length_of :topic_sentence, :within => 5..50
 	# unwanted validation. Look again
 	#validates_presence_of :description
 	# returns the creator of this topic

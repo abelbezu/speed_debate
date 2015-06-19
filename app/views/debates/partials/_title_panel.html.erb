@@ -1,5 +1,35 @@
-<div class="panel panel-default" style = "background-color: rgb(250,250,250); font-size: 25px; border-color: rgb(250,250,250);">
-	<div>
-		<%= Topic.find(Debate.find(debate_id).topic_id).topic_sentence%>
+<div topic-id="1" class="topic_index_pannel panel panel-default panel-main">
+	<!-- a dropdown menu of currently unknown purpose -->
+	
+	<div class="panel-heading">
+		<div class="debate-title">
+			<h3><%= debate.get_topic.topic_sentence%></h3>
+			<div class="text-debate-info">
+				<span>Posted On</span> - <span>Jun 27, 2014</span> 
+			</div>
+			<hr>
+		</div>
+		<div class="debate-content text-description">
+			<p>
+				<span>Between  - </span>&nbsp;&nbsp;&nbsp;<strong><%= debate.get_left_debater.display_name%></strong> &nbsp;&nbsp;&nbsp;and &nbsp;&nbsp;&nbsp;<strong> <%= debate.get_right_debater.display_name%>&nbsp;&nbsp;&nbsp;</strong>
+				<span id = "status_label">
+					<% unless (debate.is_over 5) %>
+						<span class="label label-success">On going</span>
+					<% else %>
+						<span class="label label-danger">Over</span>
+					<%end%> 
+
+
+			</p>
+
+
+		</div>
 	</div>
+
+	<!-- stuff like debaters and their positions -->
+
+	
+	<!-- stuff like social box  -->
+	
+							
 </div>

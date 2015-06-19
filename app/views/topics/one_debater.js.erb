@@ -1,5 +1,12 @@
 <% publish_to @path do %>
-	$("[debate-id = <%= @debate.id%>]").remove()
-	$("#sides_container").after("<%= j render(:partial => 'topics/partials/one_user', :locals => {:debate => @debate}) %>");
+	$("[debate-id = <%= @debate.id%>]").remove();
+	$("#sides_container").after("<%= j render(:partial => 'topics/partials/one_user_temp', :locals => {:debate => @debate}) %>");
+	if(current_user_id() != "<%=@debate.get_debaters.first.id%>")
+	{
+		console.log("temp_one_user_container_<%= @debate.id%>");
+		console.log($("#temp_one_user_container_<%= @debate.id%>"));
+		$("#temp_one_user_container_<%= @debate.id%>").removeClass("hidden");
+	}
+
 <% end %>
      

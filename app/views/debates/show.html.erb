@@ -5,8 +5,8 @@
     </div>
 
     <!-- determine the side and set the user-side -->
-    <% check_side = DebateParticipation.find_by_account_id(session[:user_id]).side %>
-    <div id = "user_id_holder" user-side = <%= check_side == nil ? "neither" : check_side %>> </div>
+    
+    <div id = "user_id_holder" user-side = <%= current_user.get_side @debate.id %>> </div>
     
     <!-- determine the name of the user and set the user-name  -->
     <div id = "user_name_holder" 
@@ -17,7 +17,13 @@
 
 
     <div class="col-md-6 col-sm-8">
-
+      <!-- Try including the topic of this debate -->
+      <div>
+         <%= render(
+                        :partial => 'debates/partials/title_panel', 
+                        :locals =>{:debate => @debate})
+                    %>
+      </div>
       <!-- the main content goes here -->
       <ul class = "main_content_wrapper" id = "main_content_wrapper">
         <!-- if the role of this user in this debate is not a debater and 
@@ -40,7 +46,7 @@
             <%end%>
              <% end %>
 
-              
+              <% unless @debate.is_over 4%>
              <% if current_user.get_role(@debate.id) == "debater"%>  
              <!-- if the user is a debater, check whose turn it is and render the input box -->
              <% if @debate.get_turn == 'left_side'|| @debate.get_turn == 'both'%>
@@ -62,6 +68,7 @@
                         :locals =>{:argument=> "", :box_type => "input", :debate => @debate})
                     %>
                 <% end %>              
+              <% end %>
               <% end %>
               <% end %>
               <%= subscribe_to debate_path(@debate) %>

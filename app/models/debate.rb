@@ -53,7 +53,7 @@ class Debate < ActiveRecord::Base
 			return "both"
 		else
 			current_side = DebateParticipation.find_by_account_id_and_debate_id(self.posts.last.account_id,self.id).side
-			next_side = current_side == "left_side" ? "right_side" : "left_side"
+			next_side = (current_side == "left_side" ? "right_side" : "left_side")
 			
 			return next_side
 		end
@@ -194,6 +194,30 @@ class Debate < ActiveRecord::Base
 
 	end
 
+	def left_posts
+		lefts = []
+		self.posts.each do |post|
+			if post.get_side == "left_side"
+				lefts << post
+			end
+		end 
+		return lefts
+	end
+
+	def right_posts
+		lefts = []
+		self.posts.each do |post|
+			if post.get_side == "right_side"
+				lefts << post
+			end
+		end 
+		return lefts
+
+	end
+	
+	def is_over bnf_limit
+		return self.left_posts.count >= bnf_limit && self.right_posts.count >= bnf_limit
+	end
 
 end
  

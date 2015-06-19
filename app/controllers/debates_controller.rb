@@ -73,7 +73,8 @@ class DebatesController < ApplicationController
 					format.js {render "topics/two_debaters.js.erb", status: :ok}
 					name = current_user.display_name
 					topic = debate.get_topic.topic_sentence
-					notify_user (debate.get_opposite_user current_user).id, "#{name} is your opponent in #{topic}"	
+					new_t = topic.gsub("'"){"\\'"}
+					notify_user (debate.get_opposite_user current_user).id, "#{name} is your opponent in: #{new_t}"	
 				end
 			else
 				if debate.register_participant(session[:user_id], params[:side])

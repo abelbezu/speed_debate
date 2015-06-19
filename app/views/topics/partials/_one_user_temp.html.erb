@@ -43,15 +43,14 @@
         </div>
     </div>
 </div>
-<%unless current_user.is_in_debate debate.id%>
-<div class="panel-footer">
-    <div style ="height: 30px;" id = "join_opposite_side_button_<%= debate.id%>" debate-id = <%= debate.id%> class = "join_opposite_side_button topic_button  col-xs-12 col-md-12">
+
+<div id = "temp_one_user_container_<%= debate.id%>" class="hidden panel-footer">
+    <div style ="height: 30px;" id = "join_opposite_side_button__<%= debate.id%>" debate-id = <%= debate.id%> class = "join_opposite_side_button topic_button  col-xs-12 col-md-12">
         Join the Opposite Side
     </div>
     <div style = "clear:both"></div>
     
 </div>
-<%end%>
 
 <script type="text/javascript">
 
