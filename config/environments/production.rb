@@ -74,13 +74,19 @@ config.i18n.fallbacks = true
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.delivery_method = :smtp
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.delivery_method = :smtp #should definitely be smtp
   config.action_mailer.smtp_settings = {
     :address        => 'smtp.gmail.com',
     :domain         => 'localhost:3000',
-    :port           => 587,
-    :user_name      => 'abelbezu2@gmail.com',
+    :port           => 587, #fine with or without quotes
+    :user_name      => 'abelbezu2@gmail.com', #working version contained @gmail
     :password       => 'ethiopia00',
     :authentication => :plain
   }
+
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.perform_deliveries = true
+config.action_mailer.default_options = {from: 'abelbezu2@gmail.com'}
 end
