@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
 
 	  		
   		else 
-  			flash[:notice] = "Couldn't create comment, Please try again"
+  			
   			redirect_to(:controller => 'topic', :action => 'index')
 
 
@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
 	private
 		
 		def comment_params
-			params[:comment][:account_id] = session[:user_id].to_i
+			params[:comment][:account_id] = current_account.id
 			params.require(:comment).permit(:account_id, :main_comment_id, :post_id, content_attributes: [:content_body])
 		end 
 end

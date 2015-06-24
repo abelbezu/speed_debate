@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
 	layout "main"
 
-	before_action :confirm_admin, :except => [:login]
+	before_action :confirm_admin
 	before_action :confirm_super_admin, :only => [:create_admin]
 	@page_title = 'Admin'
 	def index
@@ -23,9 +23,7 @@ class AdminController < ApplicationController
 		@reports = Report.all
 	end 
 
-	def login
-		
-	end
+	
 
 		def create_admin
 			@account = Account.new(account_params)

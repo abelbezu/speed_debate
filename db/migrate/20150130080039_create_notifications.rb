@@ -6,6 +6,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer "sender_type"
       t.text "message"
       t.boolean "checked", default: false
+      t.string "url"
       t.timestamps
 
      

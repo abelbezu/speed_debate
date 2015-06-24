@@ -6,9 +6,8 @@
 			<li role="presentation"><%= link_to("Home", {:action => 'index'},)%></li>
 			<li role="presentation"><%= link_to("Debates", {:action => 'debates'},)%></li>
 			<li role="presentation" class="active"><%= link_to("Accounts", {:action => 'accounts'},)%></li>
-			
 			<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
-			<% if Account.find(session[:user_id]).privilege == 'super'%>
+			<% if current_account.privilege == 'super'%>
         <li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
         <li role="presentation"><a>Admins</a></li>
       <%end%>

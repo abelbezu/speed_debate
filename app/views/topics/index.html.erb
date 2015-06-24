@@ -10,7 +10,7 @@
         <!-- main content area -->
         <div id = "main-content-container" class = " col-md-6">
             <ul>
-                <% if session[:logged_in]%>
+                <% if account_signed_in?%>
                 <li>
                     <%= render(:partial => "topics/partials/topic_creator") %>
                 </li>

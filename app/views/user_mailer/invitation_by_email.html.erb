@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Invitation</h1>
+    <p>
+      <%= @sender.display_name%> invited you to join him on the debate:  <%= link_to @topic.topic_sentence, topic_url(@topic)%>
+
+      <br>
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>

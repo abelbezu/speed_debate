@@ -4,7 +4,7 @@
 <%else%>
 <% @debates.each do |debate|%>
 <li>
-	<%unless current_user.is_in_debate debate.id%>
+	<%unless current_account.is_in_debate debate.id%>
 	<div class "small_devider" ></div>
 	<div class="opposite_users" debate-id = <%= debate.id%>>
 		<div class="col-md-2 poster_bar_left">

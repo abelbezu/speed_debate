@@ -3,7 +3,7 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string 'first_name', :limit => 50
       t.string 'last_name', :limit => 50
-      t.string 'email', :null => false, default: "defalut_email@toucan.com"
+      t.string 'email', :null => false, default: ""
       t.string 'gender'
       t.string 'password'
       t.string "oauth_token"

@@ -11,24 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617165439) do
+ActiveRecord::Schema.define(version: 20150623040354) do
 
   create_table "accounts", force: true do |t|
-    t.string   "first_name",       limit: 50
-    t.string   "last_name",        limit: 50
-    t.string   "email",                       default: "defalut_email@toucan.com", null: false
+    t.string   "first_name",             limit: 50
+    t.string   "last_name",              limit: 50
+    t.string   "email",                             default: "",     null: false
     t.string   "gender"
     t.string   "oauth_token"
     t.string   "provider"
     t.string   "refresh_token"
     t.datetime "oauth_expires_at"
-    t.string   "display_name",     limit: 50
+    t.string   "display_name",           limit: 50
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
-    t.string   "privilege",                   default: "user"
+    t.string   "privilege",                         default: "user"
     t.string   "channel_key"
+    t.string   "encrypted_password",                default: "",     null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                     default: 0,      null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "uid",                    limit: 8
   end
+
+  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
+  add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "account_id"
@@ -103,6 +120,7 @@ ActiveRecord::Schema.define(version: 20150617165439) do
     t.integer  "sender_type"
     t.text     "message"
     t.boolean  "checked",     default: false
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -128,9 +146,9 @@ ActiveRecord::Schema.define(version: 20150617165439) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start_time", default: '2015-06-18 20:04:39', null: false
+    t.datetime "start_time", default: '2015-06-24 03:04:23', null: false
     t.datetime "pos"
-    t.datetime "end_time",   default: '2015-06-25 20:04:39', null: false
+    t.datetime "end_time",   default: '2015-07-01 03:04:23', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"

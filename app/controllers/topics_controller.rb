@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
 
 	layout "main"
-	before_action :confirm_logged_in, :only => [:show]
+	before_action :authenticate_account!, :only => [:show]
 	def index
 		@topics = Topic.all
 	end
@@ -61,7 +61,7 @@ class TopicsController < ApplicationController
 
 		def topic_params
 
-			params[:topic][:account_id] = session[:user_id].to_i
+			params[:topic][:account_id] = current_account.id
 			params.require(:topic).permit(:account_id, :topic_sentence, :description, :left_side_topic, :right_side_topic)
 		end
 

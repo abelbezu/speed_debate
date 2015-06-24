@@ -1,11 +1,15 @@
 class Account < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook]
 	include OnlineStatus
 
 
 	#definition: a user
 	before_create :generate_channel_key
 	
-	has_secure_password
+	
 
 	has_many :topics #refers to the topics the user creates 
 	has_many :debate_participations # refers to the user's participation in debates
@@ -15,6 +19,7 @@ class Account < ActiveRecord::Base
 	has_many :posts
 	has_many :images, as: :image_owner
 	has_one  :user_activity
+	has_many :notifications, :dependent => :destroy
 
 
 
@@ -37,8 +42,8 @@ class Account < ActiveRecord::Base
 						 :length => {:within => 8..32}
 
 	
-	scope :search, lambda{|query|
-		where(["first_name LIKE ?", "%#{query}%"])}
+	# scope :search, lambda{|query|
+	# 	where(["first_name LIKE ?", "%#{query}%"])}
 
     
 	# Creates a new user from an omniauth token
@@ -46,20 +51,25 @@ class Account < ActiveRecord::Base
 
 
 	def self.from_omniauth(auth)
-	  where(provider: auth.provider).first_or_initialize.tap do |user|
+	  where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
 	    user.provider = auth.provider
 	    user.first_name = auth.info.first_name
 	    user.last_name = auth.info.last_name
 	    user.email = auth.info.email
+	    user.uid = auth.uid
 	    user.display_name = auth.info.first_name
 	    user.images.first_or_initialize(:url => auth.info.image, :image_use => 'profile_pic')
 	    user.oauth_token = auth.credentials.token
 	    user.oauth_expires_at = Time.at(auth.credentials.expires_at)
 	    user.password = "$2a$10$oT656dk9lBHet1/t0dl3XOD"
+	    user.skip_confirmation! 
 	    user.save!
 	  end
 	end
 	
+	
+
+
 	# returns a facebook handle for this user Used to perform some open graph operations
 	# @return Koala object facebook
 	def facebook
@@ -116,7 +126,7 @@ class Account < ActiveRecord::Base
 
 	
 	# methods for getting a list of users that are online
-	def self.online
+	def self.online_users
 		online_users = []
 		Account.all.each do |x|
 			if x.online?
@@ -124,6 +134,10 @@ class Account < ActiveRecord::Base
 			end
 		end
 	end 
+
+	def online?
+		return false
+	end
 
 	def self.cache_all_users_to_redis
 		
@@ -141,6 +155,10 @@ class Account < ActiveRecord::Base
 		return user.update_attribute(:privilege,"tester")
 		
 	end 
+	
+	def get_unread_notifications 
+		return self.notifications.unread
+	end
 
 	def is_in_debate debate_id
 		return Debate.find(debate_id).has_debater self.id
@@ -149,8 +167,23 @@ class Account < ActiveRecord::Base
 		involvment = Topic.find(topic_id).get_user_involvment_number self.id 
 		return (involvment > 0)
 	end
+	
+	def get_first_four_unread_notifications
+		return self.notifications.newest_first[0..3]
+	end
 
 	 
+	def self.new_with_session(params, session)
+		if session["devise.account_attributes"]
+			new(session["devise.account_attributes"], without_protection: true) do |user|
+				user.attributes = params
+				user.valid?
+			end
+		else
+			super
+		end
+
+	end
 
 
 end

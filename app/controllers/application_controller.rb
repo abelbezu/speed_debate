@@ -2,28 +2,29 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :configure_permitted_parameters, if: :devise_controller?
   private
-	def confirm_logged_in
-		unless session[:user_id]
-			flash[:notice] = "Please log in."
-			redirect_to(:controller => 'access', :action => "login")
-			return false
-		else 
-			return true
+	  protected
+
+		def configure_permitted_parameters
+		  devise_parameter_sanitizer.for(:sign_up) << :first_name
+		  devise_parameter_sanitizer.for(:sign_up) << :last_name
+		  devise_parameter_sanitizer.for(:sign_up) << :display_name
+		   devise_parameter_sanitizer.for(:sign_up) << :uid
+		  devise_parameter_sanitizer.for(:sign_up) << :oauth_token
+		  devise_parameter_sanitizer.for(:sign_up) << :provider
+		  
+		  
 		end
-	end 
-	
-	
 
-
+	#unknown purpose, for now
 	def store_return_to
   		session[:return_to] = request.url
 	end
 
 	def confirm_admin
-		unless is_admin
-			flash[:notice] = "Please log in."
-			redirect_to(:controller => 'admin', :action => "login")
+		unless is_admin			
+			redirect_to(:controller => 'topics', :action => "index")
 			return false
 		else 
 			return true
@@ -31,36 +32,40 @@ class ApplicationController < ActionController::Base
 	end
 
 	def is_admin
-		if session[:logged_in]
-			return  Account.find(session[:user_id]).privilege == 'admin' || Account.find(session[:user_id]).privilege == 'super'
+		if account_signed_in?
+			return  current_account.privilege == 'admin' || current_account.privilege == 'super'
 		else
 			return false
 		end
 	end
 
 	def is_super_admin
-		if session[:logged_in]
-			return Account.find(session[:user_id]).privilege == 'super'
+		if account_signed_in?
+			return current_account.privilege == 'super'
 		else
 			return false
 		end
 	end
 	
 	def confirm_super_admin
-		unless :is_super_admin
-			flash[:notice] = "Please log in."
-			
+		unless is_super_admin
+						
 			return false
 		else 
 			return true
 		end
 	end 
 
-	def notify_user account_id, message
-		
+	def notify_user account_id, sender_id, sender_type ,message, url
+			#send 
+			Notification.create!(:account_id => account_id, 
+							 :sender_id => sender_id, 
+							 :sender_type => sender_type, 
+							 :message => message,
+							 :url => url,
+							 :checked => false)
 			message = message
 			path = account_path(Account.find(account_id))
-
 			PrivatePub.publish_to("#{path}", "notification_box.notify(1000, 5000, '#{message}')")
 		
 	end
@@ -80,40 +85,23 @@ class ApplicationController < ActionController::Base
 		redirect_to(:controller => 'topics', :action => "real_test")
 	end 
 
-	USER_CHANNEL_KEY = 'user_channel_key'
+	# USER_CHANNEL_KEY = 'user_channel_key'
 
-    def after_sign_in_path_for(resource)
-      if resource.is_a? User
-        set_user_channel_cookie
-      end
-      super
-    end
+ #    def after_sign_in_path_for(resource)
+ #      if resource.is_a? Account
+ #        set_user_channel_cookie
+ #      end
+ #      super
+ #    end
 
-    def after_sign_out_path_for(resource)
-      if resource.is_a? User
-        clear_user_channel_cookie
-      end
-      super
-    end
+ #    def after_sign_out_path_for(resource)
+ #      if resource.is_a? User
+ #        clear_user_channel_cookie
+ #      end
+ #      super
+ #    end
 
+  
 	
-	private
-
-		def current_user
-		  @current_user ||= Account.find(session[:user_id]) if session[:user_id]
-		end
-		helper_method :current_user
-
-   
-	    def set_user_channel_cookie
-	      key = current_user.channel_key
-	      WebsocketRails[key].make_private
-	      cookies[USER_CHANNEL_KEY] = {:value => key,
-	                                     :expires => 30.days.from_now }
-	    end
-
-	    def clear_user_channel_cookie
-	      cookies.delete USER_CHANNEL_KEY
-	    end
-
+	
 end

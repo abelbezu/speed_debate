@@ -6,6 +6,7 @@
 		console.log("temp_one_user_container_<%= @debate.id%>");
 		console.log($("#temp_one_user_container_<%= @debate.id%>"));
 		$("#temp_one_user_container_<%= @debate.id%>").removeClass("hidden");
+		$("#join_opposite_side_button_<%= @debate.id%>").click(send_to_backend);
 	}
 
 <% end %>

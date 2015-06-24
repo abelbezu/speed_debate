@@ -9,7 +9,7 @@ class DebatesController < ApplicationController
 	
 
 
-	before_action :confirm_logged_in
+	before_action :authenticate_account!
 	
 	# functionality not decided yet
 	def index
@@ -55,7 +55,7 @@ class DebatesController < ApplicationController
 	def create_participation
 		if params[:debate_id] == "-1"
 			debate = Debate.create!(:topic_id => params[:topic_id])
-			debate.register_participant(session[:user_id], params[:side])
+			debate.register_participant(current_account.id, params[:side])
 			
 			respond_to do |format|
 					@debate = debate
@@ -65,20 +65,22 @@ class DebatesController < ApplicationController
 		else
 			debate = Debate.find(params[:debate_id])
 			if debate.get_debaters.count == 1
-				debate.join_free_side session[:user_id]
+				debate.join_free_side current_account.id
 				respond_to do |format|
 					@debate = debate
 
 					@path = topic_path(debate.get_topic)
 					format.js {render "topics/two_debaters.js.erb", status: :ok}
-					name = current_user.display_name
+					name = current_account.display_name
 					topic = debate.get_topic.topic_sentence
 					new_t = topic.gsub("'"){"\\'"}
-					notify_user (debate.get_opposite_user current_user).id, "#{name} is your opponent in: #{new_t}"	
+					#notify the other user
+					
+					notify_user (debate.get_opposite_user current_account).id, @debate.id, "debate", "#{name} is your opponent in: #{new_t}", topic_url(@debate.get_topic)	
 				end
 			else
-				if debate.register_participant(session[:user_id], params[:side])
-					notify_user current_user.id, "hey"
+				if debate.register_participant(current_account.id, params[:side])
+					
 					respond_to do |format|
 						@path = topic_path(debate.get_topic)
 						@debate = debate

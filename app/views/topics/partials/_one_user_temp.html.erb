@@ -53,8 +53,8 @@
 </div>
 
 <script type="text/javascript">
-
-    $("#join_opposite_side_button_<%= debate.id%>").click(function(){
+    
+    $(".join_opposite_side_button").click(function(){
         clicked = this;
         console.log(clicked);
       var t = new AjaxHandler("none", "<%= root_url%>"+"debates/create_participation", "POST", {debate_id: $(clicked).attr("debate-id")} ,update_topic_show);

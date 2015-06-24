@@ -6,11 +6,11 @@
 
     <!-- determine the side and set the user-side -->
     
-    <div id = "user_id_holder" user-side = <%= current_user.get_side @debate.id %>> </div>
+    <div id = "user_id_holder" user-side = <%= current_account.get_side @debate.id %>> </div>
     
     <!-- determine the name of the user and set the user-name  -->
     <div id = "user_name_holder" 
-        user-name = <%= Account.find(session[:user_id]).display_name%>
+        user-name = <%= Account.find(current_account).display_name%>
     > 
 
     </div>
@@ -29,7 +29,7 @@
         <!-- if the role of this user in this debate is not a debater and 
         the debate hasn't started indicate that the debate hasn't started yet,
         if the debate is started, list the posts in a row-->
-            <% if current_user.get_role(@debate.id) == "none" && @debate.posts.empty?%>
+            <% if current_account.get_role(@debate.id) == "none" && @debate.posts.empty?%>
               <div class="alert alert-info" role="alert">
                 The participants of this debate haven't said anything yet!
               </div>
@@ -46,12 +46,12 @@
             <%end%>
              <% end %>
 
-              <% unless @debate.is_over 4%>
-             <% if current_user.get_role(@debate.id) == "debater"%>  
+              <% unless @debate.is_over 5%>
+             <% if current_account.get_role(@debate.id) == "debater"%>  
              <!-- if the user is a debater, check whose turn it is and render the input box -->
              <% if @debate.get_turn == 'left_side'|| @debate.get_turn == 'both'%>
                
-                <% if current_user.get_side(@debate.id) == 'left_side'|| @debate.get_turn == 'both'%>
+                <% if current_account.get_side(@debate.id) == 'left_side'|| @debate.get_turn == 'both'%>
                      
                     <%= render(
                         :partial => 'posts/partials/left_post', 
@@ -61,7 +61,7 @@
 
               <% elsif @debate.get_turn == 'right_side'|| @debate.get_turn == 'both'%>
               
-                <% if current_user.get_side(@debate.id) == 'right_side'|| @debate.get_turn == 'both'%>
+                <% if current_account.get_side(@debate.id) == 'right_side'|| @debate.get_turn == 'both'%>
 
                     <%= render(
                         :partial => 'posts/partials/right_post', 

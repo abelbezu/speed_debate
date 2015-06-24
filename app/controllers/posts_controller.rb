@@ -25,7 +25,7 @@ class PostsController < ApplicationController
 	private
 		def post_params
 
-			params[:post][:account_id] = session[:user_id].to_i
+			params[:post][:account_id] = current_account.id
 			params.require(:post).permit(:account_id, :debate_id, content_attributes: [:content_body])
 
 		end

@@ -18,6 +18,7 @@
 //= require notify
 //= require timer
 //= require text_input
+//= require string_validator
 //= require ajax_caller
 //= require radio_buttons
 //= require transformable_text_input

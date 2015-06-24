@@ -19,22 +19,34 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li class="active"><%= link_to "Home", {controller: 'topics', action: 'index'}%></li>
-					<% if session[:logged_in] && current_user.is_tester%>
+					<% if account_signed_in? && current_account.is_tester%>
 					<li><a data-toggle="modal" data-target="#report_modal">Report Bug</a></li>
 					<%else%>
 					<%end%>
+					<%if account_signed_in?%>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Notifications <span class="caret"></span></a>
+						<% if current_account.get_unread_notifications.count == 0%>
+						<a href="#" id = "nav_notifications" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Notifications<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
+							
+							<% current_account.get_first_four_unread_notifications.each do |notification|%>
+							<li><div class = "notification_bar"> <a href="<%= notification.url%>"><%= notification.message%></a></div></li>
 							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-							<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
+							<%end%>
+							
+							
 						</ul>
+						<% else %>
+						<a href="#" id = "nav_notifications" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Notifications<span id = "notification_count">(<%=current_account.get_unread_notifications.count%>) </span><span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<% current_account.get_unread_notifications.each do |notification|%>
+							<li><div class = "notification_bar"> <a href="<%= notification.url%>"><%= notification.message%></a></div></li>
+							<li class="divider"></li>
+							<%end%>
+						</ul>
+						<% end%>
 					</li>
+					<%end%>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
@@ -43,20 +55,22 @@
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
-					<% unless session[:logged_in]%>
-
-					<li><%= link_to "Log In", {controller: 'access', action: 'login'}%></li>
+					<% unless account_signed_in?%>
+					<% link_to "Log In", {controller: 'access', action: 'login'}%>
+					
+					<li><%= link_to "Sign up", new_account_registration_path %></li>
+					<li><%= link_to "Sign in", new_account_session_path %></li>
 					<% else%>
-					<span id ="current_user_id_container_span" current-user-id = <%= current_user.id%>></span>
-					<%= subscribe_to account_path(current_user) %>
+					<span id ="current_user_id_container_span" current-user-id = <%= current_account.id%>></span>
+					<%= subscribe_to account_path(current_account) %>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= session[:name]%> <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_account.display_name%> <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#">Action</a></li>
 							<li><a href="#">Another action</a></li>
 							<li><a href="#">Something else here</a></li>
 							<li class="divider"></li>
-							<li><%= link_to "Log Out", {controller: 'access', action: 'logout'}%></li>
+							<li><%= link_to('Logout', destroy_account_session_path, :method => :delete) %></li>
 						</ul>
 					</li>
 					<% end %>
@@ -64,3 +78,16 @@
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>	
+	<script type="text/javascript">
+	function counter_remover(element){
+		console.log("reached");
+		$("#notification_count").remove();
+
+	}
+	var nav_updater = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/read_notifications", "POST", {}, counter_remover);
+	$("#nav_notifications").click(function(){
+		console.log("clicked");
+		 
+      		nav_updater.make_call();
+	});
+	</script>

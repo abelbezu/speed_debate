@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
  
+  devise_for :accounts, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   # get 'access/index'
   resources :topics, :posts, :debates, :accounts
   # get 'access/login'

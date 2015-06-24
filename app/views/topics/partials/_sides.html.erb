@@ -3,9 +3,9 @@
     <div class ="debate-title">
       <h3>Pick a side and join!</h3>
       
-      <% if current_user.is_in_topic @topic.id%>
+      <% if current_account.is_in_topic @topic.id%>
       <div class = "text-debate-info">
-        <span>You are part of <%= @topic.get_user_involvment_number current_user.id%> debates under this topic</span>
+        <span>You are part of <%= @topic.get_user_involvment_number current_account.id%> debates under this topic</span>
       </div>
       <%end%>
     <hr>
@@ -45,7 +45,7 @@
 
 
 <%= render(:partial => "topics/partials/users_modal", :locals => {:users => ""}) %>
-<%= render(:partial => "topics/partials/invitation_modal", :locals => {:users => ""}) %>           
+<%= render(:partial => "topics/partials/invitation_modal", :locals => {:topic => @topic}) %>           
 </div>
 
 <script type="text/javascript">

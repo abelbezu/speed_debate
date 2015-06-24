@@ -20,7 +20,7 @@
                   <% if box_type == "post" %>
                   <%= Account.find(argument.account_id).display_name%>
                   <%else%>
-                  <%= current_user.display_name%>
+                  <%= current_account.display_name%>
                   <% end %>
                 </span>
                 <span class = "profile-info-meta">
