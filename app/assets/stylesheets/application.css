@@ -13,6 +13,10 @@
  *= require_self
  *= require main
  *= require debate_custom
+ *= require bootstrap
+ *= require nav
+ *= require main
+ *= require comment
  *= require results
  *= require new_posts
  *= require font-awesome
