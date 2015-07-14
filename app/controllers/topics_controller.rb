@@ -18,7 +18,13 @@ class TopicsController < ApplicationController
 	
 
 	def update
-
+		puts params.inspect
+		@new_topic = Topic.find(params[:id])
+		if @new_topic.update(topic_params)
+	    	redirect_to(@new_topic)
+	    else 
+	    	redirect_to(:controller => "topics", :action => "index")
+	    end 
 	end 
 
 	def new
@@ -36,8 +42,8 @@ class TopicsController < ApplicationController
 
 		@topic.debates.build
 		if @topic.save
-  			 			
   			@topic
+  			redirect_to(:action => 'show', :id => @topic.id)
   		else 
   			flash[:notice] = topic_params
   			redirect_to(:action => 'index')
@@ -47,12 +53,11 @@ class TopicsController < ApplicationController
 	end
 	
 	def destroy
-		@topic_to_delete = Article.find(params[:id])
-		if @article_to_delete.destroy
-			flash[:notice] = "--success--"
-			redirect_to(:controller=> 'admin', :action => "articles")
+		@topic_to_delete = Topic.find(params[:id])
+		if @topic_to_delete.destroy
+			
 		else
-			redirect_to(:controller=> 'admin', :action => "stats_redirects")
+			
 		end
 	end 
 	
@@ -62,6 +67,7 @@ class TopicsController < ApplicationController
 		def topic_params
 
 			params[:topic][:account_id] = current_account.id
+			
 			params.require(:topic).permit(:account_id, :topic_sentence, :description, :left_side_topic, :right_side_topic)
 		end
 

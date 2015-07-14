@@ -16,6 +16,7 @@
 //= require custom.js
 //= require sync
 //= require notify
+//= require page_behaviours
 //= require timer
 //= require text_input
 //= require string_validator

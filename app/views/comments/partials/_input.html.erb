@@ -1,0 +1,21 @@
+<% comment_n = Comment.new %>
+<% content_n = comment_n.build_content %>
+	<%= form_for comment_n, remote: true do |comment|%>
+	<%= comment.hidden_field :post_id, value: argument.id %>
+	<div class = "row">
+		<div class = "col-md-12">
+			<%= comment.fields_for :content do |content| %>
+			<%= content.text_area :content_body, :class => "form-control comment_textarea", :placeholder => "say something ...", :style => "background-color: rgba(250,250,250, 0.2);", :rows => "3"%>
+			
+			<% end%>
+		</div>
+	</div>
+	<div class = "small_devider"></div>
+	<div class = "row">
+		<div class = "col-md-12">
+			<%= submit_tag "post", :class => "btn btn-primary comment_input_btn pull-right btn-sm" %>
+		</div>
+		<div class = "col-md-12">
+		</div>
+	</div>
+	<%end%>

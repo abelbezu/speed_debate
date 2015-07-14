@@ -1,16 +1,16 @@
 
 <div topic-id = <%= topic.id %> class="clickable_pannel topic_index_pannel panel panel-default panel-main">
 	<!-- a dropdown menu of currently unknown purpose -->
-	<div class="dropdown">
+	<div class="topic_index_dropdown dropdown">
 		<span class="dropdown-toggle" type="button" data-toggle="dropdown">
 			<span class="[ glyphicon glyphicon-chevron-down ]"></span>
 		</span>
 		<ul class="dropdown-menu" role="menu">
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+			<li class = "topic_index_dropdown_topic_edit" role="presentation"><a role="menuitem" tabindex="-1"><span class = " glyphicon glyphicon-pencil"> </span>  Edit</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class ="glyphicon glyphicon-lock"></span>  Only you and friends</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Another action</a></li>
 			<li role="presentation" class="divider"></li>
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class ="glyphicon glyphicon-trash"></span> Another action</a></li>
 		</ul>
 	</div>
 
@@ -51,10 +51,40 @@
 		</div>
 	</div>						
 </div>
+
 <script type="text/javascript">
+
+<% if current_account == topic.get_creator %>
+
+$(".topic_index_dropdown_topic_edit").click(function(){
+
+	$("#edit_topic_modal").modal('show');       
+});	
+
+
+
+<% end %>
+
+
+
 $(".topic_index_pannel").click(function(){
- 	
- 	window.location.href = "<%= root_url%>" + "topics/"+$(this).attr("topic-id");
- });
+
+	window.location.href = "<%= root_url%>" + "topics/"+$(this).attr("topic-id");
+
+});
 
 </script>
+
+<!-- Modal -->
+<div class="modal fade" id="edit_topic_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style = "border-bottom: none;">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+
+			<%= render partial: "topics/partials/edit_topic_box", :locals => {:topic => topic}%>
+
+		</div>
+	</div>
+</div>

@@ -219,5 +219,9 @@ class Debate < ActiveRecord::Base
 		return self.left_posts.count >= bnf_limit && self.right_posts.count >= bnf_limit
 	end
 
+	def posts_left bnf_limit
+		return 2*bnf_limit - (self.left_posts.count + self.right_posts.count) 
+	end
+
 end
  

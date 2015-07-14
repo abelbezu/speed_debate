@@ -24,4 +24,18 @@ var NotificationBox = function(element_id, from_right, from_top){
 
 	}
 
+	this.notify_under_nav = function(delay, wait_for, notification_box_message){
+		this.element.text(notification_box_message);
+		_notification_box = this;
+		var display = function() { 
+			_notification_box.element.removeClass("hidden");
+			
+		}
+		var remove  = function() {
+			_notification_box.element.addClass("hidden");
+		}
+		setTimeout(display, delay);
+		setTimeout(remove, (delay + wait_for));
+	}
+
 }

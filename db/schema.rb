@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623040354) do
+ActiveRecord::Schema.define(version: 20150629185531) do
+
+  create_table "account_details", force: true do |t|
+    t.integer  "account_id"
+    t.string   "occupation",  default: "Gladiator"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "accounts", force: true do |t|
     t.string   "first_name",             limit: 50
@@ -135,6 +143,18 @@ ActiveRecord::Schema.define(version: 20150623040354) do
   add_index "posts", ["account_id"], name: "index_posts_on_account_id", using: :btree
   add_index "posts", ["debate_id"], name: "index_posts_on_debate_id", using: :btree
 
+  create_table "relationships", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.string   "followed_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
+  add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
+  add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
   create_table "reports", force: true do |t|
     t.integer  "account_id"
     t.text     "issue"
@@ -146,9 +166,9 @@ ActiveRecord::Schema.define(version: 20150623040354) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start_time", default: '2015-06-24 03:04:23', null: false
+    t.datetime "start_time", default: '2015-06-29 19:40:21', null: false
     t.datetime "pos"
-    t.datetime "end_time",   default: '2015-07-01 03:04:23', null: false
+    t.datetime "end_time",   default: '2015-07-06 19:40:21', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"

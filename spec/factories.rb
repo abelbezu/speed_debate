@@ -1,4 +1,10 @@
-FactoryGirl.define do  factory :report do
+FactoryGirl.define do  factory :relationship do
+    
+  end
+  factory :account_detail, :class => 'AccountDetails' do
+    
+  end
+  factory :report do
     
   end
   

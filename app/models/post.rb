@@ -48,6 +48,14 @@ class Post < ActiveRecord::Base
 	def get_side
 		return DebateParticipation.find_by_account_id_and_debate_id(self.account_id, self.debate_id).side
 	end 
+
+	def get_jsonified_comments
+		comments_list = []
+		self.comments.each do |comment|
+			comments_list << comment.jsonify
+		end
+		return {comments: comments_list}.jsonify
+	end
 	
 
 end

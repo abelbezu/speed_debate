@@ -1,0 +1,119 @@
+
+// Place all the styles related to the books controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Red */
+$bgDefault      : #fff;
+$bgHighlight    : #fff;
+$colDefault     : #282828;
+$colHover       : #282828; 
+$bbColor        : #DFDFDF;
+$brandThemeColor: #FF0000;
+$lighter        : 48%;
+
+$navHeight      :40px;
+/* Green * /
+$bgDefault      : #2ecc71;
+$bgHighlight    : #27ae60;
+$colDefault     : #ecf0f1;
+$colHover       : #d1ffed; /*/
+/* Purple * /
+$bgDefault      : #9b59b6;
+$bgHighlight    : #8e44ad;
+$colDefault     : #ecf0f1;
+$colHover       : #ecdbff; /*/
+/* Orange * /
+$bgDefault      : #e67e22;
+$bgHighlight    : #d35400;
+$colDefault     : #ecf0f1;
+$colHover       : #ffe6d1; /*/
+
+
+/* --- Style --- */
+.navbar-default {
+    height: $navHeight;
+    border-radius: 0px;
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+    box-shadow: 0px 1px 5px $bbColor;
+    .navbar-brand {
+        color: $brandThemeColor;
+        font-weight: bolder;
+        &:hover, &:focus {
+            color: $brandThemeColor; }}
+    .navbar-nav {
+
+        > li {
+            > a {
+                height: $navHeight + 10;
+                color: $colDefault;
+                &:hover, &:focus {
+                    color: $colHover;   }}}
+        .active {
+            > a, > a:hover, > a:focus {
+                border-bottom: 4px solid $brandThemeColor;
+                color: $colHover;
+                background-color: $bgHighlight; }}
+        .open {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight;
+                .caret {
+                    border-top-color: $colHover;
+                    border-bottom-color: $colHover; }}}
+        > .dropdown {
+            > a {
+                .caret {
+                    border-top-color: $colDefault;
+                    border-bottom-color: $colDefault;
+                    background-color: $bgHighlight; }
+                &:hover, &:focus {
+                    .caret {
+                        border-top-color: $colHover;
+                        border-bottom-color: $colHover; }}}}}
+    .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+            background-color: $bgHighlight; }
+        .icon-bar {
+            background-color: $colDefault; }}}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover;
+            background-color: $bgHighlight; }}
+}
+
+#topic_input_footer{
+    background-color: lighten($brandThemeColor, $lighter);
+}
+
+.glyphicon-comment{
+    color: lighten($brandThemeColor, 30%);
+    cursor: pointer;
+    &:hover{
+        color: lighten($brandThemeColor, 20%);
+    }
+}
+.btn-circle {
+    background-color: $brandThemeColor;
+    border-color: $brandThemeColor;
+    &:hover {
+        background-color: lighten($brandThemeColor, 30%);
+    }
+}
+.social-box-stat{
+    background-color: lighten($brandThemeColor, $lighter);
+}
+
+.comment_container_main{
+    width: 900px;
+}
+
+.notification_bar{
+    > a{
+        color: $brandThemeColor;
+    }
+}

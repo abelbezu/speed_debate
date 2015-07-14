@@ -1,7 +1,7 @@
 <div class = "container-fluid">
   <div class = "row">
     <!-- Unknown purpose -->
-    <div class="col-md-3 col-sm-4 col-xs-0">
+    <div class="col-md-2 col-sm-4 col-xs-0">
     </div>
 
     <!-- determine the side and set the user-side -->
@@ -16,7 +16,8 @@
     </div>
 
 
-    <div class="col-md-6 col-sm-8">
+    <div class="col-md-8 col-sm-8">
+    
       <!-- Try including the topic of this debate -->
       <div>
          <%= render(
@@ -25,7 +26,7 @@
                     %>
       </div>
       <!-- the main content goes here -->
-      <ul class = "main_content_wrapper" id = "main_content_wrapper">
+      <ul class = "main_content_wrapper" style = "padding: 0px;" id = "main_content_wrapper">
         <!-- if the role of this user in this debate is not a debater and 
         the debate hasn't started indicate that the debate hasn't started yet,
         if the debate is started, list the posts in a row-->
@@ -36,17 +37,24 @@
             <% else  %>
 
             <% @debate.posts.each do |argument|%>
-             <%= render(
-                  :partial =>  argument.get_side == 'left_side' ? 
-                  'posts/partials/left_post': 
-                  'posts/partials/right_post' , 
-                  :locals =>{:argument=> argument, :box_type => "post", :debate => @debate}) 
+             <%= 
+               render(
+
+                    :partial =>  argument.get_side == 'left_side' ? 
+                    'posts/partials/left_post': 
+                    'posts/partials/right_post' , 
+                    :locals =>{
+                    :argument=> argument, 
+                    :box_type => "post", 
+                    :debate => @debate
+                    
+               }) 
              %> 
              
             <%end%>
              <% end %>
 
-              <% unless @debate.is_over 5%>
+            <% unless @debate.is_over 5%>
              <% if current_account.get_role(@debate.id) == "debater"%>  
              <!-- if the user is a debater, check whose turn it is and render the input box -->
              <% if @debate.get_turn == 'left_side'|| @debate.get_turn == 'both'%>
@@ -54,8 +62,15 @@
                 <% if current_account.get_side(@debate.id) == 'left_side'|| @debate.get_turn == 'both'%>
                      
                     <%= render(
+
                         :partial => 'posts/partials/left_post', 
-                        :locals =>{:argument=> "", :box_type => "input", :debate => @debate})
+                        :locals =>{
+
+                            :argument=> "", 
+                            :box_type => "input", 
+                            :debate => @debate
+                          
+                        })
                     %>
                 <% end %>
 
@@ -64,16 +79,42 @@
                 <% if current_account.get_side(@debate.id) == 'right_side'|| @debate.get_turn == 'both'%>
 
                     <%= render(
+                        
                         :partial => 'posts/partials/right_post', 
-                        :locals =>{:argument=> "", :box_type => "input", :debate => @debate})
+                        :locals =>{
+                          :argument=> "", 
+                          :box_type => "input", 
+                          :debate => @debate}
+                          )
+
                     %>
-                <% end %>              
-              <% end %>
-              <% end %>
-              <% end %>
+            <% end %>              
+            <% end %>
+            <% end %>
+            <% end %>
               <%= subscribe_to debate_path(@debate) %>
       </ul>
+      
     </div>
-    <div class="col-md-3 col-sm-0"></div>
+    <div class="col-md-2 col-sm-0">
+
+
+    </div>
   </div>
 </div>
+<script type="text/javascript">
+
+
+// var socket = io('http://localhost:5001/');
+// socket.on('are you present?', function(){ console.log("got message");
+//     socket.emit("user present flag", {id: 1});
+//   });
+
+// socket.on('online users', function(data){ 
+//     console.log(data);
+//   });
+
+</script>
+
+
+

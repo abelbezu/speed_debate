@@ -1,19 +1,11 @@
 class CommentsController < ApplicationController
-	
+	layout false
 	def create
-		@comment = Comment.new(comment_params)
-		if @comment.save	
+		comment = Comment.new(comment_params)
+		if comment.save	
   			flash[:notice] = "Comment successfully saved"
   			
-  			respond_to do |format|
-  				format.json  { render :json => {
-  							
-  								comment: @comment,
-  								content: @comment.content,
-  								account: Account.find(@comment.account_id)
-  							}
-  						}
-  			end
+  			@comment = comment
 
 	  		
   		else 
@@ -23,7 +15,7 @@ class CommentsController < ApplicationController
 
   		end
 		
-		@response = "hey there i heared you"
+		
 	end
 
 

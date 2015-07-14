@@ -8,12 +8,13 @@ class Account < ActiveRecord::Base
 
 	#definition: a user
 	before_create :generate_channel_key
-	
+	has_one :account_details, dependent: :destroy
 	
 
 	has_many :topics #refers to the topics the user creates 
 	has_many :debate_participations # refers to the user's participation in debates
 	has_many :debates, :through => :debate_participations
+
 
 	has_many :comments # A user will create many contents
 	has_many :posts
@@ -21,7 +22,18 @@ class Account < ActiveRecord::Base
 	has_one  :user_activity
 	has_many :notifications, :dependent => :destroy
 
+	# stuff about followers and following
+	has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id",
+                                  dependent: :destroy
 
+    has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+
+
+
+    has_many :following, through: :active_relationships, source: :followed
+    has_many :followers, through: :passive_relationships, source: :follower
 
 	EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
 
@@ -185,5 +197,46 @@ class Account < ActiveRecord::Base
 
 	end
 
+	def store_in_redis
+		user_data = {
+						'first_name' => self.first_name, 
+						'last_name' => self.last_name,
+						'display_name' => self.display_name,
+						'status' => 'offline',
+					}
+		
+		$redis.hset('online_users', self.id, user_data.to_json)
+	end
+
+	#follow a user
+	def follow(other_user)
+    	active_relationships.create(followed_id: other_user.id, followed_type: "account")
+  	end
+
+  	#Stop following a user
+  	def unfollow(other_user)
+    	active_relationships.find_by(followed_id: other_user.id).destroy
+  	end
+
+  	def following?(other_user)
+  		return self.following.include?(other_user)
+  	end
+
+  	def followed_by?(other_user)
+  		return self.followers.include?(other_user)
+  	end
+
+  	def get_occupation 
+  	    return self.account_details.occupation
+  	end
+
+  	def set_occupation (occupation)
+  		return self.update_attribute("occupation", occupation)
+
+  	end
+
+  	def get_self_description
+  		return self.account_details.description
+  	end
 
 end

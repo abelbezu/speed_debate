@@ -55,4 +55,12 @@ class AjaxCallsController < ApplicationController
 		end
 		render json: current_account.get_unread_notifications.first
 	end
+
+
+	def get_comments 
+		@comments = Post.find(params[:post_id]).comments
+		j render(:partial => "comments/partials/comments_list", :locals => {:comments => @comments})
+	end
+
+	
 end

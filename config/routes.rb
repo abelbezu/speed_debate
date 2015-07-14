@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   
  
   devise_for :accounts, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+
   # get 'access/index'
-  resources :topics, :posts, :debates, :accounts
+  resources :topics, :posts, :debates, :accounts, :comments
   # get 'access/login'
   match 'auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]
   match 'auth/failure', to: redirect('/') , :via => [:get, :post]

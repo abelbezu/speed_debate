@@ -184,11 +184,6 @@ $('.goto_debate_btn').click(function(){
 
 
 
-update_page = function() {
-    
-}
-
-
 $('.topic-container').focus(function(){
  unminify_topic_box();
 });
@@ -204,8 +199,7 @@ $(document).ready(function(){
 });
 
 $(document).on('page:load', function (){
-    custom();
-    
+    custom();    
 });
 
 

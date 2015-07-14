@@ -1,4 +1,4 @@
- <%= form_for(:topic, remote: true, :role => "form", :html => {:id => "topic_creator_form"}) do |f| %>
+ <%= form_for(:topic, :role => "form", :html => {:id => "topic_creator_form"}) do |f| %>
  <div id = "topic_creater_box_outer_container" class="panel panel-default">
  	<div class="panel-body">
 
@@ -55,7 +55,7 @@
 
  <script type="text/javascript">
  var box = new TransformableTextInput("topic_input_box", "topic_input_footer");
- box.transform_on_focus("topic_input_retracted", "");
+ box.transform_on_click("topic_input_retracted", "");
  var c = new CharacterCounter("topic_input_box", "topic_input_message_box", 100);
  approaching_msg = "You are about to exceed the character limit. Please keep the topic concise";
  exceeded_msg = "You've exceeded the character limit. Still have more to say? Please add it in the Description"
@@ -78,7 +78,7 @@
 
  var t = new TextInput("topic_input_box");
 
- t.enter_submitable("topic_input_box", "submit_topic_button", "", "", "", "");
+ //t.enter_submitable("topic_input_box", "submit_topic_button", "", "", "", "");
 
  
 

@@ -1,0 +1,31 @@
+
+<div id = "comment_for_post_<%= argument.id%>"  class="comments_container hidden" style = 'position: absolute;'>
+	<div class="col-md-12">
+		
+		<section class="comment-list">
+			<div class = "comment_container_main">
+				<div class = "row">
+		<div class = "col-md-6">
+			<header class = "comment_title">
+				Comment
+			</header>
+		</div>
+		<div class = "col-md-6">
+			<span id = "" class = "comment_container_close glyphicon glyphicon-remove pull-right"></span>
+		</div>
+	</div>
+			<!-- First Comment -->
+			<%= render partial: "comments/partials/input", locals: {argument: argument} %>
+			<div id = "spinner_container_<%= argument.id%>" class = "spinner_container">
+				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+				<div>
+					Loading ...
+				</div>
+			</div>
+			
+			
+			
+		</div>
+		</section>
+	</div>
+</div>

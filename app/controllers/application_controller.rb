@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 		  
 		end
 
+
+
 	#unknown purpose, for now
 	def store_return_to
   		session[:return_to] = request.url
@@ -67,9 +69,10 @@ class ApplicationController < ActionController::Base
 			message = message
 			path = account_path(Account.find(account_id))
 			PrivatePub.publish_to("#{path}", "notification_box.notify(1000, 5000, '#{message}')")
-		
+			
 	end
 	
+
 
 	def partial_copy(main_hash_input, list_of_fields)
 		return_hash = Hash.new
@@ -85,21 +88,7 @@ class ApplicationController < ActionController::Base
 		redirect_to(:controller => 'topics', :action => "real_test")
 	end 
 
-	# USER_CHANNEL_KEY = 'user_channel_key'
 
- #    def after_sign_in_path_for(resource)
- #      if resource.is_a? Account
- #        set_user_channel_cookie
- #      end
- #      super
- #    end
-
- #    def after_sign_out_path_for(resource)
- #      if resource.is_a? User
- #        clear_user_channel_cookie
- #      end
- #      super
- #    end
 
   
 	

@@ -1,0 +1,49 @@
+$brandThemeColor: #FF0000;
+.left_slid{
+	left: 0px;
+}
+.right_slid{
+	left: 115px;
+}
+.off_the_roof{
+  			position: absolute;
+  			top: -1000px;
+  		}
+.comment_container_main{
+  		background-color: rgba(240,240,240, 0.2);
+  		width: 100%;
+  		font-family: Lato;
+  		font-weight: bolder;
+  		padding: 10px;
+  		height: 600px;
+  		border: 1px solid rgb(220, 220, 220);
+  		overflow-y: scroll;
+  		textarea{
+  			overflow-y: sw-resize;
+  		}
+  		.comment_title{
+  			padding-top: 10px;
+  			padding-bottom: 10px;
+  		}
+
+  		.comment_content{
+  			font-weight: lighter;
+  		}
+  		.comment_input_btn{
+  			 background-color: lighten($brandThemeColor, 10%);
+  			 border-color: $brandThemeColor;
+  			 &:hover{
+  			 	background-color: lighten($brandThemeColor, 2%)
+  			 }
+  		}
+  		.spinner_container{
+  			color: $brandThemeColor;
+  			margin: 100px auto;
+  			text-align: center;
+  			.fa-spin{
+  			-webkit-animation: fa-spin 2s infinite linear;
+  			animation: fa-spin 2s infinite linear;
+  			}
+  		}
+
+  	}

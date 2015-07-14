@@ -58,4 +58,27 @@ var TransformableTextInput = function(main_element_id, add_on_id){
 		this.transform_on_focus_out(style_to_add, style_to_remove);
 
 	}
+
+	this.toggle_transform = function(focus_area, style_to_remove, style_to_add){
+		//takes a string param information_to_log
+			_transformable_text_input = this;
+			x = $("#"+focus_area);
+			x.click(function(){
+			    x.data('clicked', true);
+			    _transformable_text_input.transform_on_focus(style_to_remove, style_to_add); //forward process here 
+			});
+
+			$(window).click(function(){
+			  if(x.data('clicked') === true){
+			    
+			  }
+			  else{
+			    x.data('clicked', false);
+			    _transformable_text_input.transform_on_focus_out(style_to_add, style_to_remove); //reverse process here
+			    //console_log("x cleared, data set to false");
+			  }
+			  x.data('clicked', false);
+			});
+
+	}
 }
