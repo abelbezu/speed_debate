@@ -5,8 +5,9 @@
    <%= render partial: "admin/side_bar"%>
     <div><h2 class="add"></h2></div>
   </div>
-  <% Topic.all.each do |topic|%>
-  <div class="col-md-10 blogShort">
+  <div class = "col-md-10">
+  <% Topic.sort_for_home_page.each do |topic|%>
+  <div class="col-md-12 blogShort">
    <h1><%=  topic.topic_sentence %></h1>
    <img src="http://img1.gtsstatic.com/wallpapers/2405358514ea4c8f140537d7c3e90d3b_large.jpeg" alt="post img" width = "150" height = "150" class="pull-left img-responsive thumb margin10 img-thumbnail">
 
@@ -27,7 +28,7 @@
    
   </div>
   <% end %>
-
+ </div>
 
  <div class="col-md-12 gap10"></div>
 </div>

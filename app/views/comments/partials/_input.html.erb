@@ -5,7 +5,7 @@
 	<div class = "row">
 		<div class = "col-md-12">
 			<%= comment.fields_for :content do |content| %>
-			<%= content.text_area :content_body, :class => "form-control comment_textarea", :placeholder => "say something ...", :style => "background-color: rgba(250,250,250, 0.2);", :rows => "3", :cols => "5"%>
+			<%= content.text_area :content_body, :class => "form-control comment_textarea", :placeholder => "say something ...", :style => "background-color: rgba(250,250,250, 0.2);", :rows => "3", :cols => "20"%>
 			
 			<% end%>
 		</div>

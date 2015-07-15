@@ -1,15 +1,30 @@
 <!-- expects box_type, debate argument as inputs -->
 
+<% if box_type == "post" %>
 <li id = "post_box_<%= argument.id%>" class = "post_panel">
+<% else %>
+<li id = "post_box" class = "post_panel">
+<% end %>
+
+
+
   <div class = "row">
   <div class = "col-md-1">
-    <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+   <% if box_type == "post" %>
+           <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+           <%else%>
+        <span id = "comment_icon" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+       <%end%>
   </div>
   <div class = "col-md-10">
   <div class = "transformed_offset_left ">
   </div>
   <div  class = "slidable slidable_left col-md-10  timeable_test" style = "padding: 0px;">
-    <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel  panel-default">
+      <% if box_type == "post" %>
+        <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel  panel-default">
+        <%else%>
+        <div id = " " class="rounded-edges panel  panel-default">
+        <%end%>
       <div class="panel-body">
         <div class = "row">
 
@@ -89,6 +104,7 @@
   </div>
   </div>
 </li>
+<% if box_type == "post" %>
 <%= render partial: "comments/index", locals: {argument: argument} %>
 <script type="text/javascript">
 populate_comments = function(data){
@@ -114,7 +130,6 @@ populate_comments = function(data){
       hide_comment_icons();
       left_post_to_right();
       var c_left = $("#post_box_<%= argument.id%>").offset().left
-       var c_top = $("#post_box_1").offset().top
        scroll_position = document.body.scrollTop;
         if ( scroll_position <= 70 ){
           var c_top = 185;
@@ -133,3 +148,4 @@ populate_comments = function(data){
 
 
 </script>
+<%end %>

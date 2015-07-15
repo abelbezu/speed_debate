@@ -1,6 +1,10 @@
 <!-- expects box_type, debate argument as inputs -->
 
-<li  id = "post_box_<%= argument.id%>" class = "post_panel post-right">
+<% if box_type == "post" %>
+<li id = "post_box_<%= argument.id%>" class = "post_panel">
+<% else %>
+<li id = "post_box" class = "post_panel">
+<% end %>
   <div class = "row">
     <div class = "col-md-1">
 
@@ -11,7 +15,12 @@
           
         </div>
       <div  class = "slidable slidable_right col-md-10 timeable_test" style = "padding: 0px;">
-        <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel panel-default">
+        <% if box_type == "post" %>
+        <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel  panel-default">
+        <%else%>
+        <div id = " " class="rounded-edges panel  panel-default">
+        <%end%>
+
           <div class="panel-body">
             <div class = "row">
 
@@ -90,10 +99,16 @@
 
       </div>
       <div class = "col-md-1">
-        <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-left' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+       <% if box_type == "post" %>
+           <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-left' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+           <%else%>
+        <span id = "comment_icon" class = 'glyphicon glyphicon-comment pull-left' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+       <%end%>
+
       </div>
     </div>
   </li>
+  <%if box_type == "post" %>
 <%= render partial: "comments/index", locals: {argument: argument} %>
   <script type="text/javascript">
   populate_comments = function(data){
@@ -141,3 +156,4 @@
   });
 
   </script>
+<%end%>

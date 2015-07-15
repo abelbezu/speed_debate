@@ -84,6 +84,7 @@ get_selected_invitable_user_id = function(){
 
 after_invitation_callback = function(element){
   update_topic_show(element);
+  $("#prog_mod_div").addClass("hidden");
   $("#invitation_modal").toggle();
 }
   
