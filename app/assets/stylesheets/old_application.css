@@ -11,10 +11,8 @@
  * file per style scope.
  *
  *= require_self
- *= require bootstrap
  *= require main
  *= require debate_custom
- *= require main
  *= require results
  *= require new_posts
  *= require font-awesome

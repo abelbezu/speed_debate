@@ -51,7 +51,37 @@ class Topic < ActiveRecord::Base
 		return debates
 	end
 
+	def self.sort_for_home_page
+		sorted_topics = []
+		all_topics = Topic.all
+		all_topics.each do |topic|
+			if topic.has_finished_debate
+				sorted_topics << topic
+			end
+
+		end
+		all_topics.each do |topic|
+			unless sorted_topics.include? topic
+				sorted_topics << topic
+			end
+		end
+		return sorted_topics
+	end
 	
+	def is_involved account
+		return true
+	end
+
+	def has_finished_debate
+		self.debates.each do |debate|
+			if debate.is_over 5
+				return true
+			end
+
+		end
+		return false
+	end
+
 
 
 end

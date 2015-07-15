@@ -1,33 +1,34 @@
-<div class = "admin_index_main">
-<div class = "container">
-<div class = "row"> 
-  <div class = 'col-lg-2'>
-    <ul class="nav nav-pills nav-stacked">
-      <li role="presentation" class="active"><%= link_to("Home", {:action => 'index'},)%></li>
-      <li role="presentation"><%= link_to("Debates", {:action => 'debates'},)%></li>
-      <li role="presentation"><%= link_to("Accounts", {:action => 'accounts'},)%></li>
-      
-      <li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
-      <% if current_account.privilege == 'super'%>
-      
-        <li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
-        <li role="presentation"><a>Admins</a></li>
-      <%end%>
-      </ul>
+<div class="container">
+ <div id="blog" class="row"> 
 
+  <div class="col-sm-2 col-md-2 paddingTop20">
+   <%= render partial: "admin/side_bar"%>
+    <div><h2 class="add"></h2></div>
   </div>
+  <% Topic.all.each do |topic|%>
+  <div class="col-md-10 blogShort">
+   <h1><%=  topic.topic_sentence %></h1>
+   <img src="http://img1.gtsstatic.com/wallpapers/2405358514ea4c8f140537d7c3e90d3b_large.jpeg" alt="post img" width = "150" height = "150" class="pull-left img-responsive thumb margin10 img-thumbnail">
 
-  <div class = 'col-lg-10'>
-    <div class = "row">
-      <div class = "col-lg-12"></div>
-      <div class = "col-lg-12">
-      <div class="alert alert-info" role="alert"><strong>Page Views Today:</strong> 18,547</div>
-      <div class="alert alert-info" role="alert"><strong>Debates Created Today:</strong> 18,547</div>
-      <div class="alert alert-info" role="alert"><strong>Debates Updated Today:</strong> 18,547</div>
-      <div class="alert alert-danger" role="alert"><strong>404 Replies:</strong> 18,547</div>
-      </div>
-    </div>
+   <em>Created By: <%= link_to topic.get_creator.email, account_path(topic.get_creator)%>
+   <article><p>
+       <strong>Created On: </strong>&nbsp; <%=  topic.created_at %>
+       <br>
+       <strong>Updated On: </strong>&nbsp; <%=  topic.updated_at %>
+       <br>
+       <strong>Debates: </strong>&nbsp; <%=  topic.debates.count %>
+   </p></article>
+   <%= link_to "Debates",  :class => "btn btn-blog pull-right marginBottom10", action: "topic_debates", id: topic.id %>    
+  
+   
+   <%= link_to topic_path(topic), method: :delete, remote: true , :class => 'btn btn-danger btn-sm' do %>
+    <i class="fa fa-trash-o fa-sm"></i> Delete
+  <% end %>
+   
   </div>
-</div>
+  <% end %>
+
+
+ <div class="col-md-12 gap10"></div>
 </div>
 </div>

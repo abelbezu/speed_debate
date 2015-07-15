@@ -5,6 +5,6 @@ test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: "http://hungry:9988/faye"
-  secret_token: "3986a6637cfdcd24fcb9367f129c746a7546f7d80a04e4f74407374b1f58daad"
+  server: "http://hungry.media.mit.edu:9988/faye"
+  secret_token: "secret"
   signature_expiration: 3600 # one hour

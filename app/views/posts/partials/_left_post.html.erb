@@ -9,7 +9,7 @@
   <div class = "transformed_offset_left ">
   </div>
   <div  class = "slidable slidable_left col-md-10  timeable_test" style = "padding: 0px;">
-    <div class="rounded-edges panel  panel-default">
+    <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel  panel-default">
       <div class="panel-body">
         <div class = "row">
 
@@ -110,17 +110,23 @@ populate_comments = function(data){
       $(comment_icon).fadeOut('slow');
   });
   $("#comment_icon_<%= argument.id%>").click(function(){
+    $("#post_panel_<%= argument.id%>").addClass("glow_red");
       hide_comment_icons();
       left_post_to_right();
       var c_left = $("#post_box_<%= argument.id%>").offset().left
        var c_top = $("#post_box_1").offset().top
-
+       scroll_position = document.body.scrollTop;
+        if ( scroll_position <= 70 ){
+          var c_top = 185;
+        }
+        else {
+           var c_top =  scroll_position + 100;
+        }
      // calculate window height and set it
-      $("#comment_for_post_<%= argument.id%>").css({ "width" : "30%",
-                                              top: 185,
-                                    "margin-right": "5px",
-                                    "margin-left": "-100px"
-                                            });
+      $("#comment_for_post_<%= argument.id%>").css({ "width" : "30%;",
+                                                      top: c_top,
+                                                      left: "-90px"
+                                                  });
       $("#comment_for_post_<%= argument.id%>").removeClass("hidden");
       (new AjaxHandler("none","<%= root_url%>"+"ajax_calls/get_comments/","get", {post_id: "<%= argument.id%>"}, populate_comments)).make_call();//use rails way to find the url
   });

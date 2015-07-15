@@ -11,7 +11,8 @@
 				<%if @page_title == "Admin"%>
 				<a class="navbar-brand" href="#">Admin</a>
 				<%else%>
-				<a class="navbar-brand" href="#">Speed Debate</a>
+				<%= link_to "Speed Debate", {controller: 'topics', action: 'index'}, :class => "navbar-brand"%>
+				
 				<%end%>
 			</div>
 

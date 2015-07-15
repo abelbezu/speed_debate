@@ -1,0 +1,41 @@
+<div class="container">
+ <div id="blog" class="row"> 
+
+  <div class="col-sm-2 col-md-2 paddingTop20">
+   <%= render partial: "admin/side_bar"%>
+    <div><h2 class="add"></h2></div>
+  </div>
+  <div class="col-md-10 blogShort">
+  <h3><%= @debate.get_topic.topic_sentence%></h3>
+  <h4>
+    <%=  @debate.get_left_debater == nil ? "None": @debate.get_left_debater.email %>
+  </h4>
+       &nbsp;&nbsp;
+       VS
+       &nbsp;&nbsp;
+  <h4>   
+       <%=  @debate.get_right_debater == nil ? "None": @debate.get_right_debater.email %>
+       
+  </h4>
+  <br>
+  <% @debate.posts.each do |post|%>
+    <article>
+      <strong>posted by: </strong><%= post.get_user.email%>
+      <br>
+      <strong>posted on: </strong> <%= post.created_at%>
+      <br>
+      <strong>edited on: </strong> <%= post.updated_at%>
+      <br>
+      <br>
+      <p>
+         <%= post.content.content_body%>
+      </p>
+    </article>
+    <hr>
+  <% end %>
+  </div>
+
+
+ <div class="col-md-12 gap10"></div>
+</div>
+</div>

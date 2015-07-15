@@ -39,7 +39,14 @@ class DebatesController < ApplicationController
 	
 	end
 
-
+	def destroy
+		@debate_to_delete = Debate.find(params[:id])
+		if @debate_to_delete.destroy
+			
+		else
+			
+		end
+	end 
 
 
 	def create

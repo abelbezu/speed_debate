@@ -37,16 +37,22 @@
     </div>
   </div>
 <div style = " 
-                padding: 20px 170px;
+                text-align: center;
+                color: red;
+                padding-top: 100px;
                 position: absolute;
                 height: 319px;
                 width: 100%;
+                border-radius: 10px;
                 background-color: rgb(255,255,255);
                 z-index: 1005;
                 opacity: 0.7;" 
                 class = "hidden progress-div"
                 id = "prog_mod_div">
-<%= image_tag("loading.gif", :size => "250x250")%>
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+        <div>
+          Sending ...
+        </div>
 
 </div>
 </div>
@@ -86,6 +92,8 @@ var radio_form_for_invitable_users = new RadioList(prepare_invitable_user_list()
   var validator = new StringValidator()
 
   $("#send_invitation_button").click(function(){
+    curtain_height = $("#invitation_modal").find(".modal-content").height();
+    $("#prog_mod_div").css({height: curtain_height});
     $("#prog_mod_div").removeClass("hidden");
     var validator = new StringValidator()
     if ($("#invitation_email_box").val() != ""){

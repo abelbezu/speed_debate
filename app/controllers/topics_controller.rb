@@ -3,7 +3,8 @@ class TopicsController < ApplicationController
 	layout "main"
 	before_action :authenticate_account!, :only => [:show]
 	def index
-		@topics = Topic.all
+		@topics = Topic.sort_for_home_page
+
 	end
 
 	def show		

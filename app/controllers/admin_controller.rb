@@ -12,6 +12,16 @@ class AdminController < ApplicationController
 		
 	end 
 
+	def topic_debates
+		@debates = Topic.find(params[:id]).debates
+
+	end
+
+	def debate_summary
+		@debate = Debate.find(params[:id])
+
+	end
+
 	def accounts
 		
 	end 

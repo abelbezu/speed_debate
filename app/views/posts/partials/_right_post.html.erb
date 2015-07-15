@@ -11,7 +11,7 @@
           
         </div>
       <div  class = "slidable slidable_right col-md-10 timeable_test" style = "padding: 0px;">
-        <div class="rounded-edges panel panel-default">
+        <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel panel-default">
           <div class="panel-body">
             <div class = "row">
 
@@ -115,16 +115,22 @@
     $(comment_icon).fadeOut('slow');
   });
   $("#comment_icon_<%= argument.id%>").click(function(){
+    $("#post_panel_<%= argument.id%>").addClass("glow_red");
     hide_comment_icons();
     right_post_to_left(".slidable_right");
     w = $(window).width()
     var c_left_right = (w -  0.3*w) - 40;
-       var c_top = 185
-
+    scroll_position = document.body.scrollTop;
+    if ( scroll_position <= 70 ){
+      var c_top = 185;
+    }
+    else {
+       var c_top = 185 + scroll_position;
+    }
      // calculate window height and set it
       $("#comment_for_post_<%= argument.id%>").css({ "width" : "30%",
                                               top: c_top,
-                                              left: c_left_right,
+                                              left: 900,
                                     "margin-right": "5px",
                                     "margin-left": "-300px"
                                             });

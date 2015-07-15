@@ -1,0 +1,50 @@
+<div class="container">
+ <div id="blog" class="row"> 
+
+  <div class="col-sm-2 paddingTop20">
+   <%= render partial: "admin/side_bar"%>
+    <div><h2 class="add"></h2></div>
+  </div>
+  <div class="col-md-10 blogShort">
+  <% @debates.each do |debate|%>
+  <div class="col-md-12 blogShort">
+  <!-- 
+   <img src="http://img1.gtsstatic.com/wallpapers/2405358514ea4c8f140537d7c3e90d3b_large.jpeg" alt="post img" width = "150" height = "150" class="pull-left img-responsive thumb margin10 img-thumbnail"> -->
+
+  
+   <article><p>
+       <strong>Debate Id: </strong>&nbsp; <%=  debate.id %>
+       <br>
+       <strong>Topic: </strong>&nbsp; <%=  debate.get_topic.topic_sentence %>
+       <br>
+       <strong>Left Debater: </strong>&nbsp; <%=  debate.get_left_debater == nil ? "None": debate.get_left_debater.email %>
+       <br>
+       <strong>Right Debater: </strong>&nbsp; <%=  debate.get_right_debater == nil ? "None": debate.get_right_debater.email %>
+       <br>
+       <strong>Status: </strong>&nbsp; <span id = "">
+          <% unless (debate.is_over 5) %>
+            <span class="label label-success">On going</span>
+          <% else %>
+            <span class="label label-danger">Over</span>
+          <%end%> 
+        </span>
+        <br>
+       <strong>Posts Left: </strong>&nbsp; <%=  debate.posts_left(5) %>
+   </p></article>
+   <%= link_to action: "debate_summary", id: debate.id, :class => 'btn btn-primary btn-sm' do %>
+    <i class="fa fa-cog"></i> Summary
+  <% end %>
+    <%= link_to debate_path(debate), method: :delete, remote: true , :class => 'btn btn-danger btn-sm' do %>
+    <i class="fa fa-trash-o fa-sm"></i> Delete</a>
+  <% end %>
+  
+  
+
+  
+  </div>
+  <% end %>
+    </div>
+
+ <div class="col-md-12 gap10"></div>
+</div>
+</div>

@@ -1,17 +1,9 @@
 
-<script type="text/javascript" charset="utf8" src="/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
-
-<script type="text/javascript">
-$(document).ready( function () {
-	$('#Debates_table').DataTable();
-} );
-</script>
-
 <div class = "admin_index_main">
 	<div class = "container">
 		<div class = "row"> 
 			<div class = 'col-lg-2'>
-				<ul class="nav nav-pills nav-stacked">
+				<ul id = "test_datatable" class="nav nav-pills nav-stacked">
 					<li role="presentation"><%= link_to("Home", {:action => 'index'},)%>
 						<li role="presentation" class="active"><%= link_to("Debates", {:action => 'debates'},)%></li>
 						<li role="presentation"><%= link_to("Accounts", {:action => 'accounts'},)%></li>

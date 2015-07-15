@@ -19,6 +19,8 @@
 //= require page_behaviours
 //= require timer
 //= require text_input
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require string_validator
 //= require ajax_caller
 //= require radio_buttons
