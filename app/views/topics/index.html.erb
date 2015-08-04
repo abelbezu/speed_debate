@@ -3,30 +3,41 @@
 
         <!-- left navigation pane -->
         
-        <div class = "col-md-3 col-xs-12">          
-
+        <div class = "col-md-2 col-xs-12">   
+           
         </div>
 
         <!-- main content area -->
-        <div id = "main-content-container" class = " col-md-6">
-            <ul>
+        <div  class = " col-md-6">
+            <ul id = "main-content-container">
                 <% if account_signed_in?%>
-                <li>
-                    <%= render(:partial => "topics/partials/topic_creator") %>
+                <li id = "topic_creator_container">
+                   <%= render(:partial => "topics/partials/topic_box_place_holder") %>
                 </li>
                 <% end %>
+               <!--  <li>
+                    <div class = "row">
+                        <div class = "col-md-12">
+                        </div>
+                    </div>
+                </li> -->
 
                 <% @topics.each do |topic|%>
                 <li>
+                    <% if topic.story != nil%>
+                    <%= render(:partial => "topics/partials/rich_topic_index", :locals => {:topic => topic, :debate => topic.debates.first}) %>
+                    <% else %>
                     <%= render(:partial => "topics/partials/topic_index", :locals => {:topic => topic}) %>
+                    <% end %>
                 </li>
                 <%end%> 
             </ul>
         </div>
         <!-- right navigation pane -->
-        <div class = "col-md-3">
+        <div class = "col-md-4">
 
         </div>  
     </div>
 </div>
+
 <%= subscribe_to "/topics/main" %>

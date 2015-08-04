@@ -1,7 +1,9 @@
-<div class="col-md-2 poster_bar_left">
+<div class="<%= cycle('oddrow_user_bar', 'evenrow_user_bar') %> row" >
+<div class = "col-md-1"></div>
+<div class="col-md-4 poster_bar_left pull-right">
 	<span class="choice_label glyphicon glyphicon-unchecked"></span>
 </div>
-<div class="col-md-10 poster_bar_right">
+<div class="col-md-7 poster_bar_right">
 	<div class="post-box-profile-img-container">
 		<%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
 
@@ -15,4 +17,5 @@
 
 		</div>
 	</div>
+</div>
 </div>

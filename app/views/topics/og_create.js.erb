@@ -1,0 +1,4 @@
+<% publish_to "/topics/main" do %>
+	$("#topic_creator_container").after('<%= j render(:partial => "topics/partials/rich_topic_index", :locals => {topic: @topic, debate: @debate})%>');
+<% end %>
+     

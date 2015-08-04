@@ -1,35 +1,44 @@
+
 <div class="container">
  <div id="blog" class="row"> 
 
   <div class="col-sm-2 col-md-2 paddingTop20">
    <%= render partial: "admin/side_bar"%>
-    <div><h2 class="add"></h2></div>
-  </div>
-  <div class = "col-md-10">
-  <% Topic.sort_for_home_page.each do |topic|%>
-  <div class="col-md-12 blogShort">
-   <h1><%=  topic.topic_sentence %></h1>
-   <img src="http://img1.gtsstatic.com/wallpapers/2405358514ea4c8f140537d7c3e90d3b_large.jpeg" alt="post img" width = "150" height = "150" class="pull-left img-responsive thumb margin10 img-thumbnail">
-
-   <em>Created By: <%= link_to topic.get_creator.email, account_path(topic.get_creator)%>
-   <article><p>
-       <strong>Created On: </strong>&nbsp; <%=  topic.created_at %>
-       <br>
-       <strong>Updated On: </strong>&nbsp; <%=  topic.updated_at %>
-       <br>
-       <strong>Debates: </strong>&nbsp; <%=  topic.debates.count %>
-   </p></article>
-   <%= link_to "Debates",  :class => "btn btn-blog pull-right marginBottom10", action: "topic_debates", id: topic.id %>    
-  
-   
-   <%= link_to topic_path(topic), method: :delete, remote: true , :class => 'btn btn-danger btn-sm' do %>
-    <i class="fa fa-trash-o fa-sm"></i> Delete
-  <% end %>
-   
-  </div>
-  <% end %>
+   <div><h2 class="add"></h2></div>
  </div>
+ <div class = "col-md-10">
+  <ul>
+    
 
- <div class="col-md-12 gap10"></div>
+    <% Topic.sort_for_home_page.each do |topic|%>
+    <li id = "admin_topic_box_<%= topic.id%>">
+      <div class = "row">
+        <div class = "col-md-9" >
+          <%= render(:partial => "topics/partials/topic_index", :locals => {:topic => topic}) %>
+        </div>
+        <div class = "col-md-3">
+           <%= link_to action: "topic_debates", id: topic.id do %>
+            <span class = 'btn btn-primary btn-sm', style = "width: 80px;"> 
+            <i class="fa fa-cog"></i> Debates 
+            </span>
+           <% end %>
+           <div class = "small_devider"></div>
+            <%= link_to topic_path(topic), method: :delete, remote: true , :class => 'btn btn-danger btn-sm', :style => "width: 80px;", :id => "admin_topic_delete_#{topic.id}"  do %>
+            <i class="fa fa-trash-o fa-sm"></i> Delete </a>
+           <% end %>
+        </div>
+      </div>
+    </li>
+    <script type="text/javascript">
+      $("#admin_topic_delete_<%= topic.id%>").click(function(){
+        $("#admin_topic_box_<%= topic.id %>").remove();
+      });
+    </script>
+    <%end%> 
+  </ul>
+</div>
+
+
+<div class="col-md-12 gap10"></div>
 </div>
 </div>

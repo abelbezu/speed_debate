@@ -2,7 +2,9 @@ class Topic < ActiveRecord::Base
 	has_many :debates, :dependent => :destroy # Many debates can be created for a single topic if the topic is destroyed, then distroy the child debates 
 	accepts_nested_attributes_for :debates, allow_destroy: true 
 
-	
+	has_one :debate_room
+	has_one :story
+	has_one :challenge
 	belongs_to :account
 	has_one :content, as: :content_owner
 	scope :newest, lambda{select("MAX('created_at')")}
@@ -12,11 +14,11 @@ class Topic < ActiveRecord::Base
 	
 
 	# topic submission validations
-	validates_presence_of :topic_sentence
-	validates_presence_of :account_id
-	validates_presence_of :left_side_topic
-	validates_presence_of :right_side_topic
-	validates_length_of :topic_sentence, :within => 5..50
+	# validates_presence_of :topic_sentence
+	# validates_presence_of :account_id
+	# validates_presence_of :left_side_topic
+	# validates_presence_of :right_side_topic
+	# validates_length_of :topic_sentence, :within => 5..50
 	# unwanted validation. Look again
 	#validates_presence_of :description
 	# returns the creator of this topic
@@ -80,6 +82,19 @@ class Topic < ActiveRecord::Base
 
 		end
 		return false
+	end
+
+	#thsi functions should be ad
+	def is_open
+		return self.challenge == nil
+	end
+
+	def is_full
+		return self.debates.first.full?
+	end
+
+	def has_user_challengee
+		return (self.challenge != nil) && (self.challenge.challengee_id != nil) 
 	end
 
 

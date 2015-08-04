@@ -18,7 +18,7 @@
 
 	<div class="panel-heading">
 		<div class ="debate-title">
-			<h3><%=topic.topic_sentence%> </h3>
+			<p><%=topic.topic_sentence%> </p>
 			<div class = "text-debate-info">
 				<span>Posted On</span> - <span>Jun 27, 2014</span> 
 			</div>
@@ -26,6 +26,8 @@
 		</div>
 		<div class="debate-content text-description">
 			<p><%=topic.description%></p>
+			<p><%=topic.left_side_topic%></p>
+			<p><%=topic.right_side_topic%></p>
 
 
 		</div>
@@ -60,13 +62,7 @@ $(".topic_index_dropdown_topic_edit").click(function(){
 
 	$("#edit_topic_modal").modal('show');       
 });	
-
-
-
 <% end %>
-
-
-
 $(".topic_index_pannel").click(function(){
 
 	window.location.href = "<%= root_url%>" + "topics/"+$(this).attr("topic-id");

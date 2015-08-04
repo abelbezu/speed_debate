@@ -35,18 +35,20 @@ var RadioButton = function(element_1, element_2, checked_class, unchecked_class)
 var RadioList = function(choices_list, checked_class, unchecked_class){
 	_this_radio_list = this;
 	$(choices_list).click(function(){
-		_this_radio_list.check($(this));
 		_to_check = this;
-		choices_list.forEach(function(entry){
-			if(entry == _to_check)
-			{
-				console.log("found the element");
-			}
-			else
-			{
-				_this_radio_list.uncheck($(entry));
-			}
-		});	
+		if($(_to_check).attr("picked") === "true"){
+			_this_radio_list.uncheck($(_to_check));
+		}
+		else
+		{
+		_this_radio_list.check($(this));
+			choices_list.forEach(function(entry){
+				if(!(entry == _to_check))
+				{
+					_this_radio_list.uncheck($(entry));
+				}
+			});	
+		}
 	});
 	this.check = function(element){
 		element.attr("picked", "true");

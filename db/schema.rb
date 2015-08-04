@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629185531) do
+ActiveRecord::Schema.define(version: 20150804153839) do
 
   create_table "account_details", force: true do |t|
     t.integer  "account_id"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 20150629185531) do
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
 
+  create_table "challenges", force: true do |t|
+    t.integer  "topic_id"
+    t.integer  "challenger_id"
+    t.integer  "challengee_id"
+    t.string   "challengee_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", force: true do |t|
     t.integer  "account_id"
     t.integer  "post_id"
@@ -94,6 +103,13 @@ ActiveRecord::Schema.define(version: 20150629185531) do
   end
 
   add_index "debate_participations", ["account_id", "debate_id"], name: "index_debate_participations_on_account_id_and_debate_id", using: :btree
+
+  create_table "debate_rooms", force: true do |t|
+    t.integer  "topic_id"
+    t.text     "video_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "debates", force: true do |t|
     t.integer  "topic_id"
@@ -161,6 +177,17 @@ ActiveRecord::Schema.define(version: 20150629185531) do
     t.string   "page"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "stories", force: true do |t|
+    t.integer  "topic_id"
+    t.string   "og_topic"
+    t.text     "og_description"
+    t.text     "og_image_url"
+    t.string   "og_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "og_url"
   end
 
   create_table "timers", force: true do |t|

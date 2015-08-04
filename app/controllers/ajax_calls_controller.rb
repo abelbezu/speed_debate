@@ -49,6 +49,7 @@ class AjaxCallsController < ApplicationController
 				end
 	end
 
+
 	def read_notifications
 		current_account.get_unread_notifications.each do |unread_notification|
 			unread_notification.read
@@ -61,6 +62,43 @@ class AjaxCallsController < ApplicationController
 		@comments = Post.find(params[:post_id]).comments
 		j render(:partial => "comments/partials/comments_list", :locals => {:comments => @comments})
 	end
+
+	def fetch_ogp_object
+		
+
+		og = OpenGraph.new(params[:url])
+		ogp_object = og
+		puts "ogp_object.images"
+		j render(:partial => "debates/partials/ogp_display_box", :locals => {:ogp_object => ogp_object})
+
+
+		
+	end 
+
+	def join_debate_from_rich_index
+		 debate = Debate.find(params[:debate_id])
+		 unless debate.has_debater current_account.id
+		 topic = Topic.find(params[:topic_id])
+		 topic.update_attribute("right_side_topic", params[:right_side_topic])
+		 puts params[:right_side_topic]
+		 topic.save
+		 	if debate.join_free_side current_account.id
+		 		render json: topic
+		 	else
+		 	end
+		 end
+
+	end
+
+	def topic_box_request
+		j render(:partial => "topics/partials/rich_topic_creator")
+	end
+
+	def placeholder_box_request
+		j render(:partial => "topics/partials/topic_box_place_holder")
+	end
+
+
 
 	
 end

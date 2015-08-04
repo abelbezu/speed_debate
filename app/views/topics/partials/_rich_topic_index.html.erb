@@ -1,0 +1,217 @@
+
+<div id = "topic_index_pannel_<%= topic.id %>" topic-id = <%= topic.id %> class="topic_index_pannel panel panel-default panel-main">
+    <!-- a dropdown menu of currently unknown purpose -->
+    <div class="topic_index_dropdown dropdown">
+        <span class="dropdown-toggle" type="button" data-toggle="dropdown">
+            <span class="[ glyphicon glyphicon-chevron-down ]"></span>
+        </span>
+        <ul class="dropdown-menu" role="menu">
+            <li class = "topic_index_dropdown_topic_edit" role="presentation"><a role="menuitem" tabindex="-1"><span class = " glyphicon glyphicon-pencil"> </span>  Edit</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class ="glyphicon glyphicon-lock"></span>  Only you and friends</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> Another action</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class ="glyphicon glyphicon-trash"></span> Another action</a></li>
+        </ul>
+    </div>
+
+    <!-- stuff like topic, post info, user info and content (panel-heading is a misnomer) -->
+   
+    <div class="panel-heading">
+        <div class = "small_devider"></div>
+
+        <div class ="debate-title">
+            <div class = "row">
+            <div class = "col-md-12">
+                <div class = "post-box-profile-img-container">
+                    <%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
+
+                </div>
+                <div class = "post-box-profile-info-container">
+                    <div class = "post-box-profile-info">
+                        <span class = "profile-info-name"><%= topic.get_creator.display_name%></span>
+                        <span class = "profile-info-meta">a few seconds ago</span><!-- create and use a friendly time stamp here -->
+                    </div>
+                    <div class = "profile-info-description info_text" style = "padding: 4px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            <p><%=topic.topic_sentence%> </p>
+            <hr>
+        </div>
+        <div class="debate-content text-description">
+            <% if topic.is_full %>
+            
+            <p> <!-- takes in a hash object, name: ogp_object -->
+                <p><strong><%= debate.get_left_debater.display_name%></strong> Says: <%=topic.left_side_topic%></p>
+                <p><strong><%= debate.get_right_debater.display_name%></strong> Says: <%=topic.right_side_topic%></p>
+                <p>
+                <span id = "status_label">
+                    <% unless (debate.is_over 5) %>
+                        <span class="label label-success">On going</span>
+                    <% else %>
+                        <span class="label label-danger">Over</span>
+                    <%end%> 
+                </span> 
+                </p>
+            </p>
+            <% elsif !topic.is_full %>
+            <p> <!-- takes in a hash object, name: ogp_object -->
+                <p><%=topic.left_side_topic%></p>
+            </p>
+            
+            <% end %>
+
+        </div>
+        
+        <% unless topic.story.og_image_url == nil %>
+        <div class="debate-content text-description">
+            <p> <!-- takes in a hash object, name: ogp_object -->
+
+                <div class = "ogp_image">
+                    
+                        <%= image_tag(topic.story.og_image_url, :width => "100%")%>
+                    
+                    
+                </div>
+
+                <div class  = "ogp_title">
+                    <h3> <%= topic.story.og_topic%> </h3>
+                    <p>
+                        <%= topic.story.og_description%>
+                    </p>
+                </div>
+                        <% unless topic.story.og_url == nil%>
+                        <a class = "go_to_story_btn btn btn-default btn-sm pull-right" href = "<%= topic.story.og_url%>"> go to story </a>
+                        <% end %>
+            </p>
+
+        </div>
+        <% end %>
+    </div>
+
+    <!-- stuff like debaters and their positions -->
+    <div  class = "small_devider"></div>
+    <div class = "panel-body">
+       <div class = "row" >
+            <div id = "joining_box_<%= topic.id%>" class = "col-md-12 hidden">
+                <div style = "padding-left: 45%; color: red;">
+                    <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+                    <div>
+                        <strong>joining ...</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "col-md-12" id = "join_form_<%= topic.id%>">
+                <% if (account_signed_in?) && !(topic.is_full) %>
+
+                <% if ((topic.is_open) && !(debate.has_debater current_account.id)) %>
+                              
+                    <textarea id = "open_topic_side_input_<%=topic.id%>" style = "border-radius: 2px;" class = "form-control" rows = "1" placeholer = "state your side and join ..."> </textarea>
+                    <div  class = "small_devider"></div>
+                    <button id = "open_topic_join_btn_<%= topic.id%>" class = "btn btn-primary btn-sm pull-right">join</button>
+                    <script type="text/javascript">
+                    console.log("hey there =");
+                        update_rich_topic_<%= topic.id%> = function(){
+                            console.log("rails rendered");
+                            $("#join_form_<%= topic.id%>").addClass("hidden");
+                            $("#joining_box_<%= topic.id%>").removeClass("hidden");
+                            $("#join_form_<%= topic.id%>").remove();
+                        }
+                        $("#open_topic_join_btn_<%= topic.id%>").click(function(){
+                            
+                            right_input = $("#challenge_topic_side_input_<%= topic.id%>").val();
+                            joining_icon_box_<%= topic.id%>();
+                            var join_ajax_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_debate_from_rich_index", "POST", {debate_id: <%=debate.id%>, right_side_topic: $("#open_topic_side_input_<%=topic.id%>").val(), topic_id: <%=topic.id%>} ,update_rich_topic_<%= topic.id%>);
+                                join_ajax_<%= topic.id%>.make_call();
+
+                        });
+
+                    </script>
+                <% elsif  (topic.has_user_challengee) && ((topic.challenge.get_challengee == current_account)||(topic.challenge.challengee_email == current_account.email )) %>
+                               
+                    <textarea id = "challenge_topic_side_input_<%= topic.id%>" style = "border-radius: 2px;" class = "form-control" rows = "1" placeholer = "state your side and join ..."> </textarea>
+                    <div  class = "small_devider"> </div>
+                    <button id = "challenge_topic_join_btn_<%= topic.id%>" class = "btn btn-primary btn-sm pull-right">join</button>
+                     <script type="text/javascript">
+                        joining_icon_box_<%= topic.id%> = function(){
+                            
+                            $("#join_form_<%= topic.id%>").addClass("hidden");
+                            $("#joining_box_<%= topic.id%>").removeClass("hidden");
+                            $("#join_form_<%= topic.id%>").remove();
+                        }
+                        update_rich_topic_<%= topic.id%> = function(data){
+                            $("#joining_box_<%= topic.id%>").addClass("hidden");
+                        }
+                        $("#challenge_topic_join_btn_<%= topic.id%>").click(function(){
+                            right_input = $("#challenge_topic_side_input_<%= topic.id%>").val();
+                            joining_icon_box_<%= topic.id%>();
+                           var join_ajax_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_debate_from_rich_index", "POST", {debate_id: <%=debate.id%>, right_side_topic: right_input, topic_id: <%=topic.id%>} ,update_rich_topic_<%= topic.id%>);
+                           join_ajax_<%= topic.id%>.make_call();
+
+                        });
+
+                    </script>
+                    <% else %>
+
+                <% end%>
+                <% end%>
+            </div>
+        </div>
+
+    </div>
+    <!-- stuff like social box  -->
+    <hr class = "default-separator">
+    <div class = "panel-footer">
+        <div class = "social-box text-social">
+            <div class = "col-md-8" style ="height: 30px;">
+                Upvote<span class ="social-box-stat">43+</span>&nbsp;&nbsp;    Downvote  &nbsp;&nbsp;&nbsp;    Share <span class ="social-box-stat">43+</span>
+            </div>
+            <div class = "col-md-4 social-box-right">
+                Stats 
+            </div>
+            
+            <div style = "clear:both"></div>
+        </div>
+    </div>                      
+</div>
+
+<script type="text/javascript">
+
+    <% if current_account == topic.get_creator %>
+
+    $(".topic_index_dropdown_topic_edit").click(function(){
+
+        $("#edit_topic_modal").modal('show');  
+    }); 
+
+
+    <% end %>
+    <% if topic.is_full%>
+    $("#topic_index_pannel_<%= topic.id %>").click(function(){
+
+        window.location.href = "<%= debate_url debate%>";
+
+    });
+    <%end %>
+
+
+
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="edit_topic_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style = "border-bottom: none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <%= render partial: "topics/partials/edit_topic_box", :locals => {:topic => topic}%>
+
+        </div>
+    </div>
+</div>

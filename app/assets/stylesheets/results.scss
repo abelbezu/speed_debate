@@ -1,10 +1,12 @@
 
-.topic-form{
+$greyBackground    : #f5f5f5;
+$greyText          : rgb(136, 136, 136); 
+$brandThemeColor   : #ff0000;
 
-  height: 150px;
-}
-.stepwizard-step p {
-    margin-top: 10px;
+.stepwizard-step {
+   p {
+      margin-top: 10px;
+  }
 }
 
 .stepwizard-row {
@@ -17,23 +19,25 @@
     position: relative;
 }
 
-.stepwizard-step button[disabled] {
-    opacity: 1 !important;
-    filter: alpha(opacity=100) !important;
+.stepwizard-step {
+    button[disabled] {
+      opacity: 1 !important;
+      filter: alpha(opacity=100) !important;
+  }
 }
+.stepwizard-row {
+    &:before {
+      top: 25px;
+      bottom: 0;
+      position: absolute;
+      content: " ";
+      width: 100%;
+      height: 1px;
+      background-color: #ccc;
+      z-index: 0;
 
-.stepwizard-row:before {
-    top: 14px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
-
+  }
 }
-
 .stepwizard-step {
     display: table-cell;
     text-align: center;
@@ -41,11 +45,53 @@
 }
 
 .btn-circle {
-  width: 30px;
-  height: 30px;
+  width: 100px;
+  height: 50px;
   text-align: center;
   padding: 6px 0;
-  font-size: 12px;
+  font-size: 25px;
   line-height: 1.428571429;
-  border-radius: 15px !important;
+  border-radius: 4px;
+}
+.new_topic_container_box{
+  padding: 30px;
+}
+.tab_nav_btn{
+  color: $greyText;
+  background-color: $greyBackground;
+  border-color: darken($greyBackground, 20%);
+  &:hover {
+     background-color: darken($greyBackground, 10%);
+     color: $greyText;
+     border-color: darken($greyBackground, 30%);
+  }
+  &:active {
+     color: $greyText;
+     background-color: $greyBackground;
+     border-color: darken($greyBackground, 20%);
+  }
+}
+
+.import_btn{
+  #import_button_importing{
+    color: $brandThemeColor;
+  }
+  .fa{
+    color: $brandThemeColor;
+    font-size: 1em;
+  }
+
+}
+.open_graph_object_display{
+  padding: 5px;
+  border: 1px solid darken($greyBackground, 0%);
+  border-radius: 5px;
+}
+
+.oddrow_user_bar{
+  background-color: rgb(240, 240, 240);
+}
+
+.evenrow_user_bar{
+  background-color: white;
 }

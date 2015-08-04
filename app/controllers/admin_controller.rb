@@ -13,7 +13,7 @@ class AdminController < ApplicationController
 	end 
 
 	def topic_debates
-		@debates = Topic.find(params[:id]).debates
+		@topic = Topic.find(params[:id])
 
 	end
 

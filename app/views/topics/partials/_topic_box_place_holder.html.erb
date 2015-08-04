@@ -1,0 +1,18 @@
+ <textarea id = "topic_box_place_holder" class = "form-control" style = "border-radius: 2px; font-size: 16px;" placeholder = "Your topic" rows = "1"> </textarea>
+ 
+ <div class = "small_devider"></div>
+ <div class = "small_devider"></div>
+<script>
+
+append_topic_box = function(data)
+{
+	$("#topic_box_place_holder").remove();
+	$("#topic_creator_container").empty();
+	$("#topic_creator_container").append(data);
+}
+
+$("#topic_box_place_holder").focus(function(){
+    var topic_box_request = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/topic_box_request", "POST", {} , append_topic_box);
+                topic_box_request.make_call();
+});
+</script>

@@ -1,0 +1,15 @@
+<!-- takes in a hash object, name: ogp_object -->
+
+<div class = "ogp_image">
+	<% ogp_object.images.each do |image|%>
+		<%= image_tag(image, :width => "100%")%>
+	<%end%>
+	
+</div>
+
+<div class  = "ogp_title">
+	<h3> <%= ogp_object.title%> </h3>
+	<p>
+		<%= ogp_object.description%>
+	</p>
+</div>

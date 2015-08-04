@@ -1,4 +1,13 @@
-FactoryGirl.define do  factory :relationship do
+FactoryGirl.define do  factory :challenge do
+    
+  end
+  factory :story do
+    
+  end
+  factory :debate_room do
+    
+  end
+  factory :relationship do
     
   end
   factory :account_detail, :class => 'AccountDetails' do

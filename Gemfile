@@ -28,7 +28,7 @@ gem 'private_pub'
 
 gem "font-awesome-rails"
 gem 'omniauth-facebook'
-
+gem 'opengraph_parser'
 gem 'sync'
 
 gem 'devise'
