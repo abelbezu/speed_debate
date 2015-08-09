@@ -161,6 +161,22 @@ class AjaxCallsController < ApplicationController
 
 	end
 
+	def hide_topic
+		topic = Topic.find(params[:topic_id])
+		topic.update_attribute("visibility", "hidden")
+		if topic.save
+			render json: topic
+		end
+	end
+
+	def show_topic
+		topic = Topic.find(params[:topic_id])
+		topic.update_attribute("visibility", "visible")
+		if topic.save
+			render json: topic
+		end
+	end
+
 
 
 	

@@ -10,11 +10,15 @@
   <ul>
     
 
-    <% Topic.sort_for_home_page.each do |topic|%>
+    <% Topic.all.each do |topic|%>
     <li id = "admin_topic_box_<%= topic.id%>">
       <div class = "row">
         <div class = "col-md-9" >
-          <%= render(:partial => "topics/partials/topic_index", :locals => {:topic => topic}) %>
+           <% if topic.story != nil%>
+                    <%= render(:partial => "topics/partials/rich_topic_index", :locals => {:topic => topic, :debate => topic.debates.first}) %>
+                    <% else %>
+                    <%= render(:partial => "topics/partials/topic_index", :locals => {:topic => topic}) %>
+                    <% end %>
         </div>
         <div class = "col-md-3">
            <%= link_to action: "topic_debates", id: topic.id do %>
@@ -26,10 +30,44 @@
             <%= link_to topic_path(topic), method: :delete, remote: true , :class => 'btn btn-danger btn-sm', :style => "width: 80px;", :id => "admin_topic_delete_#{topic.id}"  do %>
             <i class="fa fa-trash-o fa-sm"></i> Delete </a>
            <% end %>
+
+          <div class = "small_devider"></div>
+          <% if topic.visibility == "visible" %>
+           <button id = "hide_topic_btn_<%= topic.id%>" class = 'btn btn-primary btn-sm', style = "width: 80px;"> 
+            <i id = "hidden_fa_<%= topic.id%>" class="fa fa-eye-slash"> </i> 
+           </button>
+           <% else %>
+           <button id = "set_visible_btn_<%= topic.id%>" class = 'btn btn-primary btn-sm', style = "width: 80px;"> 
+            <i id = "hidden_fa_<%= topic.id%>" class="fa fa-eye"></i> <!--  <span id = "hide_lable_<%= topic.id%>">show</span> -->
+           </button>
+           <%end%>
+           
         </div>
       </div>
     </li>
     <script type="text/javascript">
+      change_hide_to_show_<%= topic.id%> = function(data){
+        $("#hidden_fa_<%= topic.id%>").removeClass("fa-eye-slash");
+        $("#hidden_fa_<%= topic.id%>").addClass("fa-eye");
+        $("#hide_lable_<%= topic.id%>").val("hey work");
+       
+      }
+      $("#hide_topic_btn_<%= topic.id%>").click(function(){
+        
+         var hide_topic_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/hide_topic", "POST", {topic_id: <%= topic.id%>} , change_hide_to_show_<%= topic.id%>);
+                hide_topic_<%= topic.id%>.make_call();
+      });
+      change_show_to_hide_<%= topic.id%> = function(data){
+        $("#hidden_fa_<%= topic.id%>").removeClass("fa-eye");
+        $("#hidden_fa_<%= topic.id%>").addClass("fa-eye-slash");
+        $("#hidden_fa_<%= topic.id%>").val("show");
+        
+      }
+      $("#set_visible_btn_<%= topic.id%>").click(function(){
+        
+         var show_topic_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/show_topic", "POST", {topic_id: <%= topic.id%>} , change_show_to_hide_<%= topic.id%>);
+                show_topic_<%= topic.id%>.make_call();
+      });
       $("#admin_topic_delete_<%= topic.id%>").click(function(){
         $("#admin_topic_box_<%= topic.id %>").remove();
       });

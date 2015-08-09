@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806153945) do
+ActiveRecord::Schema.define(version: 20150809222918) do
 
   create_table "account_details", force: true do |t|
     t.integer  "account_id"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(version: 20150806153945) do
     t.string   "tags"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "visibility",       default: "visible"
   end
 
   add_index "topics", ["account_id"], name: "index_topics_on_account_id", using: :btree

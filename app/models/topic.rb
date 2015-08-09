@@ -8,6 +8,7 @@ class Topic < ActiveRecord::Base
 	belongs_to :account
 	has_one :content, as: :content_owner
 	scope :newest, lambda{select("MAX('created_at')")}
+	scope :visible, lambda{where(visibility: 'visible')}
 	scope :newest_first, lambda{order("topics.created_at DESC")}
 	scope :search, lambda{|query|
 		where(["topic_sentence LIKE ?", "%#{query}%"])}
@@ -55,7 +56,7 @@ class Topic < ActiveRecord::Base
 
 	def self.sort_for_home_page
 		sorted_topics = []
-		all_topics = Topic.all
+		all_topics = Topic.visible
 		all_topics.each do |topic|
 			if topic.has_finished_debate
 				sorted_topics << topic

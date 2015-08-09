@@ -31,7 +31,7 @@
 						<ul class="dropdown-menu" role="menu">
 							
 							<% current_account.get_first_four_unread_notifications.each do |notification|%>
-							<li><div class = "notification_bar"> <a href="<%= notification.url%>"><%= notification.message%></a></div></li>
+							<li><div class = "notification_bar"> <a ><%= notification.message%></a></div></li>
 							<li class="divider"></li>
 							<%end%>
 							
