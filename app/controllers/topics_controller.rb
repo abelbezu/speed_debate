@@ -80,11 +80,21 @@ class TopicsController < ApplicationController
 		 			Challenge.create!(:topic_id => @topic.id, :challenger_id => current_account.id, challengee_id: params[:selected_opponent_id])
  					UserMailer.invitation_by_email(current_account, Account.find(params[:selected_opponent_id]).email, Topic.find(@topic.id)).deliver
 		 		else
-
+		 			Challenge.create!(:topic_id => @topic.id, :challenger_id => current_account.id, status: "open")
+ 					
 		 		end
-		 		respond_to do |format|
-		 			@debate = debate
-					format.js {render "topics/og_create.js.erb", status: :ok}
+		 			 			
+			    respond_to do |format|
+			 			@debate = debate
+			 			@account = ""
+			 			if params[:selected_opponent_id] == "-1"
+			 				@account = "--no_account--"
+			 			else
+							@account =  Account.find(params[:selected_opponent_id])				
+						end
+						format.js {render "topics/og_create.js.erb", status: :ok}
+				
+					
 				end
 		 		
   				#j render(:partial => "topics/partials/rich_topic_index", :locals => {topic: @topic, debate: debate})

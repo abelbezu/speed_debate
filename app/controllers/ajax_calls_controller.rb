@@ -22,20 +22,40 @@ class AjaxCallsController < ApplicationController
 		end 
 	end
 
+	# def send_invitation
+	# 	debate = Debate.create!(:topic_id => params[:topic_id])
+	# 	title = Topic.find(params[:topic_id]).topic_sentence
+	# 	new_t = title.gsub("'"){"\\'"}
+	# 	message = "#{current_account.display_name} has sent you an invitation to join him on the debate: #{new_t}"
+	# 	new_m = message.gsub("'"){"\\'"}
+	# 	debate.register_participant(current_account.id, params[:side])
+	# 	notify_user(params[:account_id], params[:sender_id], "account" ,message, topic_url(Topic.find(params[:topic_id])))
+	# 	UserMailer.invitation_email(current_account, Account.find(params[:account_id]), Topic.find(params[:topic_id])).deliver
+	# 	respond_to do |format|
+	# 				@debate = debate
+	# 				@path = topic_path(debate.get_topic)
+	# 				format.js {render "topics/one_debater.js.erb", status: :ok}
+	# 			end
+	# end
+
 	def send_invitation
-		debate = Debate.create!(:topic_id => params[:topic_id])
-		title = Topic.find(params[:topic_id]).topic_sentence
-		new_t = title.gsub("'"){"\\'"}
-		message = "#{current_account.display_name} has sent you an invitation to join him on the debate: #{new_t}"
-		new_m = message.gsub("'"){"\\'"}
-		debate.register_participant(current_account.id, params[:side])
-		notify_user(params[:account_id], params[:sender_id], "account" ,message, topic_url(Topic.find(params[:topic_id])))
-		UserMailer.invitation_email(current_account, Account.find(params[:account_id]), Topic.find(params[:topic_id])).deliver
-		respond_to do |format|
-					@debate = debate
-					@path = topic_path(debate.get_topic)
-					format.js {render "topics/one_debater.js.erb", status: :ok}
+		topic = Topic.find(params[:topic_id])
+		if params[:challengee_id].length >= 1
+			topic.challenge.update_attribute("challengee_id", params[:challengee_id])
+			topic.challenge.update_attribute("status", "waiting")
+			title = topic.topic_sentence
+			new_t = title.gsub("'"){"\\'"}
+			message = "#{current_account.display_name} has sent you an invitation to join him on the debate: #{new_t}"
+			notify_user(params[:challengee_id], current_account.id, "account", message, topic_url(Topic.find(params[:topic_id])))
+			respond_to do |format|
+					@topic = topic
+					@account = Account.find(params[:challengee_id])
+					@path = account_path(@account)
+					format.js {render "topics/send_invitation.js.erb", status: :ok}
 				end
+		end
+
+
 	end
 
 	def send_email_invitation
@@ -80,22 +100,65 @@ class AjaxCallsController < ApplicationController
 		 unless debate.has_debater current_account.id
 		 topic = Topic.find(params[:topic_id])
 		 topic.update_attribute("right_side_topic", params[:right_side_topic])
-		 puts params[:right_side_topic]
+	     puts params[:right_side_topic]
 		 topic.save
 		 	if debate.join_free_side current_account.id
-		 		render json: topic
+		 		 title = topic.topic_sentence
+				 new_t = title.gsub("'"){"\\'"}
+				 message = "#{current_account.display_name} has accepted your challenge in: #{new_t}"
+				 notify_user(debate.get_left_debater.id, current_account.id, "account", message, topic_url(Topic.find(params[:topic_id])))
+	
+		 		respond_to do |format|
+					@debate = debate
+					@topic = topic
+					format.js {render "topics/join_debate.js.erb", status: :ok}
+				end
 		 	else
+
 		 	end
 		 end
 
 	end
 
+	
 	def topic_box_request
 		j render(:partial => "topics/partials/rich_topic_creator")
 	end
 
 	def placeholder_box_request
 		j render(:partial => "topics/partials/topic_box_place_holder")
+	end
+	def join_box_request
+		debate = Debate.find(params[:debate_id])
+		user = Account.find(params[:user_id])
+		topic = Topic.find(params[:topic_id])
+		j render(:partial => "topics/partials/join_box", locals: {debate: debate, topic: topic, user: user})
+	end
+
+	def challenge_refused
+		topic = Topic.find(params[:topic_id])
+		topic.challenge.update_attribute("status", "refused")
+		if topic.save
+			render json: topic.challenge
+		end
+	end
+
+	def discard_conversation
+		topic = Topic.find(params[:topic_id])
+		topic.challenge.update_attribute("status", "discarded")
+		if topic.save
+			render json: topic.challenge
+		end
+
+	end
+
+	def make_conversation_open
+		topic = Topic.find(params[:topic_id])
+		topic.challenge.update_attribute("status", "open")
+		if topic.save
+			render json: topic.challenge
+		end
+
 	end
 
 

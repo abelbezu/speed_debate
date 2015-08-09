@@ -1,0 +1,4 @@
+<% publish_to account_path(@account) do %>
+    console.log("rendered");
+	$("#join_form_<%= @topic.id%>").append('<%= j render(:partial => "topics/partials/prompt_join_box", :locals => {user: @account, topic: @topic, debate: @topic.debates.first})%>');
+<% end %>    

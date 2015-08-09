@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804153839) do
+ActiveRecord::Schema.define(version: 20150806153945) do
 
   create_table "account_details", force: true do |t|
     t.integer  "account_id"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150804153839) do
     t.string   "challengee_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",           default: "accepted"
   end
 
   create_table "comments", force: true do |t|

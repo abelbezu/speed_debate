@@ -86,16 +86,61 @@ class Topic < ActiveRecord::Base
 
 	#thsi functions should be ad
 	def is_open
-		return self.challenge == nil
+		return (self.challenge.status == "open")&&(!self.has_email_challengee)&&(!self.has_account_challengee)
 	end
 
 	def is_full
 		return self.debates.first.full?
 	end
 
-	def has_user_challengee
+	def has_account_challengee
 		return (self.challenge != nil) && (self.challenge.challengee_id != nil) 
 	end
+
+	def has_email_challengee
+		return (self.challenge != nil) && (self.challenge.challengee_email != nil) 
+	end
+
+	def display_user_prompt_for account
+		if !((self.is_full) || (self.get_creator == account))
+			if(self.is_open)
+				return true
+
+			elsif((self.has_account_challengee && (self.challenge.challengee_id == account.id))&& !(self.challenge.status == "refused") )
+				return true
+
+			elsif(self.has_email_challengee && (self.challenge.challengee_email == account.email))
+				return true
+			end 
+			return false
+		else 
+			return false
+		end
+		return false
+	end
+
+	def display_challenge_refused_for account
+		if !self.is_open && !self.is_full
+			if ((self.get_creator == account)&&(self.challenge.challenger_id == account.id))
+				return self.challenge.status == "refused"
+			else
+				return false
+			end
+		else
+			return false
+		end
+
+	end
+	
+	def get_challengee
+		return Account.find(self.challenge.challengee_id)
+
+	end
+
+	def has_user_waiting account
+		return ((self.challenge != nil)&&(self.challenge.challenger_id == account.id)&& !(self.is_full))
+	end
+
 
 
 

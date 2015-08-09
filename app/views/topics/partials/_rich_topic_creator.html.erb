@@ -22,13 +22,13 @@
 			<div class="col-md-12">
 
 				<div class="form-group">
-					<textarea id = "topic_creator_input" class = "form-control" rows = "3">
+					<!-- <textarea id = "topic_creator_input" class = "form-control" rows = "3">
 
 					</textarea>
 					<div style = "height: 20px; font-size: 10px; color: red;">
 						<span class = "hidden" id = "import_button_importing"><i class="fa fa-spinner fa-pulse fa-spin fa-3x fa-fw margin-bottom pull-right"></i></span>
-					</div>
-					<!-- <label class="control-label">topic of interest</label>
+					</div> -->
+					<label class="control-label">topic of interest</label>
 					<input id = "og_topic_input_box" type="text" class="form-control" placeholder="your topic ...">
 					<div class = "small_devider"> </div>
 					<label class="control-label">or url</label>
@@ -37,7 +37,7 @@
 						<span class="input-group-btn">
 							<button id = "import_button" class="btn import_btn btn-default" type="button"><span class = "hidden" id = "import_button_importing"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>importing ...</span><span id = "import_btn_import_label" class = "">Import</span></button>
 						</span>
-					</div> --><!-- /input-group -->
+					</div>
 					<div class = "small_devider"> </div>
 					<div id = "ogp_object_display" class = "hidden open_graph_object_display">
 
@@ -115,10 +115,7 @@
 			</div>
 		</div>
 	</div>
-
 </div>
-
-
 <script>
 		// colapse, form the needed
 		custom();
@@ -151,24 +148,27 @@
 		}
 
 		hide_import_label_and_show_loading = function() {
+			$("#import_btn_import_label").addClass("hidden");
 			$("#import_button_importing").removeClass("hidden");
 
 
 		}
 		show_import_label_and_hide_loading = function() {
 			$("#import_button_importing").addClass("hidden");
-
+			$("#import_btn_import_label").removeClass("hidden");
 		}
 		
 
 		ogp_url = function(){
 			$("#ogp_object_display").empty();
-			$("#ogp_object_display").removeClass("hidden");
+			// $("#ogp_object_display").removeClass("hidden");
 			return $("#ogp_url_field").val();
 		}
 
-		display_ogp = function(data){
-			show_import_label_and_hide_loading();			
+		display_ogp = function(data){			
+			show_import_label_and_hide_loading();	
+			clear_display();
+			$("#ogp_object_display").removeClass("hidden");		
 			$("#ogp_object_display").append(data);
 		}
 
@@ -184,6 +184,11 @@
 
 		}
 
+		$("#import_button").click(function(){
+			console.log("clicked");
+			hide_import_label_and_show_loading();
+			fetch_content($("#ogp_url_field").val());
+		});
 
 		prepare_opponent_list = function(){
 		    t = new Array();
@@ -207,7 +212,7 @@
 		}
 
 		param_extractor = function(){
-			response_json = {topic_sentence: $("#topic_creator_input").val(), description: "", og_url: processed_url, left_side_topic: $("#og_opinion").val(), selected_opponent_id: get_selected_opponent_id(), opponent_email: $("#og_invitation_email_box").val()}	
+			response_json = {topic_sentence: $("#og_topic_input_box").val(), description: "", og_url: $("#ogp_url_field").val(), left_side_topic: $("#og_opinion").val(), selected_opponent_id: get_selected_opponent_id(), opponent_email: $("#og_invitation_email_box").val()}	
 			return 	response_json;
 
 		}

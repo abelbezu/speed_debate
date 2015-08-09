@@ -1,0 +1,33 @@
+<!-- Modal -->
+<div class="modal fade" id="discard_conversation_modal_<%= topic.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div style = "position: relative;" class="modal-dialog">
+    <div style = "position: absolute; z-index: 1; width:100%;" class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">What do you want to do?</h4>
+      </div>
+      <div class="modal-body">
+        <div class = "join_prompt_container">
+        You don't necessarily need to discard this conversation. You can make it open instead so that any one interested can join you. 
+        <div class = "small_devider"></div>
+        <div class = "row">
+          <div class = "col-md-12">
+            <button id = "discard_conversation_<%= topic.id%>" class = "btn btn-toucan btn-sm pull-left">No, discard conversation </button>
+            <button id = "make_it_open_<%= topic.id%>" class = "btn btn-toucan btn-sm pull-right">I'd like to make it open </button>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+
+</div>
+</div>
+<script type="text/javascript">
+$("#discard_conversation_<%= topic.id%>").click(function(){
+  var discard_conversation_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/discard_conversation", "POST", {topic_id: <%= topic.id%>} , display_ogp);
+            discard_conversation_<%= topic.id%>.make_call();
+});
+ 
+
+
+</script>

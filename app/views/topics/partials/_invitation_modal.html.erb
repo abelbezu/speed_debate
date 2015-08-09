@@ -1,0 +1,118 @@
+<!-- Modal -->
+<div class="modal fade" id="invitation_modal_<%= topic.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div style = "position: relative;" class="modal-dialog">
+    <div style = "position: absolute; z-index: 1; width:100%;" class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Friends</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <%Account.all.each do |user|%>
+          <% unless user == current_account%>
+          <li class = "invitable_user_<%= topic.id%>" invitable-user-id = <%= user.id%>>
+            <%= render(:partial => "topics/partials/user_bar", :locals => {:user => user})%>
+          </li>
+          
+          <div class = "small_devider"></div>
+          <% end%>
+          <%end%>
+          <div style = "clear:both"></div>
+        </ul>
+        <div class = "small_devider"></div>
+        <div class = "small_devider"></div>
+        Couldn't find who you were looking for? Send an email invitation
+         <input id = "invitation_email_box_<%= topic.id%>" type = "text" class = "form-control" , placeholder = "email">
+         <div class = "message_box" id = "invitation_email_message_box_<%= topic.id%>">
+               </div>
+     <div class="modal-footer">
+        <div data-toggle="modal" style ="height: 30px;" id = "send_invitation_button_<%= topic.id%>" class = "topic_button col-xs-12 col-md-12">
+        Send Invitation
+        </div>
+        
+       
+        <div style = "clear:both">
+        </div>
+      </div>
+    </div>
+  </div>
+<div style = " 
+                text-align: center;
+                color: red;
+                padding-top: 100px;
+                position: absolute;
+                height: 319px;
+                width: 100%;
+                border-radius: 10px;
+                background-color: rgb(255,255,255);
+                z-index: 1005;
+                opacity: 0.7;" 
+                class = "hidden progress-div"
+                id = "prog_mod_div_<%= topic.id%>">
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+        <div>
+          Sending ...
+        </div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+ prepare_invitable_user_list_<%= topic.id%> = function(){
+  t = new Array();
+  j_list = $(".invitable_user_<%= topic.id%>");
+  j_list.each(function(element){
+    t[element] = j_list[element];
+  });
+  return t;
+}
+
+
+
+get_selected_invitable_user_id_<%= topic.id%> = function(){
+  id = -1;
+  prepare_invitable_user_list_<%= topic.id%>().forEach(function(element){
+    if ($(element).attr("picked") == "true"){
+      //console.log(element);
+      id = $(element).attr("invitable-user-id");
+    }
+    
+  });
+  return id;
+}
+
+after_invitation_callback_<%= topic.id%> = function(element){
+  // $("#join_form_<%= topic.id%>").empty();
+  $("#prog_mod_div_<%= topic.id%>").addClass("hidden");
+  $("#invitation_modal_<%= topic.id%>").modal('hide'); 
+}
+  
+var radio_form_for_invitable_users_<%= topic.id%> = new RadioList(prepare_invitable_user_list_<%= topic.id%>(), "glyphicon-check", "glyphicon-unchecked");
+
+  var validator = new StringValidator()
+
+  $("#send_invitation_button_<%= topic.id%>").click(function(){
+    curtain_height = $("#invitation_modal_<%= topic.id%>").find(".modal-content").height();
+    $("#prog_mod_div_<%= topic.id%>").css({height: curtain_height});
+    $("#prog_mod_div_<%= topic.id%>").removeClass("hidden");
+    var validator = new StringValidator()
+    if ($("#invitation_email_box_<%= topic.id%>").val() != ""){
+       if(validator.is_valid_email($("#invitation_email_box_<%= topic.id%>").val())){
+           var invitation_handler = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/send_email_invitation", "POST", {reciever_email: $("#invitation_email_box_<%= topic.id%>").val(), side: get_picked_side(), topic_id: <%=topic.id%>} ,after_invitation_callback);
+              invitation_handler.make_call();
+       }
+       else
+       {
+         $("#invitation_email_message_box_<%= topic.id%>").text("Please enter a valid email")
+       }
+    }
+    else 
+    {
+      var selected_invitation_handler_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/send_invitation", "POST", {challengee_id: get_selected_invitable_user_id_<%= topic.id%>(), topic_id: <%=topic.id%>} ,after_invitation_callback_<%= topic.id%>);
+              selected_invitation_handler_<%= topic.id%>.make_call();
+    }
+  });
+
+
+</script>

@@ -1,0 +1,43 @@
+<div class = "debate-content" id = "prompt_join_box_<%= topic.id%>">
+	<div class = "row">
+		<div class = "col-md-12">
+			<div class = "join_prompt_container">
+				<strong><%= debate.get_left_debater.display_name%></strong> has invited you to takepart in this conversation. Do you have a different take on the issue?
+				<div class = "small_devider"></div>
+				<div class = "row">
+					<div class = "col-md-12">
+						<button id = "i_agree_with_the_view_<%= topic.id%>" class = "btn btn-toucan btn-sm pull-left">i agree with the view </button>
+						<button id = "i_have_different_view_<%= topic.id%>" class = "btn btn-toucan btn-sm pull-right">i have a different view </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+<% if topic.is_open %>
+<% user_id = current_account.id%>
+<% else %>
+<% user_id = topic.challenge.challengee_id%>
+<% end%>
+console.log(<%= current_account.id%>);
+append_join_box_<%= topic.id%> = function(data){
+	//console.log(data);
+	$("#join_form_<%= topic.id%>").append(data);
+}
+$("#i_have_different_view_<%= topic.id%>").click(function(){
+	$("#join_form_<%= topic.id%>").empty();
+    var topic_box_request_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_box_request", "POST", {debate_id: <%= debate.id%>, topic_id: <%= topic.id%>, user_id: <%= user_id%>} , append_join_box_<%= topic.id%>);
+                topic_box_request_<%= topic.id%>.make_call();
+});
+
+display_refused_notification_<%= topic.id%> = function(data){
+	// console.log(data);
+	//$("#join_form_<%= topic.id%>").append(data);
+}
+$("#i_agree_with_the_view_<%= topic.id%>").click(function(){
+	$("#join_form_<%= topic.id%>").empty();
+    var refuse_challenge_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/challenge_refused", "POST", {debate_id: <%= debate.id%>, topic_id: <%= topic.id%>, user_id: <%= current_account.id%>} , display_refused_notification_<%= topic.id%>);
+                refuse_challenge_<%= topic.id%>.make_call();
+});
+</script>

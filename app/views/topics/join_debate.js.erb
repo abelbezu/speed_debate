@@ -1,0 +1,5 @@
+<% publish_to "/topics/main" do %>
+	$("#sides_container_<%= @topic.id%>").empty();
+	$("#sides_container_<%= @topic.id%>").append('<%= j render(:partial => "topics/partials/sides_and_status", locals: {:topic => @topic, :debate => @debate})%>');
+<% end %>
+     

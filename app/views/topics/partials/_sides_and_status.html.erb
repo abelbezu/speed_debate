@@ -1,0 +1,13 @@
+<p> <!-- takes in a hash object, name: ogp_object -->
+    <p><strong><%= debate.get_left_debater.display_name%></strong> Says: <%=topic.left_side_topic%></p>
+    <p><strong><%= debate.get_right_debater.display_name%></strong> Says: <%=topic.right_side_topic%></p>
+    <p>
+        <span id = "status_label">
+            <% unless (debate.is_over 5) %>
+            <span class="label label-success">On going</span>
+            <% else %>
+            <span class="label label-danger">Over</span>
+            <%end%> 
+        </span> 
+    </p>
+</p>

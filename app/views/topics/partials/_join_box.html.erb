@@ -1,0 +1,70 @@
+<!-- takes in user, topic and as an input -->
+<div class = "debate-content" >
+    <div class = "row">
+        <div class = "col-md-12">
+            <div class = "join_prompt_container">
+                <% if ((topic.is_open) && !(debate.has_debater user.id)) %>
+                <textarea id = "open_topic_side_input_<%=topic.id%>" style = "border-radius: 2px;" class = "form-control" rows = "1" placeholer = "state your side and join ..."> </textarea>
+                <div  class = "small_devider"></div>
+                <button id = "open_topic_join_btn_<%= topic.id%>" class = "btn btn-sm btn-toucan pull-right">join</button>
+                <script type="text/javascript">
+                 joining_icon_box_<%= topic.id%> = function(){                            
+                    $("#join_form_<%= topic.id%>").addClass("hidden");
+                    $("#joining_box_<%= topic.id%>").removeClass("hidden");
+                    $("#join_form_<%= topic.id%>").remove();
+                }
+                update_rich_topic_<%= topic.id%> = function(data){
+                    $("#joining_box_<%= topic.id%>").addClass("hidden");
+                    $("#one_side_topic_<%= topic.id%>").remove();
+
+                    $("#sides_container_<%= topic.id%>").append(data);
+
+
+                }
+                $("#open_topic_join_btn_<%= topic.id%>").click(function(){
+
+                    right_input = $("#challenge_topic_side_input_<%= topic.id%>").val();
+                    joining_icon_box_<%= topic.id%>();
+                    var join_ajax_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_debate_from_rich_index", "POST", {debate_id: <%=debate.id%>, right_side_topic: $("#open_topic_side_input_<%=topic.id%>").val(), topic_id: <%=topic.id%>} ,update_rich_topic_<%= topic.id%>);
+                    join_ajax_<%= topic.id%>.make_call();
+
+                });
+
+                </script>
+                <% elsif  (((topic.has_account_challengee)&&(topic.challenge.get_challengee == user))||((topic.has_email_challengee)&&(topic.challenge.challengee_email == user.email))) %>
+                <span style = "font-size: smaller;"><strong>state your view and join</strong></span>
+                <textarea id = "challenge_topic_side_input_<%= topic.id%>" style = "border-radius: 2px;" class = "form-control" rows = "1" placeholer = "state your side and join ..."> </textarea>
+                <div  class = "small_devider"> </div>
+                <button id = "challenge_topic_join_btn_<%= topic.id%>" class = "btn btn-sm btn-toucan pull-right" >join</button>
+                <script type="text/javascript">
+                joining_icon_box_<%= topic.id%> = function(){                            
+                    $("#join_form_<%= topic.id%>").addClass("hidden");
+                    $("#joining_box_<%= topic.id%>").removeClass("hidden");
+                    $("#join_form_<%= topic.id%>").remove();
+                }
+                update_rich_topic_<%= topic.id%> = function(data){
+                    $("#joining_box_<%= topic.id%>").addClass("hidden");
+                    $("#one_side_topic_<%= topic.id%>").remove();
+
+                    $("#sides_container_<%= topic.id%>").append(data);
+
+
+                }
+                $("#challenge_topic_join_btn_<%= topic.id%>").click(function(){
+                    right_input = $("#challenge_topic_side_input_<%= topic.id%>").val();
+                    joining_icon_box_<%= topic.id%>();
+                    var join_ajax_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_debate_from_rich_index", "POST", {debate_id: <%=debate.id%>, right_side_topic: right_input, topic_id: <%=topic.id%>} ,update_rich_topic_<%= topic.id%>);
+                    join_ajax_<%= topic.id%>.make_call();
+
+                });
+
+                </script>
+                <% else %>
+
+                <% end%>
+            <div style = "clear:both">
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

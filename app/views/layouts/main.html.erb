@@ -19,7 +19,10 @@
 <%= yield %>
 <%= render(:partial => "report") %>
 <%= render(:partial => "notification_box") %>
+
 </body>
+<% if account_signed_in? %>
+<%= subscribe_to account_path(current_account) %>
 
 <script type="text/javascript">
 var notification_box = new NotificationBox("test_notification", 20, 20);
@@ -27,4 +30,5 @@ var current_user_id = function(){
 	return ($("#current_user_id_container_span").attr("current-user-id"));
 }
 </script>
+<% end %>
 </html>

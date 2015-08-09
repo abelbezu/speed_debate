@@ -41,27 +41,17 @@
             <hr>
         </div>
         <div class="debate-content text-description">
+            <div id = "sides_container_<%= topic.id%>">
             <% if topic.is_full %>
-            
-            <p> <!-- takes in a hash object, name: ogp_object -->
-                <p><strong><%= debate.get_left_debater.display_name%></strong> Says: <%=topic.left_side_topic%></p>
-                <p><strong><%= debate.get_right_debater.display_name%></strong> Says: <%=topic.right_side_topic%></p>
-                <p>
-                <span id = "status_label">
-                    <% unless (debate.is_over 5) %>
-                        <span class="label label-success">On going</span>
-                    <% else %>
-                        <span class="label label-danger">Over</span>
-                    <%end%> 
-                </span> 
-                </p>
-            </p>
+                <%= render partial: "topics/partials/sides_and_status", locals: {topic: topic, debate: debate} %>
             <% elsif !topic.is_full %>
-            <p> <!-- takes in a hash object, name: ogp_object -->
+                
+            <div id = "one_side_topic_<%= topic.id%>"> <!-- takes in a hash object, name: ogp_object -->
                 <p><%=topic.left_side_topic%></p>
-            </p>
+            </div>
             
             <% end %>
+            </div>
 
         </div>
         
@@ -105,58 +95,12 @@
             </div>
 
             <div class = "col-md-12" id = "join_form_<%= topic.id%>">
-                <% if (account_signed_in?) && !(topic.is_full) %>
+                <% if (account_signed_in?) && (topic.display_user_prompt_for current_account) %>
 
-                <% if ((topic.is_open) && !(debate.has_debater current_account.id)) %>
-                              
-                    <textarea id = "open_topic_side_input_<%=topic.id%>" style = "border-radius: 2px;" class = "form-control" rows = "1" placeholer = "state your side and join ..."> </textarea>
-                    <div  class = "small_devider"></div>
-                    <button id = "open_topic_join_btn_<%= topic.id%>" class = "btn btn-primary btn-sm pull-right">join</button>
-                    <script type="text/javascript">
-                    console.log("hey there =");
-                        update_rich_topic_<%= topic.id%> = function(){
-                            console.log("rails rendered");
-                            $("#join_form_<%= topic.id%>").addClass("hidden");
-                            $("#joining_box_<%= topic.id%>").removeClass("hidden");
-                            $("#join_form_<%= topic.id%>").remove();
-                        }
-                        $("#open_topic_join_btn_<%= topic.id%>").click(function(){
-                            
-                            right_input = $("#challenge_topic_side_input_<%= topic.id%>").val();
-                            joining_icon_box_<%= topic.id%>();
-                            var join_ajax_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_debate_from_rich_index", "POST", {debate_id: <%=debate.id%>, right_side_topic: $("#open_topic_side_input_<%=topic.id%>").val(), topic_id: <%=topic.id%>} ,update_rich_topic_<%= topic.id%>);
-                                join_ajax_<%= topic.id%>.make_call();
+                <%=render partial: "topics/partials/prompt_join_box", locals: {user: current_account, topic: topic, debate: debate}%>
 
-                        });
-
-                    </script>
-                <% elsif  (topic.has_user_challengee) && ((topic.challenge.get_challengee == current_account)||(topic.challenge.challengee_email == current_account.email )) %>
-                               
-                    <textarea id = "challenge_topic_side_input_<%= topic.id%>" style = "border-radius: 2px;" class = "form-control" rows = "1" placeholer = "state your side and join ..."> </textarea>
-                    <div  class = "small_devider"> </div>
-                    <button id = "challenge_topic_join_btn_<%= topic.id%>" class = "btn btn-primary btn-sm pull-right">join</button>
-                     <script type="text/javascript">
-                        joining_icon_box_<%= topic.id%> = function(){
-                            
-                            $("#join_form_<%= topic.id%>").addClass("hidden");
-                            $("#joining_box_<%= topic.id%>").removeClass("hidden");
-                            $("#join_form_<%= topic.id%>").remove();
-                        }
-                        update_rich_topic_<%= topic.id%> = function(data){
-                            $("#joining_box_<%= topic.id%>").addClass("hidden");
-                        }
-                        $("#challenge_topic_join_btn_<%= topic.id%>").click(function(){
-                            right_input = $("#challenge_topic_side_input_<%= topic.id%>").val();
-                            joining_icon_box_<%= topic.id%>();
-                           var join_ajax_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_debate_from_rich_index", "POST", {debate_id: <%=debate.id%>, right_side_topic: right_input, topic_id: <%=topic.id%>} ,update_rich_topic_<%= topic.id%>);
-                           join_ajax_<%= topic.id%>.make_call();
-
-                        });
-
-                    </script>
-                    <% else %>
-
-                <% end%>
+                <% elsif (account_signed_in?) && (topic.display_challenge_refused_for current_account)%>
+                <%=render partial: "topics/partials/challenge_refused_box", locals: {user: current_account, topic: topic, debate: debate}%>
                 <% end%>
             </div>
         </div>

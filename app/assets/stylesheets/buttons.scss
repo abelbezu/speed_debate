@@ -1,0 +1,21 @@
+$defaultBtnColor: rgb(199, 92, 92);
+
+
+.btn-toucan{
+  font-weight: bolder;
+  background-color: $defaultBtnColor;
+  color: white;
+  border-radius: 2px;
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  &:hover{
+    color: white;
+    background-color: darken($defaultBtnColor, 10%)
+  }
+}
+
+.btn_wide{
+  width: 200px;
+  
+}

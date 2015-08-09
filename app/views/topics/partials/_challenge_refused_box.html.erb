@@ -1,0 +1,27 @@
+<div class = "debate-content" id = "prompt_join_box_<%= topic.id%>">
+	<div class = "row">
+		<div class = "col-md-12">
+			<div class = "join_prompt_container">
+				Your opponent has refused to take part in this conversation. What do you want to do?
+				<div class = "small_devider"></div>
+				<div class = "row">
+					<div class = "col-md-12">
+						<button id = "discard_conversation_<%= topic.id%>" class = "btn btn-toucan btn-sm pull-left">discard conversation </button>
+						<button id = "challenge_somebody_else_<%= topic.id%>" class = "btn btn-toucan btn-sm pull-right">challenge somebody else </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$("#challenge_somebody_else_<%= topic.id%>").click(function(){
+	$("#invitation_modal_<%= topic.id%>").modal('show');
+});
+$("#discard_conversation_<%= topic.id%>").click(function(){
+	$("#discard_conversation_modal_<%= topic.id%>").modal('show');
+});
+</script>
+
+<%= render partial: "topics/partials/invitation_modal", locals: {topic: topic, debate: debate} %>
+<%= render partial: "topics/partials/discard_conversation_modal", locals: {topic: topic, debate: debate} %>

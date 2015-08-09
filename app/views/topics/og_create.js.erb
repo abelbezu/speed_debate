@@ -1,4 +1,9 @@
 <% publish_to "/topics/main" do %>
 	$("#topic_creator_container").after('<%= j render(:partial => "topics/partials/rich_topic_index", :locals => {topic: @topic, debate: @debate})%>');
 <% end %>
-     
+<% publish_to account_path(@account) do %>
+<% unless @account == "--no_account--"%>
+console.log(<%= @account.id%>)
+    $("#join_form_<%= @topic.id%>").append('<%= j render(:partial => "topics/partials/prompt_join_box", :locals => {user: @account, topic: @topic, debate: @debate})%>');
+<% end %> 
+<% end %>    
