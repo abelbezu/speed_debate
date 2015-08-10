@@ -1,5 +1,10 @@
 <% publish_to "/topics/main" do %>
 	$("#sides_container_<%= @topic.id%>").empty();
 	$("#sides_container_<%= @topic.id%>").append('<%= j render(:partial => "topics/partials/sides_and_status", locals: {:topic => @topic, :debate => @debate})%>');
+	$("#topic_index_pannel_<%= @topic.id %>").click(function(){
+
+        window.location.href = "<%= debate_url @debate%>";
+
+    });
 <% end %>
      
