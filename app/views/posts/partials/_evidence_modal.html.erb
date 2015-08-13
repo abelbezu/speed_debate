@@ -1,0 +1,139 @@
+<!-- Modal -->
+<div class="modal fade" id="evidence_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div style = "position: relative;" class="modal-dialog">
+    <div class="modal-content small_functional_modal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p class="modal-title" id="myModalLabel">Evidence</p>
+      </div>
+      <div class="modal-body">
+        
+        
+        <div class = "small_devider"></div>
+        <div class = "row">
+        <div class = "col-md-12">
+           <div class="input-group">
+						<input type="text" id = "ogp_url_field" class="form-control" placeholder="url...">
+						<span class="input-group-btn">
+							<button id = "import_button" class="btn import_btn btn-default" type="button"><span class = "hidden" id = "import_button_importing"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>importing ...</span><span id = "import_btn_import_label" class = "">Import</span></button>
+						</span>
+			</div>
+			<div class = "small_devider"></div>
+			<div class = "small_devider"></div>
+			<!-- Image upload under construction. Evidence is only urls for now -->
+			<!-- <div id = "evidence_image_container" class = "evidence_image_container">
+
+
+			</div>
+			<div class = "small_devider"></div>
+			<input type = "file" class = "form-control"> -->
+			
+			<div id = "ogp_object_display" class = "hidden open_graph_object_display">
+
+			</div>
+          <div class = "message_box" id = "">
+          </div>
+        </div>
+        </div>
+        <div class = "adding_evidence_banner hidden">
+					<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+					<div>
+						<strong>creating ...</strong>
+					</div>
+			</div>
+        <div class = "small_devider"></div>
+        <div class = "small_devider"></div>
+          <div class = "row">
+            <div class = "col-md-12">
+              <button id = "evidence_modal_okay" style = "margin-left: 15px; width: 80px;" class = "btn btn-toucan btn-sm pull-right">Ok </button><span  class = "pull-right"></span>
+              <button id = "evidence_modal_cancel" style = "width: 80px;" class = "btn btn-toucan btn-sm pull-right">Cancel</button>
+            </div>
+          </div>
+        <div class = "small_devider"></div>
+        <div class = "small_devider"></div>
+       
+        <div style = "clear:both">
+        </div>
+      
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+		display_curtain = function(){
+			rich_curtain_height = $(".modal-dialog").height();
+			
+			rich_curtain_padding_top = (rich_curtain_height/2) - 50
+    		$(".adding_evidence_banner").css({height: rich_curtain_height+30});
+    		$(".adding_evidence_banner").css({top:  0});
+    		$(".adding_evidence_banner").css({"padding-top": rich_curtain_padding_top});
+    		$(".adding_evidence_banner").removeClass("hidden");
+		}
+
+		hide_import_label_and_show_loading = function() {
+			$("#import_btn_import_label").addClass("hidden");
+			$("#import_button_importing").removeClass("hidden");
+
+
+		}
+		show_import_label_and_hide_loading = function() {
+			$("#import_button_importing").addClass("hidden");
+			$("#import_btn_import_label").removeClass("hidden");
+		}
+		
+
+		ogp_url = function(){
+			$("#ogp_object_display").empty();
+			// $("#ogp_object_display").removeClass("hidden");
+			return $("#ogp_url_field").val();
+		}
+
+		display_ogp = function(data){
+			$("#evidence_image_container").addClass("hidden");			
+			show_import_label_and_hide_loading();	
+			clear_display();
+			$("#ogp_object_display").removeClass("hidden");		
+			$("#ogp_object_display").append(data);
+		}
+
+		clear_display = function(){
+			$("#ogp_object_display").empty();
+			$("#ogp_object_display").addClass("hidden");
+		}
+
+		fetch_content = function(url_to_fetch){
+			hide_import_label_and_show_loading();
+			var ogp_evidence_caller = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/fetch_ogp_object", "POST", {url: ogp_url(), display_row: "true"} , display_ogp);
+      			ogp_evidence_caller.make_call();
+
+		}
+
+		add_evidence_to_box = function(data){
+			console.log("reached");
+			console.log($("#evidence_row_container_<%= id%>"));
+			console.log(data);
+			$("#evidence_row_container_<%= id%>").append(data);
+
+		}
+
+		$("#import_button").click(function(){
+			
+			hide_import_label_and_show_loading();
+			fetch_content($("#ogp_url_field").val());
+		});
+		
+		$("#evidence_modal_okay").click(function(){
+			//display_curtain();
+
+			 var evidence_displayer = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/fetch_ogp_object", "POST", {url: ogp_url(), display_row: "true"} , add_evidence_to_box);
+     			evidence_displayer.make_call();
+     			$("#evidence_modal").modal('hide');
+
+
+		});
+		$("#evidence_modal_cancel").click(function(){
+			$("#evidence_modal").modal("hide");
+		});
+
+</script>

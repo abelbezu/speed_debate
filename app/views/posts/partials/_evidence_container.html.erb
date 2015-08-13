@@ -1,0 +1,25 @@
+<div class = "row">
+	<div class = "col-md-12">
+		<div id = "show_evidence_btn_<%= argument.id%>" class = "clickable_info_text pull-right">show evidence</div>
+	</div>
+</div>
+<div class = "small_devider"></div>
+<div id = "evidence_container_<%= argument.id%>"  class = "evidence_container hidden">
+	<ul>
+		<% unless argument.class == String %>	
+		
+		<% argument.evidences.each do |evidence|%>
+		<li>
+			<%= render partial: "posts/partials/evidence_row", locals: {evidence: evidence} %>
+			<div class = "small_devider"></div>
+		</li>
+		<%end%>
+		<%end%>
+		
+	</ul>
+</div>
+<script type="text/javascript">
+$("#show_evidence_btn_<%= argument.id%>").click(function(){
+	$("#evidence_container_<%= argument.id%>").toggleClass("hidden");
+});
+</script>

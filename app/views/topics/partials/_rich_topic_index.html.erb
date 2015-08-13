@@ -37,7 +37,11 @@
                 </div>
             </div>
         </div>
-            <p><%=topic.topic_sentence%> </p>
+            <% if !topic.is_full %>
+            <p><%= topic.topic_sentence%></p>
+            <% else %>
+            <p><%= link_to topic.topic_sentence, debate_path(debate)%> </p>
+            <% end %>    
             <hr>
         </div>
         <div class="debate-content text-description">
@@ -73,7 +77,7 @@
                     </p>
                 </div>
                         <% unless topic.story.og_url == nil%>
-                        <a class = "go_to_story_btn btn btn-default btn-sm pull-right" href = "<%= topic.story.og_url%>"> go to story </a>
+                        <a class = "go_to_story_btn btn btn-default btn-sm pull-right" onclick = "window.open('<%= topic.story.og_url%>')"> go to story </a>
                         <% end %>
             </p>
 

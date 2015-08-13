@@ -1,4 +1,7 @@
-FactoryGirl.define do  factory :challenge do
+FactoryGirl.define do  factory :evidence do
+    
+  end
+  factory :challenge do
     
   end
   factory :story do

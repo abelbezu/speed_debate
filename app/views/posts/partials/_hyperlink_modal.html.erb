@@ -1,0 +1,51 @@
+<!-- Modal -->
+<div class="modal fade" id="hyperlink_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div style = "position: relative;" class="modal-dialog">
+    <div class="modal-content small_functional_modal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p class="modal-title" id="myModalLabel">Hyperlink</p>
+      </div>
+      <div class="modal-body">
+        
+        
+        <div class = "small_devider"></div>
+        <div class = "row">
+        <div class = "col-md-12">
+           <input id = "hyperlink_url" type = "text" class = "form-control" , placeholder = "http://www.example.com/some_more_stuff/...">
+          <div class = "message_box" id = "">
+          </div>
+        </div>
+        </div>
+        <div class = "small_devider"></div>
+        <div class = "small_devider"></div>
+          <div class = "row">
+            <div class = "col-md-12">
+              <button id = "hyperlink_url_okay" style = "margin-left: 15px; width: 80px;" class = "btn btn-toucan btn-sm pull-right">Ok </button><span  class = "pull-right"></span>
+              <button id = "hyperlink_url_cancel" style = "width: 80px;" class = "btn btn-toucan btn-sm pull-right">Cancel</button>
+            </div>
+          </div>
+        <div class = "small_devider"></div>
+        <div class = "small_devider"></div>
+       
+        <div style = "clear:both">
+        </div>
+      
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+$("#hyperlink_url_cancel").click(function(){
+  $("#hyperlink_modal").modal("hide");
+});
+$("#hyperlink_url_okay").click(function(){
+  var linkUrl = $("#hyperlink_url").val();
+  var reply = richTextFrame.document.execCommand("CreateLink", false, linkUrl);
+  $(document.getElementById('rich_text_frame').contentWindow.document.body).find("a").css({"color": "#07c", "text-decoration": "none"})
+  $("#hyperlink_modal").modal("hide");
+});
+
+
+</script>

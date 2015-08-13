@@ -18,6 +18,21 @@ $btnColor: rgb(199, 92, 92);
   opacity: 0.7;
 }
 
+.adding_evidence_banner{
+  text-align: center;
+  color: red;
+  padding-top: 100px;
+  // top: -150px;
+  position: absolute;
+  
+  width: 97%;
+  border-radius: 3px;
+  background-color: white;
+  z-index: 1005;
+  opacity: 0.7;
+}
+
+
 .profile_box_outer_container{
   height: 170px;
   width: 100%;

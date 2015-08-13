@@ -31,11 +31,12 @@
 					<label class="control-label">topic of interest</label>
 					<input id = "og_topic_input_box" type="text" class="form-control" placeholder="your topic ...">
 					<div class = "small_devider"> </div>
-					<label class="control-label">or url</label>
+					<label class="control-label">add url</label>
 					<div class="input-group">
 						<input type="text" id = "ogp_url_field" class="form-control" placeholder="url...">
 						<span class="input-group-btn">
 							<button id = "import_button" class="btn import_btn btn-default" type="button"><span class = "hidden" id = "import_button_importing"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>importing ...</span><span id = "import_btn_import_label" class = "">Import</span></button>
+							
 						</span>
 					</div>
 					<div class = "small_devider"> </div>
@@ -184,10 +185,22 @@
 
 		}
 
+		valid_input = function(input_text){
+			reg_ex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g ;
+			if(input_text.match(reg_ex)){
+				return true;
+		    }
+		    return false;
+		}
+
 		$("#import_button").click(function(){
-			console.log("clicked");
-			hide_import_label_and_show_loading();
-			fetch_content($("#ogp_url_field").val());
+			if(valid_input($("#ogp_url_field").val())){
+				hide_import_label_and_show_loading();
+				fetch_content($("#ogp_url_field").val());
+			}
+			else{
+
+			}
 		});
 
 		prepare_opponent_list = function(){
@@ -234,6 +247,7 @@
 		});
 
 		var processed_url = ""
+
 		analyze_input = function(input_text){
 			reg_ex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g ;
 					

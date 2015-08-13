@@ -1,30 +1,52 @@
 <div id = "reply_container">
-<%= form_for(	:post,  
-				:remote => true, 
-				:url => {:controller => 'posts',  :action => 'create'}, 
-				:html =>{:id => "post_input_form"}) do |f| %> 
+<form> </form>
 				
 
-				<%= f.hidden_field :debate_id, :value => id %>
-				<%= f.fields_for :content_attributes do |o|%>
+				
+				<input type = "hidden" class = "hidden" id = "hidden_debate_id" value = "<%= id%>" >
+				
 					<div class = "reply-box">
-						<div class="form-group">    
-							<%= o.text_area(:content_body, :rows => '3',:class => 'reply-text-area form-control', :placeholder => "Your turn", :id => "post_input_box") %>
+						<div class = "row">
+							<div class = "col-md-10">
+								<span id = "add_evidence_label" class = "hidden add_evidence_label"> click here to add evidence</span>
+								<span id = "add_link_label" class = "hidden add_evidence_label"> highlight a phrase and click here to link to external url</span>
+							</div>
+							
+							
+							<div class = "col-md-1">
+								<div id = "hyperlink_icon" class = "hyperlink_icon" ><i class="pull-right glyphicon glyphicon-link"></i> </div>
+								
+							</div>
+							<div class = "col-md-1">
+								<div id = "evidence_icon" class = "hyperlink_icon" ><i class="pull-right glyphicon glyphicon-file"></i> </div>
+								
+							</div>
+							
+								
+							</div>
+						</div>
+					
+
+							
+							
+							<iframe name="richTextFrame" style = "" id = "rich_text_frame"></iframe>
 							<div id = "message_box">
 							</div>
 						</div> 
 					</div>
-				<%end%>
-
-			<div class = "reply-btn">
-				<%= submit_tag("Reply", 
-								:id => "post_submit_btn", 
-								:class => "btn btn-success btn-sm pull-right")
-				%>
+			<div  class = "evidence_row_container">
+				<ul id = "evidence_row_container_<%=id%>">
+														
+				</ul>
 			</div>
-<% end%>
+			<div class = "reply-btn">
+				
+				<button class = "btn btn-success btn-sm pull-right" id = "post_submit_btn">Reply</button>
+			</div>
+			
 </div>
 <script type="text/javascript">
+	
 	var t = new TextInput("post_input_box");
 	//t.enter_submitable("post_input_form", "post_submit_btn", "reply_container", "", "");
 	$(".post_panel").last().attr("temporary", "true");
@@ -32,4 +54,83 @@
   	approaching_msg = "You are about to exceed the character limit. Please keep your post below 750 characters";
   	exceeded_msg = "You've exceeded the character limit!"
   	creator.notifiable(20, approaching_msg, exceeded_msg);
+  	turn_on_design_mode = function(){
+  			richTextFrame.document.designMode = 'on';
+  	} 
+
+  	$("#evidence_icon").click(function(){
+  		console.log("detected");
+		$("#evidence_modal").modal("show");
+		
+	});
+	$("#hyperlink_icon").click(function(){
+		$("#hyperlink_modal").modal("show");
+		
+	});
+
+	
+
+  	$("#evidence_icon").mouseenter(function(){
+		$("#add_evidence_label").removeClass("hidden");
+		
+	});
+
+
+  	$("#hyperlink_icon").mouseenter(function(){
+		$("#add_link_label").removeClass("hidden");
+		
+	});
+
+	$("#evidence_icon").mouseleave(function(){
+		$("#add_evidence_label").addClass("hidden");
+		
+	});
+
+
+  	$("#hyperlink_icon").mouseleave(function(){
+		$("#add_link_label").addClass("hidden");
+		
+	});
+
+	turn_on_design_mode();
+  	stylize_frame = function(){
+  		c = document.getElementById('rich_text_frame').contentWindow.document.body.style;
+  		c.fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
+  		c.fontSize = "13px";
+  		c.color = '#282828';
+
+  	}
+
+  	stylize_on_focus = function(){
+  		c = document.getElementById('rich_text_frame').contentWindow.document.body.style;
+  		c.borderColor = "red";
+  	}
+	//turn on design mode for fire fox
+	$("#rich_text_frame").mouseenter(function(){
+		turn_on_design_mode();
+		stylize_frame();
+	});
+  	stylize_frame();
+  	evidence_urls = function(){
+  		var selected_urls = new Array();
+  		$(".evidence_ogp_url").each(function(i){
+  			selected_urls.push($($(".evidence_ogp_url")[i]).val());
+  		})
+  		return selected_urls;
+  	}
+  	param_extractor = function(){
+			response_json = {debate_id: $("#hidden_debate_id").val(), og_urls: evidence_urls(), post_argument: richTextFrame.document.body.innerHTML}	
+			return 	response_json;
+
+		}
+	after_post_submit = function(){
+
+	}
+  	$("#post_submit_btn").click(function(){
+  		var submit_argument = new AjaxHandler("none", "<%= root_url%>"+"posts/create_with_evidence", "POST", param_extractor(), after_post_submit);
+     			submit_argument.make_call();
+  	});
+  	
 </script>
+<%= render partial: "posts/partials/hyperlink_modal", locals: {id: id} %>
+<%= render partial: "posts/partials/evidence_modal", locals: {id: id} %>

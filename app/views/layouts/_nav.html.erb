@@ -87,14 +87,14 @@
 		</div>
 	<script type="text/javascript">
 	function counter_remover(element){
-		console.log("reached");
+		
 		$("#notification_count").remove();
 
 	}
 	var notification_under_nav = new NotificationBox("notification_under_nav_bar", 0, 0);
 	var nav_updater = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/read_notifications", "POST", {}, counter_remover);
 	$("#nav_notifications").click(function(){
-		console.log("clicked");
+		
 		 
       		nav_updater.make_call();
 	});

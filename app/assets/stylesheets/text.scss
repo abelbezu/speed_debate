@@ -1,0 +1,38 @@
+$defaultTextColor : #282828;
+.hyperlink_icon{
+	color: lighten($defaultTextColor, 30%);
+	
+	&:hover{
+		color: $defaultTextColor;
+	}
+	.glyphicon-link{
+		cursor: pointer;
+		margin-bottom: 10px;
+	}
+}
+
+.add_evidence_label{
+	font-size: 11px;
+	color: lighten($defaultTextColor, 30%);
+}
+.text_extra_light{
+	color: lighten($defaultTextColor, 30%);
+}
+.evidence_body{
+	font-size: 13px;
+	
+}
+.message_box{
+	font-size: 11px;
+	color: red;
+}
+.info_text{
+    font-size: 12px;
+    color: rgb(100,100,100);
+}
+.clickable_info_text{
+	font-size: 12px;
+    color: rgb(100,100,100);
+    cursor: pointer;
+
+}

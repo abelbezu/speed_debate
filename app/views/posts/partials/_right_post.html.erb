@@ -82,10 +82,14 @@
                     :locals => {:id=> debate.id})
                     %>
                     <% elsif box_type == "post" %>
-                    <%= argument.content.content_body%>
+                    <%= argument.content.content_body.html_safe%>
                     <% end %>
                   </div>
-
+                  <!-- render the evidence box here -->
+                  <% if box_type == "post" && argument.evidences.count > 0 %>
+                    <%= render partial: "posts/partials/evidence_container", locals: {:argument => argument}%>    
+                  <% end %>
+                  <!-- end rendering the evidence box here :) -->
                 </div>
               </div>
               <%= render partial: "posts/partials/bottom"%>

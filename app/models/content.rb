@@ -7,7 +7,7 @@ class Content < ActiveRecord::Base
 	scope :comment, lambda{where(:type => "comment")} #returns a comment
 	scope :post, lambda{where(:type => "post")} # returns a post
  	validates_presence_of :content_body
- 	validates_length_of :content_body, :within => 1..750
+ 	#validates_length_of :content_body, :within => 1..750
 	# a method to organize comments may be needed
 
 

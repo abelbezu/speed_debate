@@ -15,10 +15,11 @@
 		"<%= escape_javascript render(:partial => @argument.get_debate.get_turn == 'left_side' ? 'posts/partials/left_post': 'posts/partials/right_post' , :locals =>{:argument => @argument, :box_type => 'input', :debate => @argument.get_debate})%>");
 	$('.profile-info-name').last().text($('#user_name_holder').attr('user-name'));
 	<% if @argument.get_debate.posts_left(5) <=2%>  
-		notification_under_nav.notify_under_nav(1000, 3000, "This is your last box. Please present your closing argument!");
+		notification_under_nav.notify_under_nav(1000, 10000, "This is your last box. Please state your closing argument!");
 	<% end %>
 	}
   	<% else %>
+  	notification_under_nav.notify_under_nav(1000, 10000, "debate is over!");
   	$("#status_label").html("<span class='label label-danger'>Over</span>");
   	
   	<%end %>

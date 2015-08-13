@@ -1,0 +1,8 @@
+$defaultLinkColor : #222;
+a{
+	color: $defaultLinkColor;
+	&:hover {
+		text-decoration: none;
+		color: darken($defaultLinkColor, 30%);
+	}
+}

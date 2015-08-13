@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809222918) do
+ActiveRecord::Schema.define(version: 20150813093251) do
 
   create_table "account_details", force: true do |t|
     t.integer  "account_id"
@@ -127,6 +127,17 @@ ActiveRecord::Schema.define(version: 20150809222918) do
 
   add_index "debates", ["topic_id"], name: "index_debates_on_topic_id", using: :btree
 
+  create_table "evidences", force: true do |t|
+    t.integer  "post_id"
+    t.string   "og_topic"
+    t.text     "og_description"
+    t.text     "og_image_url"
+    t.string   "og_type"
+    t.string   "og_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", force: true do |t|
     t.integer  "image_owner_id"
     t.string   "image_owner_type"
@@ -194,9 +205,9 @@ ActiveRecord::Schema.define(version: 20150809222918) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start_time", default: '2015-06-29 19:40:21', null: false
+    t.datetime "start_time", default: '2015-08-13 16:02:07', null: false
     t.datetime "pos"
-    t.datetime "end_time",   default: '2015-07-06 19:40:21', null: false
+    t.datetime "end_time",   default: '2015-08-20 16:02:07', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"

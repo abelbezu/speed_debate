@@ -30,13 +30,7 @@ main = function(){
 		$(".glyphicon-comment").removeClass("off_the_roof");
 		
 	}
-	$(".comment_container_close").click(function(){
-		left_post_back();
-		right_post_back();
-		$(".panel-default").removeClass("glow_red");
-		$(".comments_container").addClass("hidden");
-		show_comment_icons();
-	});
+	
 	
 
 }

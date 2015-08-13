@@ -2,150 +2,156 @@
 
 <% if box_type == "post" %>
 <li id = "post_box_<%= argument.id%>" class = "post_panel">
-<% else %>
-<li id = "post_box" class = "post_panel">
-<% end %>
+  <% else %>
+  <li id = "post_box" class = "post_panel">
+    <% end %>
 
 
 
-  <div class = "row">
-  <div class = "col-md-1">
-   <% if box_type == "post" %>
-           <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
-           <%else%>
-        <span id = "comment_icon" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+    <div class = "row">
+      <div class = "col-md-1">
+       <% if box_type == "post" %>
+       <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
+       <%else%>
+       <span id = "comment_icon" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
        <%end%>
-  </div>
-  <div class = "col-md-10">
-  <div class = "transformed_offset_left ">
-  </div>
-  <div  class = "slidable slidable_left col-md-10  timeable_test" style = "padding: 0px;">
-      <% if box_type == "post" %>
-        <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel  panel-default">
-        <%else%>
-        <div id = " " class="rounded-edges panel  panel-default">
-        <%end%>
-      <div class="panel-body">
-        <div class = "row">
-
-        </div>
-        <div class = "row">
-          <div class = "col-md-12">
-            <div class = "post-box-profile-img-container">
-              <%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
-
-            </div>
-
-            <div class = "post-box-profile-info-container">
-              <div class = "post-box-profile-info">
-                <span class = "profile-info-name">
-                  <% if box_type == "post" %>
-                  <%= Account.find(argument.account_id).display_name%>
-                  <%else%>
-                  <%= current_account.display_name%>
-                  <% end %>
-                </span>
-                <span class = "profile-info-meta">
-                  <%if box_type == "post"
-                    
-                    difference = Time.now - argument.updated_at
-
-                    if difference >= 3600
-                      timestamp = pluralize(((difference/3600).round), 'hour') 
-                    elsif difference >= 60
-                      timestamp = pluralize(((difference/60).round), 'minute') 
-                    else
-                     "A few seconds ago"
-                    end
-
-                  %>
-
-                  <%= timestamp%> 
-                  <% end %>
-                </span>
-              </div>
-              <div class = "profile-info-description">             
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class = "row" style = "margin-top: 10px;">
-          <div class = "argument-text col-md-12">
-
-            <div  class = "reply-box">
-              <% if box_type == "input"%> 
-                 <%= render(
-                        :partial => 'posts/partials/input_fields', 
-                        :locals => {:id=> debate.id})
-                 %>
-
-              <% elsif box_type == "post" %>
-                 <%= argument.content.content_body%>
-              <% end %>
-
-
-            </div>
-
-
-          </div>
-        </div>
-       <%= render partial: "posts/partials/bottom"%>
-        
+     </div>
+     <div class = "col-md-10">
+      <div class = "transformed_offset_left ">
       </div>
-    </div>
-  </div>
-  <div class = "original_offset_left col-md-2">
+      <div  class = "slidable slidable_left col-md-10  timeable_test" style = "padding: 0px;">
+        <% if box_type == "post" %>
+        <div id = "post_panel_<%= argument.id%>" class="rounded-edges panel  panel-default">
+          <%else%>
+          <div id = " " class="rounded-edges panel  panel-default">
+            <%end%>
+            <div class="panel-body">
+              <div class = "row">
 
-  </div>
-  <div style = "clear:both"></div>
-  <div class = "col-md-1">
-  </div>
-  </div>
-</li>
-<% if box_type == "post" %>
-<%= render partial: "comments/index", locals: {argument: argument} %>
-<script type="text/javascript">
-populate_comments = function(data){
-  $(".comments_body_container").remove();
-  $(".spinner_container").addClass("hidden");
-   $(".comment_container_main").append(data);
-}
- $("#post_box_<%= argument.id%>").mouseenter(function(){
-    comment_icon = $("#comment_icon_<%= argument.id%>")
-    $(comment_icon).fadeIn("slow");
+              </div>
+              <div class = "row">
+                <div class = "col-md-12">
+                  <div class = "post-box-profile-img-container">
+                    <%= image_tag("default.png", :alt => "+", :class => "profile-pic-container")%>
+
+                  </div>
+
+                  <div class = "post-box-profile-info-container">
+                    <div class = "post-box-profile-info">
+                      <span class = "profile-info-name">
+                        <% if box_type == "post" %>
+                        <%= Account.find(argument.account_id).display_name%>
+                        <%else%>
+                        <%= current_account.display_name%>
+                        <% end %>
+                      </span>
+                      <span class = "profile-info-meta">
+                        <%if box_type == "post"
+
+                          difference = Time.now - argument.updated_at
+
+                          if difference >= 3600
+                            timestamp = pluralize(((difference/3600).round), 'hour') 
+                          elsif difference >= 60
+                            timestamp = pluralize(((difference/60).round), 'minute') 
+                          else
+                           "A few seconds ago"
+                         end
+
+                         %>
+
+                         <%= timestamp%> 
+                         <% end %>
+                       </span>
+                     </div>
+                     <div class = "profile-info-description">             
+
+
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <div class = "row" style = "margin-top: 10px;">
+                <div class = "argument-text col-md-12">
+
+                  <div  class = "reply-box">
+                    <% if box_type == "input"%> 
+                    <%= render(
+                      :partial => 'posts/partials/input_fields', 
+                      :locals => {:id=> debate.id})
+                      %>
+
+                      <% elsif box_type == "post" %>
+                      <%= argument.content.content_body.html_safe%>
+                      <% end %>
+
+
+                    </div>
+
+                    <!-- render the evidence box here -->
+                    <% if box_type == "post" && argument.evidences.count > 0 %>
+                    <%= render partial: "posts/partials/evidence_container", locals: {:argument => argument}%>    
+                    <% end %>
+                    <!-- end rendering the evidence box here :) -->
+
+
+                  </div>
+                </div>
+                <%= render partial: "posts/partials/bottom"%>
+
+              </div>
+            </div>
+          </div>
+          <div class = "original_offset_left col-md-2">
+
+          </div>
+          <div style = "clear:both"></div>
+          <div class = "col-md-1">
+          </div>
+        </div>
+      </li>
+      <% if box_type == "post" %>
+      <%= render partial: "comments/index", locals: {argument: argument} %>
+      <script type="text/javascript">
+      populate_comments = function(data){
+        $(".comments_body_container").remove();
+        $(".spinner_container").addClass("hidden");
+        $(".comment_container_main").append(data);
+      }
+      $("#post_box_<%= argument.id%>").mouseenter(function(){
+        comment_icon = $("#comment_icon_<%= argument.id%>")
+        $(comment_icon).fadeIn("slow");
 
       // $(comment_icon).css({
       //   "top": -($(this).position().top + 20),
       //   "left": $(this).position().left + $(this).width()});
 
-  });
-  $("#post_box_<%= argument.id%>").mouseleave(function(){
-    comment_icon = $("#comment_icon_<%= argument.id%>")
-      $(comment_icon).fadeOut('slow');
-  });
-  $("#comment_icon_<%= argument.id%>").click(function(){
-    $("#post_panel_<%= argument.id%>").addClass("glow_red");
-      hide_comment_icons();
-      left_post_to_right();
-      var c_left = $("#post_box_<%= argument.id%>").offset().left
-       scroll_position = document.body.scrollTop;
+    });
+      $("#post_box_<%= argument.id%>").mouseleave(function(){
+        comment_icon = $("#comment_icon_<%= argument.id%>")
+        $(comment_icon).fadeOut('slow');
+      });
+      $("#comment_icon_<%= argument.id%>").click(function(){
+        $("#post_panel_<%= argument.id%>").addClass("glow_red");
+        hide_comment_icons();
+        left_post_to_right();
+        var c_left = $("#post_box_<%= argument.id%>").offset().left
+        scroll_position = document.body.scrollTop;
         if ( scroll_position <= 70 ){
           var c_top = 185;
         }
         else {
-           var c_top =  scroll_position + 100;
-        }
+         var c_top =  scroll_position + 100;
+       }
      // calculate window height and set it
-      $("#comment_for_post_<%= argument.id%>").css({ "width" : "30%;",
-                                                      top: c_top,
-                                                      left: "-90px"
-                                                  });
-      $("#comment_for_post_<%= argument.id%>").removeClass("hidden");
+     $("#comment_for_post_<%= argument.id%>").css({ "width" : "30%;",
+      top: c_top,
+      left: "-90px"
+    });
+     $("#comment_for_post_<%= argument.id%>").removeClass("hidden");
       (new AjaxHandler("none","<%= root_url%>"+"ajax_calls/get_comments/","get", {post_id: "<%= argument.id%>"}, populate_comments)).make_call();//use rails way to find the url
-  });
+    });
 
 
-</script>
-<%end %>
+      </script>
+      <%end %>

@@ -11,7 +11,7 @@
 			</header>
 		</div>
 		<div class = "col-md-6">
-			<span id = "" class = "comment_container_close glyphicon glyphicon-remove pull-right"></span>
+			<span id = "comment_container_close_<%= argument.id%>" class = "comment_container_close glyphicon glyphicon-remove pull-right"></span>
 		</div>
 	</div>
 			<!-- First Comment -->
@@ -29,3 +29,12 @@
 		</section>
 	</div>
 </div>
+<script type="text/javascript">
+$("#comment_container_close_<%= argument.id%>").click(function(){
+		left_post_back();
+		right_post_back();
+		$(".panel-default").removeClass("glow_red");
+		$(".comments_container").addClass("hidden");
+		show_comment_icons();
+	});
+</script>

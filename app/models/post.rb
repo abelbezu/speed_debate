@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
     accepts_nested_attributes_for :content, :reject_if => :all_blank, allow_destroy: true 
 
     validates_presence_of :content
-
+    has_many :evidences
 	belongs_to :debate
 	belongs_to :account
 	

@@ -87,13 +87,18 @@ class AjaxCallsController < ApplicationController
 		
 
 		og = OpenGraph.new(params[:url])
-		ogp_object = og
-		puts "ogp_object.images"
-		j render(:partial => "debates/partials/ogp_display_box", :locals => {:ogp_object => ogp_object})
 
+		ogp_object = og
+		puts params[:display_row]
+		if (params[:display_row] == "true")
+			j render(:partial => "posts/partials/ogp_evidence_row", :locals => {:ogp_object => ogp_object})
+		else
+			j render(:partial => "debates/partials/ogp_display_box", :locals => {:ogp_object => ogp_object})
+		end
 
 		
 	end 
+
 
 	def join_debate_from_rich_index
 		 debate = Debate.find(params[:debate_id])

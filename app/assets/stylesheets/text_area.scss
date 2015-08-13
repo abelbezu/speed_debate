@@ -1,0 +1,19 @@
+$linkColor      : #f00;
+iframe{
+
+	border: 1px solid rgb(230,230,230); 
+	border-radius: 5px; 
+	color: red;
+	width: 100%;
+	
+	#document{
+		html{
+
+			body{
+				background-color: red;
+			}
+
+		}
+
+	}
+}
