@@ -10,11 +10,7 @@
 
     <div class = "row">
       <div class = "col-md-1">
-       <% if box_type == "post" %>
-       <span id = "comment_icon_<%= argument.id%>" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
-       <%else%>
-       <span id = "comment_icon" class = 'glyphicon glyphicon-comment pull-right' style = 'display: none; margin-top: 0px; font-size: 20px;'> </span>
-       <%end%>
+       
      </div>
      <div class = "col-md-10">
       <div class = "transformed_offset_left ">
@@ -88,19 +84,18 @@
 
                     </div>
 
-                    <!-- render the evidence box here -->
-                    <% if box_type == "post" && argument.evidences.count > 0 %>
-                    <%= render partial: "posts/partials/evidence_container", locals: {:argument => argument}%>    
-                    <% end %>
-                    <!-- end rendering the evidence box here :) -->
+
 
 
                   </div>
                 </div>
-                <%= render partial: "posts/partials/bottom"%>
+               
 
               </div>
             </div>
+            <%if box_type == "post" %>
+            <%= render partial: "comments/index", locals: {argument: argument} %>
+            <%end%>
           </div>
           <div class = "original_offset_left col-md-2">
 
@@ -108,50 +103,12 @@
           <div style = "clear:both"></div>
           <div class = "col-md-1">
           </div>
+
         </div>
       </li>
       <% if box_type == "post" %>
-      <%= render partial: "comments/index", locals: {argument: argument} %>
-      <script type="text/javascript">
-      populate_comments = function(data){
-        $(".comments_body_container").remove();
-        $(".spinner_container").addClass("hidden");
-        $(".comment_container_main").append(data);
-      }
-      $("#post_box_<%= argument.id%>").mouseenter(function(){
-        comment_icon = $("#comment_icon_<%= argument.id%>")
-        $(comment_icon).fadeIn("slow");
+      
+<script type="text/javascript">
 
-      // $(comment_icon).css({
-      //   "top": -($(this).position().top + 20),
-      //   "left": $(this).position().left + $(this).width()});
-
-    });
-      $("#post_box_<%= argument.id%>").mouseleave(function(){
-        comment_icon = $("#comment_icon_<%= argument.id%>")
-        $(comment_icon).fadeOut('slow');
-      });
-      $("#comment_icon_<%= argument.id%>").click(function(){
-        $("#post_panel_<%= argument.id%>").addClass("glow_red");
-        hide_comment_icons();
-        left_post_to_right();
-        var c_left = $("#post_box_<%= argument.id%>").offset().left
-        scroll_position = document.body.scrollTop;
-        if ( scroll_position <= 70 ){
-          var c_top = 185;
-        }
-        else {
-         var c_top =  scroll_position + 100;
-       }
-     // calculate window height and set it
-     $("#comment_for_post_<%= argument.id%>").css({ "width" : "30%;",
-      top: c_top,
-      left: "-90px"
-    });
-     $("#comment_for_post_<%= argument.id%>").removeClass("hidden");
-      (new AjaxHandler("none","<%= root_url%>"+"ajax_calls/get_comments/","get", {post_id: "<%= argument.id%>"}, populate_comments)).make_call();//use rails way to find the url
-    });
-
-
-      </script>
-      <%end %>
+</script>
+<%end %>

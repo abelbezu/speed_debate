@@ -25,6 +25,13 @@ class Comment < ActiveRecord::Base
 		return linearized
    end
 
+   def get_post
+   	 	return Post.find(self.post_id)
+   end
+
+
+
+
    def self.extract_replies input_list
    		return input_list[1..-1]
    end 

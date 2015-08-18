@@ -5,6 +5,11 @@ $brandThemeColor: #FF0000;
 .right_slid{
 	left: 115px;
 }
+
+.comments_container{
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
 .off_the_roof{
   			position: absolute;
   			top: -1000px;
@@ -12,20 +17,28 @@ $brandThemeColor: #FF0000;
 .glow_red{
 	box-shadow: 1px 0px 10px lighten($brandThemeColor, 30%);
 }
+
+.comment_list{
+
+}
 .comment_container_main{
   		background-color: rgba(240,240,240, 0.2);
   		width: 100%;
-      max-width: 250px;
+      list-style: none;
   		font-family: Lato;
-  		font-weight: bolder;
+  		
   		padding: 10px;
-  		height: 600px;
+  		
   		border: 1px solid rgb(220, 220, 220);
-  	    overflow-y: hidden;
-  	    overflow-x: hidden !important;
-	      &:hover {
-	        overflow-y: auto;
-	      }
+	    .comment_list{
+        overflow-y: hidden;
+        overflow-x: hidden !important;
+         max-height: 400px;
+        &:hover {
+          overflow-y: auto;
+
+        }
+      }
   		
   		.comment_title{
   			padding-top: 10px;

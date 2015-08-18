@@ -205,9 +205,9 @@ ActiveRecord::Schema.define(version: 20150813093251) do
   create_table "timers", force: true do |t|
     t.integer  "timed_id"
     t.string   "timed_type"
-    t.datetime "start_time", default: '2015-08-13 16:02:07', null: false
+    t.datetime "start_time", default: '2015-08-14 21:53:29', null: false
     t.datetime "pos"
-    t.datetime "end_time",   default: '2015-08-20 16:02:07', null: false
+    t.datetime "end_time",   default: '2015-08-21 21:53:29', null: false
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"

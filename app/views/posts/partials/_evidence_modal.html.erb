@@ -109,10 +109,9 @@
 
 		}
 
-		add_evidence_to_box = function(data){
-			console.log("reached");
-			console.log($("#evidence_row_container_<%= id%>"));
-			console.log(data);
+		add_evidence_to_box = function(data){		
+			
+			$("#evidence_row_container_<%= id%>").empty();
 			$("#evidence_row_container_<%= id%>").append(data);
 
 		}

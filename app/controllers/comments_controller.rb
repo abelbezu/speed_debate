@@ -3,16 +3,11 @@ class CommentsController < ApplicationController
 	def create
 		comment = Comment.new(comment_params)
 		if comment.save	
-  			flash[:notice] = "Comment successfully saved"
-  			
-  			@comment = comment
-
-	  		
-  		else 
-  			
+  			flash[:notice] = "Comment successfully saved"  			
+  			@comment = comment	
+  			@argument = comment.get_post  		
+  		else   			
   			redirect_to(:controller => 'topic', :action => 'index')
-
-
   		end
 		
 		

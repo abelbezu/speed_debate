@@ -29,18 +29,17 @@ class PostsController < ApplicationController
 		post.debate_id = params[:debate_id]
 		content = post.build_content
 		content.content_body = params[:post_argument]
-		if params[:og_urls]
-			params[:og_urls].each do |og_url|
-				evidence = post.evidences.build
-				og = OpenGraph.new(og_url)
-
+		if params[:og_url]
+			
+				evidence = post.build_evidence
+				og = OpenGraph.new(params[:og_url])
 		 		evidence.og_topic =  og.title
 		 		evidence.og_type = og.type
 		 		evidence.og_description = og.description
 		 		evidence.og_image_url = og.images.first
-		 		evidence.og_url = og_url
+		 		evidence.og_url = params[:og_url]
 
-	 		end
+	 		
  		end
 		if post.save
 

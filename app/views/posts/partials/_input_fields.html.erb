@@ -119,7 +119,7 @@
   		return selected_urls;
   	}
   	param_extractor = function(){
-			response_json = {debate_id: $("#hidden_debate_id").val(), og_urls: evidence_urls(), post_argument: richTextFrame.document.body.innerHTML}	
+			response_json = {debate_id: $("#hidden_debate_id").val(), og_url: $("#evidence_ogp_url").val(), post_argument: richTextFrame.document.body.innerHTML}	
 			return 	response_json;
 
 		}

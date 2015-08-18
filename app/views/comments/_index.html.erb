@@ -1,28 +1,30 @@
 
-<div id = "comment_for_post_<%= argument.id%>"  class="comments_container hidden" style = 'position: absolute;'>
+<div id = "comment_for_post_<%= argument.id%>"  class=" row comments_container hidden">
 	<div class="col-md-12">
 		
 		<section class="comment-list">
-			<div class = "comment_container_main">
+			<div id = "comment_container_main_<%= argument.id%>" class = "comment_container_main">
 				<div class = "row">
-		<div class = "col-md-6">
-			<header class = "comment_title">
-				Comment
-			</header>
-		</div>
-		<div class = "col-md-6">
-			<span id = "comment_container_close_<%= argument.id%>" class = "comment_container_close glyphicon glyphicon-remove pull-right"></span>
-		</div>
-	</div>
+					<div class = "col-md-6">
+						<header class = "comment_title">
+							Comment
+						</header>
+					</div>
+					<div class = "col-md-6">
+						<span id = "comment_container_close_<%= argument.id%>" class = "comment_container_close glyphicon glyphicon-remove pull-right"></span>
+					</div>
+				</div>
 			<!-- First Comment -->
 			<%= render partial: "comments/partials/input", locals: {argument: argument} %>
 			<div id = "spinner_container_<%= argument.id%>" class = "spinner_container">
 				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
 				<div>
-					Loading ...
+					Loading comments ...
 				</div>
 			</div>
-			
+			<ul id  = "comment_list_<%= argument.id%>" class = "comment_list">
+
+			</ul>
 			
 			
 		</div>
@@ -31,10 +33,7 @@
 </div>
 <script type="text/javascript">
 $("#comment_container_close_<%= argument.id%>").click(function(){
-		left_post_back();
-		right_post_back();
 		$(".panel-default").removeClass("glow_red");
 		$(".comments_container").addClass("hidden");
-		show_comment_icons();
-	});
+});
 </script>

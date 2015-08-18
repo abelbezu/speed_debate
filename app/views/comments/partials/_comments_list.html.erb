@@ -1,3 +1,13 @@
+
+<% if comments.count == 0%>
+<li id = "no_comment_lable_<%= argument.id%>">
+	<p>No comments yet.</p>
+</li>
+<%else%>
 <% comments.each do |comment|%>
+<li>
 	<%= render partial: "comments/partials/comment", locals: {comment: comment}%>
+</li>
 <%end%>
+<%end%>
+

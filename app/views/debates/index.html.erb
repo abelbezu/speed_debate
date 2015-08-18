@@ -4,7 +4,7 @@
 	</div>
 	<div class = "col-md-8">
 
-		<%= render partial: "posts/partials/left_post", locals: {debate: Debate.first, argument: Post.first, box_type: "input"} %>
+		<%= render partial: "comments/index", locals: {argument: Post.first} %>
 		
 	</div>
 	<div class = "col-md-2">

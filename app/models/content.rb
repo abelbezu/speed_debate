@@ -7,7 +7,15 @@ class Content < ActiveRecord::Base
 	scope :comment, lambda{where(:type => "comment")} #returns a comment
 	scope :post, lambda{where(:type => "post")} # returns a post
  	validates_presence_of :content_body
- 	#validates_length_of :content_body, :within => 1..750
+ 	validate :sanitized_characters_should_be_below_limit
+
+ 	def sanitized_characters_should_be_below_limit  
+ 		
+ 		if content_body.present? && Sanitize.fragment(content_body).length > 760
+      		errors.add(:content_body, "can't exceed the character limit")
+    	end
+ 	end
+
 	# a method to organize comments may be needed
 
 

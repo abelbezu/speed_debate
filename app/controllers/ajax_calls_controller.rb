@@ -79,8 +79,9 @@ class AjaxCallsController < ApplicationController
 
 
 	def get_comments 
-		@comments = Post.find(params[:post_id]).comments
-		j render(:partial => "comments/partials/comments_list", :locals => {:comments => @comments})
+		argument = Post.find(params[:post_id])
+		@comments = argument.comments
+		j render(:partial => "comments/partials/comments_list", :locals => {argument: argument, :comments => @comments})
 	end
 
 	def fetch_ogp_object

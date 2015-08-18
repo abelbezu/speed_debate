@@ -30,7 +30,7 @@ gem "font-awesome-rails"
 gem 'omniauth-facebook'
 gem 'opengraph_parser'
 gem 'sync'
-
+gem 'sanitize'
 gem 'devise'
 gem 'redis'
 

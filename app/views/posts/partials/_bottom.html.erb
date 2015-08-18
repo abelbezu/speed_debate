@@ -1,5 +1,55 @@
- <div class = "row social-icons-box">
-          <div class ="col-md-12">
-            
-          </div>
-        </div>
+<% if box_type == "post" && argument.evidence%>
+<%= render partial: "posts/partials/evidence_container", locals: {:argument => argument}%> 
+
+<% end %>
+
+<div class = "row social-icons-box">
+	
+	<div class ="col-md-3">
+		<div id = "show_comments_btn_<%= argument.id%>" class = "clickable_info_text pull-left">comments</div>
+	</div>
+	<div class ="col-md-3">
+	</div>
+	<div class ="col-md-3">
+		
+	</div>
+	<div class ="col-md-3">
+		<% if box_type == "post" && argument.evidence%>
+		
+		<div id = "show_evidence_btn_<%= argument.id%>" class = "clickable_info_text pull-right">evidence</div>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript">
+
+populate_comments_<%= argument.id%> = function(data){
+  $(".comments_body_container").remove();
+  $(".spinner_container").addClass("hidden");
+  $("#comment_list_<%= argument.id%>").append(data);
+}
+
+$("#show_evidence_btn_<%= argument.id%>").click(function(){
+	$("#evidence_container_<%= argument.id%>").toggleClass("hidden");
+});
+
+ $("#show_comments_btn_<%= argument.id%>").click(function(){
+ 		$("#comment_list_<%= argument.id%>").empty();
+ 		$(".panel-default").removeClass("glow_red");
+		$(".comments_container").addClass("hidden");
+        $("#post_panel_<%= argument.id%>").toggleClass("glow_red");
+        
+        var c_left = $("#post_box_<%= argument.id%>").offset().left
+        scroll_position = document.body.scrollTop;
+        if ( scroll_position <= 70 ){
+          var c_top = 185;
+        }
+        else {
+         var c_top =  scroll_position + 100;
+       }
+       $("#comment_for_post_<%= argument.id%>").removeClass("hidden");
+       (new AjaxHandler("none","<%= root_url%>"+"ajax_calls/get_comments/","get", {post_id: "<%= argument.id%>"}, populate_comments_<%= argument.id%>)).make_call();//use rails way to find the url
+   });
+
+
+
+  </script>

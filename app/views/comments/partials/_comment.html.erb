@@ -1,11 +1,10 @@
-	<div class = "comments_body_container">
+
+<div class = "comments_body_container">
 	<div class = "row">
 		<div class = "col-md-6">
-			<header class = "comment_title">
-				<%= Account.find(comment.account_id).display_name%>
-			</header>
+			<strong><%= Account.find(comment.account_id).display_name%></strong>
 		</div>
-		
+
 	</div>
 	<div class = "row">
 		<div class = "col-md-12">
@@ -14,11 +13,5 @@
 			</p>
 		</div>
 	</div>
-	<div class = "small_devider"></div>
-	<div class = "row">
-		<div class = "col-md-12">
-			
-		
-		</div>
-	</div>
+
 </div>
