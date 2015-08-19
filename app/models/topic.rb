@@ -17,9 +17,10 @@ class Topic < ActiveRecord::Base
 	# topic submission validations
 	# validates_presence_of :topic_sentence
 	# validates_presence_of :account_id
-	# validates_presence_of :left_side_topic
+	validates_presence_of :left_side_topic
+	validates_length_of :left_side_topic, :within => 1..100
 	# validates_presence_of :right_side_topic
-	# validates_length_of :topic_sentence, :within => 5..50
+	validates_length_of :topic_sentence, :within => 1..100
 	# unwanted validation. Look again
 	#validates_presence_of :description
 	# returns the creator of this topic

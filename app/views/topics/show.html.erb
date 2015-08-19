@@ -13,22 +13,9 @@
          <div id = "main_topic_show" topic-id = "<%= @topic.id %>" class = "col-xs-12 col-md-6" style ="margin-top: 10px;">
             <ul>
                 <li>
-                    <%= render(:partial => "topics/partials/topic_index", :locals => {:topic => @topic}) %>
+                   <%= render(:partial => "topics/partials/rich_topic_index", :locals => {:topic => @topic, :debate => @topic.debates.first}) %>
                 </li>
-                <li>
-                    <%= render(:partial => "topics/partials/sides") %>
-                </li>
-                <% @topic.debates.each do |debate|%>
-                    <%if debate.full?%>
-                    <li>
-                        <%= render(:partial => "topics/partials/two_users", :locals => {:debate => debate}) %>
-                    </li>
-                    <%elsif debate.get_debaters.count == 1%>
-                     <li>
-                        <%= render(:partial => "topics/partials/one_user", :locals => {:debate => debate}) %>
-                    </li>
-                    <%end%>
-                <%end %>
+                
             </ul>
          </div>
 
@@ -48,15 +35,6 @@
     }
 
 
-
-var socket = io('http://localhost:5001/');
-// socket.on('are you present?', function(){ console.log("got message");
-//     socket.emit("user present flag", {id: current_user_id()});
-//   });
-
-// socket.on('online users', function(data){ 
-//     console.log(data);
-//   });
 
 
 </script>

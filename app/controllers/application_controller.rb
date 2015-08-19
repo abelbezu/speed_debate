@@ -9,13 +9,8 @@ class ApplicationController < ActionController::Base
 			session[:return_to] = request.url
 	end
 	
-	def after_sign_in_path_for(resource)
-	   debates_path()
-	end
 	
-	def after_sign_up_path_for(resource)
-	   debates_path()
-	end
+	
 
 
 	def confirm_admin

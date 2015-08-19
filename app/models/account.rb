@@ -48,6 +48,10 @@ class Account < ActiveRecord::Base
 				  :uniqueness => true,
 				  :format => {:with => EMAIL_REGEX}
 
+	validates :display_name, :presence => true,
+				  :length => {:within => 3..50},
+				  :uniqueness => true
+				  
 
 	validates :password, :presence => true,
 						 :confirmation => true,

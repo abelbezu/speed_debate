@@ -37,11 +37,17 @@
                 </div>
             </div>
         </div>
+        <% if request.env['PATH_INFO'] == topic_path(topic) %>
             <% if !topic.is_full %>
             <p><%= topic.topic_sentence%></p>
             <% else %>
             <p><%= link_to topic.topic_sentence, debate_path(debate)%> </p>
-            <% end %>    
+            <% end %>  
+        <%else%>
+           
+            <p><%= link_to topic.topic_sentence, topic_path(topic)%> </p>
+           
+        <% end%>  
             <hr>
         </div>
         <div class="debate-content text-description">
@@ -71,13 +77,14 @@
                 </div>
 
                 <div class  = "ogp_title">
-                    <h3> <%= topic.story.og_topic%> </h3>
+                    <h3 onclick = "window.open('<%= topic.story.og_url%>')"> <%= topic.story.og_topic%> </h3>
                     <p>
                         <%= topic.story.og_description%>
                     </p>
                 </div>
-                        <% unless topic.story.og_url == nil%>
-                        <a class = "go_to_story_btn btn btn-default btn-sm pull-right" onclick = "window.open('<%= topic.story.og_url%>')"> go to story </a>
+                        <% if topic.is_full%>
+                        <%= link_to "start debate", debate_path(topic.debates.first, class: "go_to_story_btn btn btn-default btn-sm pull-right")%>
+                   
                         <% end %>
             </p>
 

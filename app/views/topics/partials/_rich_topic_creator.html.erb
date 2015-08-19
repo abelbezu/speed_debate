@@ -30,15 +30,18 @@
 					</div> -->
 					<label class="control-label">topic of interest</label>
 					<input id = "og_topic_input_box" type="text" class="form-control" placeholder="your topic ...">
+					<div id = "og_topic_input_message_box"> </div>
 					<div class = "small_devider"> </div>
 					<label class="control-label">add url</label>
 					<div class="input-group">
-						<input type="text" id = "ogp_url_field" class="form-control" placeholder="url...">
+						<input type="text" id = "ogp_url_field" class="form-control" placeholder="http://www.some_url_here.com/some_news_article">
+						
 						<span class="input-group-btn">
 							<button id = "import_button" class="btn import_btn btn-default" type="button"><span class = "hidden" id = "import_button_importing"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i>importing ...</span><span id = "import_btn_import_label" class = "">Import</span></button>
 							
 						</span>
 					</div>
+					<div id = "og_url_input_message_box"> </div>
 					<div class = "small_devider"> </div>
 					<div id = "ogp_object_display" class = "hidden open_graph_object_display">
 
@@ -57,6 +60,7 @@
 				<div class="form-group">
 					<label class="control-label">your opinion</label>
 					<input id = "og_opinion" maxlength="200" type="text" required="required" class="form-control" placeholder="In my opinion ..." />
+					<div id = "og_opinion_input_message_box"> </div>
 				</div>
 							
 				<div class = "small_devider"> </div>
@@ -67,7 +71,7 @@
 	</div>
 	<div class="row setup-content" id="step-3">
 		<div class="col-xs-12">
-			<div class = "creating_rich_topic_banner hiden">
+			<div class = "creating_rich_topic_banner hidden">
 					<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
 					<div>
 						<strong>creating ...</strong>
@@ -93,6 +97,7 @@
 					<!-- <div class="col-md-12 poster_bar_left ">
 						<button class="btn btn-primary pull-right">recommend me</button>
 					</div> -->
+					<button id = "og_topic_open_button" class="btn btn-default btn-submit btn-sm pull-right">any one can join (open)</button>
 
 				</div>
 
@@ -106,27 +111,39 @@
 						<hr style = "margin-top: 10px;">
 
 						<input id = "og_invitation_email_box" type="text" class="form-control" placeholder="email...">
-
+						<div id = "og_email_input_message_box"> </div>
 
 					</div>
 				</div>
+
 				<hr>
 				<button class="btn btn-danger cancelBtn btn-sm pull-left " type="button" >Cancel</button>
-				<button id = "og_topic_submit_button" class="btn btn-success btn-submit pull-right">submit</button>
+				<button id = "og_topic_submit_button" class="btn btn-success btn-submi btn-sm t pull-right">submit</button>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
-		// colapse, form the needed
+		
+		 var c_counter = new CharacterCounter("og_topic_input_box", "og_topic_input_message_box", 100);
+		 approaching_msg = "You are about to exceed the character limit. Please keep the topic concise";
+		 exceeded_msg = "You've exceeded the character limit!"
+		 c_counter.notifiable(10, approaching_msg, exceeded_msg);
+	
+		 
+		 var c_counter = new CharacterCounter("og_opinion", "og_opinion_input_message_box", 100);
+		 approaching_msg = "You are about to exceed the character limit. Please your opinion concise";
+		 exceeded_msg = "You've exceeded the character limit!"
+		 c_counter.notifiable(10, approaching_msg, exceeded_msg);
 		custom();
 		$("#topic_creator_input").focus();
 		display_curtain = function(){
+			console.log("displaying curtain ...");
 			rich_curtain_height = $(".new_topic_container_box").height();
 			rich_curtain_top =  $(".new_topic_container_box").position().top;
 			rich_curtain_padding_top = (rich_curtain_height/2) - 50
     		$(".creating_rich_topic_banner").css({height: rich_curtain_height+30});
-    		$(".creating_rich_topic_banner").css({top:  -130});
+    		$(".creating_rich_topic_banner").css({top:  -100});
     		$(".creating_rich_topic_banner").css({"padding-top": rich_curtain_padding_top});
     		$(".creating_rich_topic_banner").removeClass("hidden");
 		}
@@ -142,6 +159,21 @@
 		                placeholder_box_request.make_call();
 		}
 
+		// get_valid_email = function(){
+		// 	if ($("#og_invitation_email_box").val().length < 3){
+		// 		return "";
+		// 	}
+		// 	else{
+		// 		var email_validator = new StringValidator();
+		// 		if (email_validator.is_valid_email($("#og_invitation_email_box").val())){
+		// 			return $("#og_invitation_email_box").val();
+		// 		}
+		// 		else {
+					
+		// 			return "";
+		// 		}
+		// 	}
+		// }
 
 		succeed_and_hide_curtain = function(){
 
@@ -195,10 +227,14 @@
 
 		$("#import_button").click(function(){
 			if(valid_input($("#ogp_url_field").val())){
+				$("#og_url_input_message_box").removeClass("warning_division");
+				$("#og_url_input_message_box").text("");
 				hide_import_label_and_show_loading();
 				fetch_content($("#ogp_url_field").val());
 			}
 			else{
+				$("#og_url_input_message_box").addClass("warning_division");
+				$("#og_url_input_message_box").text("not a valid url format.");
 
 			}
 		});
@@ -226,6 +262,12 @@
 
 		param_extractor = function(){
 			response_json = {topic_sentence: $("#og_topic_input_box").val(), description: "", og_url: $("#ogp_url_field").val(), left_side_topic: $("#og_opinion").val(), selected_opponent_id: get_selected_opponent_id(), opponent_email: $("#og_invitation_email_box").val()}	
+			return 	response_json;
+
+		}
+
+		open_param_extractor = function(){
+			response_json = {topic_sentence: $("#og_topic_input_box").val(), description: "", og_url: $("#ogp_url_field").val(), left_side_topic: $("#og_opinion").val(), selected_opponent_id: -1, opponent_email: $("#og_invitation_email_box").val()}	
 			return 	response_json;
 
 		}
@@ -296,8 +338,17 @@
 			replace_by_collapsed();
 		}
 
-		$("#og_topic_submit_button").click(function(){
+		$("#og_topic_open_button").click(function(){
 			console.log("clicked");
+			display_curtain();
+			console.log(param_extractor())
+			creating_loading();
+			var og_topic_create = new AjaxHandler("none", "<%= root_url%>"+"topics/og_create", "POST", open_param_extractor() , succeeded_banner);
+      			og_topic_create.make_call();
+		});
+
+		$("#og_topic_submit_button").click(function(){
+			
 			display_curtain();
 			console.log(param_extractor())
 			creating_loading();

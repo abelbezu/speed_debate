@@ -110,6 +110,27 @@
 		turn_on_design_mode();
 		stylize_frame();
 	});
+	$().click(function(){
+		console.log("clicked");
+	});
+
+
+
+
+	 $("#rich_text_frame").keyup(function(e){
+      
+      if(e.which  == 32){
+      	console.log("spaced");
+        //count_chars($(this).val());
+      }
+      if(e.which  == 8){
+
+        count_chars($(this).val());
+      }
+      
+    });
+
+
   	stylize_frame();
   	evidence_urls = function(){
   		var selected_urls = new Array();
