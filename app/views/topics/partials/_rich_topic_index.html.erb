@@ -82,13 +82,15 @@
                         <%= topic.story.og_description%>
                     </p>
                 </div>
-                        <% if topic.is_full%>
-                        <%= link_to "start debate", debate_path(topic.debates.first, class: "go_to_story_btn btn btn-default btn-sm pull-right")%>
-                   
-                        <% end %>
+                       
             </p>
 
+
         </div>
+        <% end %>
+         <% if topic.is_full%>
+            <%= link_to "to spar arena", debate_path(topic.debates.first), class: "go_to_story_btn btn btn-default btn-sm pull-right"%>
+       
         <% end %>
     </div>
 
