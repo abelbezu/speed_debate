@@ -8,6 +8,8 @@ class Post < ActiveRecord::Base
     accepts_nested_attributes_for :content, :reject_if => :all_blank, allow_destroy: true 
 
     validates_presence_of :content
+    # validates_uniqueness_of :content
+
     has_one :evidence
 	belongs_to :debate
 	belongs_to :account
@@ -16,7 +18,7 @@ class Post < ActiveRecord::Base
 	scope :newest_first, lambda{order("posts.created_at ASC")}
 	scope :newest, lambda{where("posts.created_at MAX")}
 
-	
+	before_create :single_user_should_only_have_one_entry_per_round
 
 	# get what debate this post belongs to
 	# @return Debate debate owning this post
@@ -55,6 +57,12 @@ class Post < ActiveRecord::Base
 			comments_list << comment.jsonify
 		end
 		return {comments: comments_list}.jsonify
+	end
+
+	#make sure the current entry is of the right turn
+
+	def single_user_should_only_have_one_entry_per_round
+		return self.get_side == self.get_debate.get_turn
 	end
 	
 

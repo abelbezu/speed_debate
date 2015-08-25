@@ -25,11 +25,14 @@ append_join_box_<%= topic.id%> = function(data){
 	//console.log(data);
 	$("#join_form_<%= topic.id%>").append(data);
 }
+
 $("#i_have_different_view_<%= topic.id%>").click(function(){
 	$("#join_form_<%= topic.id%>").empty();
     var topic_box_request_<%= topic.id%> = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/join_box_request", "POST", {debate_id: <%= debate.id%>, topic_id: <%= topic.id%>, user_id: <%= user_id%>} , append_join_box_<%= topic.id%>);
                 topic_box_request_<%= topic.id%>.make_call();
 });
+
+
 
 display_refused_notification_<%= topic.id%> = function(data){
 	// console.log(data);

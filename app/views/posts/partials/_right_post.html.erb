@@ -92,7 +92,9 @@
                   <!-- end rendering the evidence box here :) -->
                 </div>
               </div>
-            
+             <% if box_type == "post" %>
+                  <%= render partial: "posts/partials/bottom", locals: {argument: argument, box_type: box_type} %>
+                <% end%>
 
             </div>
           </div>

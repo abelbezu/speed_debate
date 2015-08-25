@@ -30,7 +30,7 @@
 							
 							
 							<iframe name="richTextFrame" style = "" id = "rich_text_frame"></iframe>
-							<div id = "message_box">
+							<div id = "character_count_message_box" class = "">
 							</div>
 						</div> 
 					</div>
@@ -114,22 +114,52 @@
 		console.log("clicked");
 	});
 
+	is_vowel = function(letter_char){
+		return letter_char == 65 || letter_char == 69 || letter_char == 73 || letter_char == 79 || letter_char == 85 
+	}
 
 
-
-	 $("#rich_text_frame").keyup(function(e){
+	 $(richTextFrame.document.body).keyup(function(e){
       
       if(e.which  == 32){
-      	console.log("spaced");
-        //count_chars($(this).val());
+      	count_chars();
+      }
+      if(is_vowel(e.which)){
+      	count_chars();
       }
       if(e.which  == 8){
-
-        count_chars($(this).val());
+      	count_chars();
+        
       }
       
     });
 
+	$(richTextFrame.document.body).on('paste', function(e){ 
+		e.preventDefault();
+	});
+
+	count_chars = function(){
+		var char_counter = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/count_characters", "POST", { content_body: richTextFrame.document.body.innerHTML} , char_count_decision);
+     			char_counter.make_call();
+	}
+
+	char_count_decision = function(data){
+		//console.log(data.count)
+		if (data.count > 760)
+		{
+			$("#character_count_message_box").addClass("warning_division");
+			$("#character_count_message_box").text("you have exceeded the character limit");
+		}
+		else if (data.count > 730){
+			$("#character_count_message_box").addClass("warning_division");
+			$("#character_count_message_box").text("you are approaching the character limit. Please wrap up your argument.");
+		}
+		else
+		{
+			$("#character_count_message_box").removeClass("warning_division");
+			$("#character_count_message_box").text("");
+		}
+	}
 
   	stylize_frame();
   	evidence_urls = function(){

@@ -183,6 +183,11 @@ class AjaxCallsController < ApplicationController
 		end
 	end
 
+	def count_characters
+		render json: {count: Sanitize.fragment(params[:content_body]).length}.to_json
+
+	end
+
 
 
 	

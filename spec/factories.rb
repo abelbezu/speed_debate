@@ -44,6 +44,7 @@ FactoryGirl.define do  factory :evidence do
   factory :account do
     sequence(:first_name) {|n| "Test_#{n}"}
     last_name "User"
+    display_name "#{first_name}_test"
     email {"#{first_name}@toucan.com"}
     password "123456789"
     privilege "user"

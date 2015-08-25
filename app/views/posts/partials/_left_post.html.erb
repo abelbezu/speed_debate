@@ -89,7 +89,9 @@
 
                   </div>
                 </div>
-               
+               <% if box_type == "post" %>
+                  <%= render partial: "posts/partials/bottom", locals: {argument: argument, box_type: box_type} %>
+                <% end%>
 
               </div>
             </div>
@@ -106,8 +108,8 @@
 
         </div>
       </li>
-      <% if box_type == "post" %>
       
+<% if box_type == "post" %>   
 <script type="text/javascript">
 
 </script>
