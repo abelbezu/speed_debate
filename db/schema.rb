@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813093251) do
+ActiveRecord::Schema.define(version: 20150828020737) do
 
   create_table "account_details", force: true do |t|
     t.integer  "account_id"
@@ -149,6 +149,14 @@ ActiveRecord::Schema.define(version: 20150813093251) do
   end
 
   add_index "images", ["image_owner_id"], name: "index_images_on_image_owner_id", using: :btree
+
+  create_table "logs", force: true do |t|
+    t.integer  "current_user_id"
+    t.text     "event_log"
+    t.text     "param"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "notifications", force: true do |t|
     t.integer  "account_id"

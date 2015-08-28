@@ -3,7 +3,7 @@
        
         <li class = "active"><%= link_to("Home", {:action => 'index'})%></li>
         <li><%= link_to("Debates", {:action => 'debates'})%></li>
-        <li><%= link_to("Stats", {:action => 'stats'})%></li>
+        <li><%= link_to("Invitations", {:action => 'stats'})%></li>
         <% if current_account.privilege == 'super'%>
 		<li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
 		<li role="presentation"><a>Admins</a></li>

@@ -9,7 +9,7 @@
 		<div class="debate-title">
 			<h3><%= debate.get_topic.topic_sentence%></h3>
 			<div class="text-debate-info">
-				<span>Posted On</span> - <span>Jun 27, 2014</span> 
+				<span>Posted On</span> - <span><% t = debate.get_topic.created_at.to_s(:long).split(" ") %> <%= "#{t[0]} #{t[1]} #{t[2]} "%></span> 
 			</div>
 			<hr>
 		</div>

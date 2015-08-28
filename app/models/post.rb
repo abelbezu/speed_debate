@@ -62,7 +62,8 @@ class Post < ActiveRecord::Base
 	#make sure the current entry is of the right turn
 
 	def single_user_should_only_have_one_entry_per_round
-		return self.get_side == self.get_debate.get_turn
+
+		return self.is_first || self.get_side == self.get_debate.get_turn
 	end
 	
 

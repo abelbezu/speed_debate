@@ -39,6 +39,7 @@ class AjaxCallsController < ApplicationController
 	# end
 
 	def send_invitation
+		Log.create!(:current_user_id => current_account.id, event_log: "send_invitation called. ", param: params.to_s)
 		topic = Topic.find(params[:topic_id])
 		if params[:challengee_id].length >= 1
 			topic.challenge.update_attribute("challengee_id", params[:challengee_id])
@@ -59,6 +60,7 @@ class AjaxCallsController < ApplicationController
 	end
 
 	def send_email_invitation
+		Log.create!(:current_user_id => current_account.id, event_log: "send_email_invitation called. ", param: params.to_s)
 		debate = Debate.create!(:topic_id => params[:topic_id])
 		debate.register_participant(current_account.id, params[:side])
 		UserMailer.invitation_by_email(current_account, params[:reciever_email], Topic.find(params[:topic_id])).deliver
@@ -71,6 +73,7 @@ class AjaxCallsController < ApplicationController
 
 
 	def read_notifications
+		Log.create!(:current_user_id => current_account.id, event_log: "read_notifications called. ", param: params.to_s)
 		current_account.get_unread_notifications.each do |unread_notification|
 			unread_notification.read
 		end
@@ -79,6 +82,7 @@ class AjaxCallsController < ApplicationController
 
 
 	def get_comments 
+		Log.create!(:current_user_id => current_account.id, event_log: "get_comments called. ", param: params.to_s)
 		argument = Post.find(params[:post_id])
 		@comments = argument.comments
 		j render(:partial => "comments/partials/comments_list", :locals => {argument: argument, :comments => @comments})
@@ -86,7 +90,7 @@ class AjaxCallsController < ApplicationController
 
 	def fetch_ogp_object
 		
-
+		Log.create!(:current_user_id => current_account.id, event_log: "fetch_ogp_object called. ", param: params.to_s)
 		og = OpenGraph.new(params[:url])
 
 		ogp_object = og
@@ -102,6 +106,7 @@ class AjaxCallsController < ApplicationController
 
 
 	def join_debate_from_rich_index
+		Log.create!(:current_user_id => current_account.id, event_log: "join_debate_from_rich_index called. ", param: params.to_s)
 		 debate = Debate.find(params[:debate_id])
 		 unless debate.has_debater current_account.id
 		 topic = Topic.find(params[:topic_id])
@@ -118,6 +123,7 @@ class AjaxCallsController < ApplicationController
 					@debate = debate
 					@topic = topic
 					format.js {render "topics/join_debate.js.erb", status: :ok}
+					Log.create!(:current_user_id => current_account.id, event_log: "join_debate_from_rich_index successfuly finished. ", param: params.to_s)
 				end
 		 	else
 
@@ -128,13 +134,16 @@ class AjaxCallsController < ApplicationController
 
 	
 	def topic_box_request
+		Log.create!(:current_user_id => current_account.id, event_log: "topic_box_request called. ", param: params.to_s)
 		j render(:partial => "topics/partials/rich_topic_creator")
 	end
 
 	def placeholder_box_request
+		Log.create!(:current_user_id => current_account.id, event_log: "placeholder_box_request called. ", param: params.to_s)
 		j render(:partial => "topics/partials/topic_box_place_holder")
 	end
 	def join_box_request
+		Log.create!(:current_user_id => current_account.id, event_log: "join_box_request called. ", param: params.to_s)
 		debate = Debate.find(params[:debate_id])
 		user = Account.find(params[:user_id])
 		topic = Topic.find(params[:topic_id])
@@ -142,6 +151,7 @@ class AjaxCallsController < ApplicationController
 	end
 
 	def challenge_refused
+		Log.create!(:current_user_id => current_account.id, event_log: "challengee_refused called. ", param: params.to_s)
 		topic = Topic.find(params[:topic_id])
 		topic.challenge.update_attribute("status", "refused")
 		if topic.save
@@ -150,6 +160,7 @@ class AjaxCallsController < ApplicationController
 	end
 
 	def discard_conversation
+		Log.create!(:current_user_id => current_account.id, event_log: "discard_conversation called. ", param: params.to_s)
 		topic = Topic.find(params[:topic_id])
 		topic.challenge.update_attribute("status", "discarded")
 		if topic.save
@@ -159,6 +170,7 @@ class AjaxCallsController < ApplicationController
 	end
 
 	def make_conversation_open
+		Log.create!(:current_user_id => current_account.id, event_log: "make_conversation_open called. ", param: params.to_s)
 		topic = Topic.find(params[:topic_id])
 		topic.challenge.update_attribute("status", "open")
 		if topic.save
@@ -168,6 +180,7 @@ class AjaxCallsController < ApplicationController
 	end
 
 	def hide_topic
+		Log.create!(:current_user_id => current_account.id, event_log: "join_debate_from_rich_index called. ", param: params.to_s)
 		topic = Topic.find(params[:topic_id])
 		topic.update_attribute("visibility", "hidden")
 		if topic.save
@@ -184,6 +197,7 @@ class AjaxCallsController < ApplicationController
 	end
 
 	def count_characters
+		#Log.create!(:current_user_id => current_account.id, event_log: "join_debate_from_rich_index called. ", param: params.to_s)
 		render json: {count: Sanitize.fragment(params[:content_body]).length}.to_json
 
 	end

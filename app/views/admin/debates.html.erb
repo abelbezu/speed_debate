@@ -1,98 +1,44 @@
+<div class="container">
+ <div id="blog" class="row"> 
 
-<div class = "admin_index_main">
-	<div class = "container">
-		<div class = "row"> 
-			<div class = 'col-lg-2'>
-				<ul id = "test_datatable" class="nav nav-pills nav-stacked">
-					<li role="presentation"><%= link_to("Home", {:action => 'index'},)%>
-						<li role="presentation" class="active"><%= link_to("Debates", {:action => 'debates'},)%></li>
-						<li role="presentation"><%= link_to("Accounts", {:action => 'accounts'},)%></li>
-						
-						<li role="presentation"><%= link_to("Stats", {:action => 'stats'},)%></li>
-						<% if current_account.privilege == 'super'%>
-						<li role="presentation"><%= link_to("Reports", {:action => 'reports'})%></li>
-						<li role="presentation"><a>Admins</a></li>
-						<%end%>
-					</ul>
+  <div class="col-sm-2 paddingTop20">
+   <%= render partial: "admin/side_bar"%>
+    <div><h2 class="add"></h2></div>
+  </div>
+  <div class="col-md-10 blogShort">
+<ul>
+    
+    
 
-				</div>
-				<div class = 'col-lg-10'>
-					<div class = "row">
-						<div class = "col-lg-12"> 
-							<div class = "row">
-								<div class = "col-lg-3">
+   
+   		<div class="bs-example" data-example-id="panel-without-body-with-table">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Challenges</div>
 
-									<label><h4><span class="label label-default">Records From</span></h4></label>
+     	<div class = "panel-body shell_simulator">
+     	<% Log.all.each do |log|%>
+     		<p>
+     			<span  class = "info_text"><%= log.created_at%></span>
+     			<br>
+     			<span  class = "info_text"><%= Account.find(log.current_user_id).email%></span>
+     			<%= log.event_log%>
+     			<br>
+     			<%= log.param%>
+     			<br>
+     			<span  class = "info_text">---------------------------------------------------------------------------</span>
+     			
+     			
+     		</p>
+     		<%end%>
+     	</div>
+	      
+	    </div>
+	  </div>
+    
+</ul>
+  </div>
 
-									<select>
-										<option>Today</option>
-										<option>This Week</option>
-										<option>This Month</option>
-										<option>This Year</option>
-
-									</select>
-								</div>
-
-								<div class = "col-lg-3">
-									<label><h4><span class="label label-default">Sort By</span></h4></label>
-
-									<select>
-										<option>Time Added</option>
-										<option>Views</option>
-										<option>Edits</option>
-										<option>Shares</option>
-
-									</select>
-								</div>
-								<div class = "col-lg-3">
-									<label><h4><span class="label label-default">Order</span></h4></label>
-
-									<select>
-										<option>Ascending</option>
-										<option>Descending</option>
-
-
-									</select>
-								</div>
-								<div class = "col-lg-3">
-
-								</div>
-							</div>
-
-						</div>
-
-						<div class = "admin_main_content col-lg-12">
-							<table id = "Debates_table" class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Id</th>
-										<th>Title</th>
-										<th>Created By</th>
-										<th>Created On</th>
-										<th>Strands</th>
-										
-										<th>Delete</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<% Topic.all.each do |topic|%>
-									<tr>
-										<th scope="row"><%= topic.id%></th>
-										<td><%= link_to(topic.topic_sentence,:controller => 'topics', :action =>'show', :id => topic.id  )%></td>
-										<td><%= Account.find(topic.account_id).display_name%></td>
-										<td><%= topic.created_at%></td>
-										<td><%= topic.debates.count%></td>
-										<td><%= link_to("Delete", topic_path(topic), remote: true, method: :delete)%></td>
-										
-									</tr>
-									<%end%>
-								</tbody>
-							</table>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+ <div class="col-md-12 gap10"></div>
+</div>
+</div>

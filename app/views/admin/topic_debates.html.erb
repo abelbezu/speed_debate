@@ -13,7 +13,7 @@
     <% @topic.debates.each do |debate|%>
     <div class = "row">
       
-      
+      <p><h4><%= link_to debate.get_topic.topic_sentence, debate_path(debate)%></h4></p>
       <div class = "col-md-3">
         <%= link_to action: "debate_summary", id: debate.id do %>
             <span class = 'btn btn-primary btn-sm', style = "width: 90px;"> 

@@ -137,6 +137,10 @@
 	$(richTextFrame.document.body).on('paste', function(e){ 
 		e.preventDefault();
 	});
+	richTextFrame.document.body.addEventListener(
+    'paste', function(e){
+    	e.preventDefault();
+    });
 
 	count_chars = function(){
 		var char_counter = new AjaxHandler("none", "<%= root_url%>"+"ajax_calls/count_characters", "POST", { content_body: richTextFrame.document.body.innerHTML} , char_count_decision);

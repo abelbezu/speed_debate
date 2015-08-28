@@ -11,9 +11,21 @@ class Challenge < ActiveRecord::Base
 
 	#returns the account that was challenged
 	def get_challengee
-		return Account.find(self.challengee_id)
+		if self.challengee_id
+			return Account.find(self.challengee_id)
+		else 
+			false
+		end
 	end
 
+
+	def get_challengee_email
+		if self.challengee_id
+			return Account.find(self.challengee_id).email
+		else 
+			return self.challengee_email
+		end
+	end
 	#registers a challenge 
 	
 end

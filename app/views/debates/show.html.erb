@@ -1,5 +1,16 @@
 <div class = "container">
   <div class = "row">
+     <!-- Try including the topic of this debate -->
+      <div class = "col-md-12">
+         <%= render(
+                        :partial => 'debates/partials/title_panel', 
+                        :locals =>{:debate => @debate})
+                    %>
+         
+      </div>
+  </div>
+  <div class = "row">
+
     <!-- Unknown purpose -->
     <div class="col-md-2 col-sm-4 col-xs-0">
       
@@ -19,13 +30,7 @@
 
     <div class="col-md-8 col-sm-8">
     
-      <!-- Try including the topic of this debate -->
-      <div>
-         <%= render(
-                        :partial => 'debates/partials/title_panel', 
-                        :locals =>{:debate => @debate})
-                    %>
-      </div>
+     
       <!-- the main content goes here -->
       <ul class = "main_content_wrapper" style = "padding: 0px;" id = "main_content_wrapper">
         <!-- if the role of this user in this debate is not a debater and 
