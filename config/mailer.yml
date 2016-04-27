@@ -3,12 +3,12 @@
 #   :port: 587
 #   :authentication: plain
 #   :user_name: abelbezu2@gmail.com
-#   :password: ethiopia00
+#   :password: fake
 #   :enable_starttls_auto: true
 # production:
 #   :address: smtp.gmail.com
 #   :port: 587
 #   :authentication: plain
 #   :user_name: abelbezu2@gmail.com
-#   :password: ethiopia00
+#   :password: fake
 #   :enable_starttls_auto: true
